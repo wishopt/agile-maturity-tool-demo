@@ -72,6 +72,13 @@ function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
 }
+function prevent_default(fn) {
+    return function (event) {
+        event.preventDefault();
+        // @ts-ignore
+        return fn.call(this, event);
+    };
+}
 function attr(node, attribute, value) {
     if (value == null)
         node.removeAttribute(attribute);
@@ -3079,7 +3086,8 @@ const ui = readable({
     index: {
       intro: "<p>Welcome to the demo page of the Agile Maturity Tool!</p><p>This is a demo version of the tool to illustrate the functionality. The tool is still under development, which is why the visual aspects of the tool are not yet fully developed.<p><p>The agile maturity model was developed in Competence Centre 08 and 09. The aim is to assess the maturity level of agile skills, to derive the agile maturity level of the company and to provide indicative recommendations for action to build up skills. </p><p>The model includes the following artefacts:</p><ul><li>The <b>Agile Maturity Grid</b> provides an overview of necessary agile capabilities including a description and a mapping to the associated agility dimension</li><li>The benefit of the <b>Quick Check</b> lies in the quick assessment of the existing maturity level of the corresponding agile capabilities as well as an indication of the agile maturity level of the company</li><li>The <b>Tool</b> serves to complement the first two artefacts and allows users to make indicative recommendations for action to improve the agile capabilities and thus the agile maturity of the company</li><li>The <b>Tool</b> serves to complement the first two artefacts and allows users to make indicative recommendations for action to improve the agile capabilities and thus the agile maturity of the company</li></ul><p>All three artefacts can be applied to different areas of the company. The prerequisite for this is that the business unit in question is at the beginning or in the middle of an agile transformation. The model should be completed by a representative number of employees. It should be noted that different departments and hierarchical levels are also taken into account in order to contain as realistic an estimate as possible of the extent to which the agile skills listed are being implemented.</p>",
       deleteButtonText: 'If you\'ve already tested a previous version of the tool in the same browser, the existing data in the local storage might break the tool. If this happens, you can click on the "Delete Data" button below.',
-      deleteButton: "Delete Data"
+      deleteButton: "Delete Data",
+      import: "You can import a previous export (xlsx or csv file) here."
     },
     userInfo: {
       company: "Company:",
@@ -3123,7 +3131,8 @@ const ui = readable({
     index: {
       intro: "<p>Willkommen zur Demopage des Agile Maturity Tools!</p><p>Dies ist eine Demoversion des Tools, welche die Funktionalitäten veranschaulichen soll. Das Tool ist noch in Entwicklung, weswegen vor allem die visuellen Aspekte des Tools noch nicht ganz ausgereift sind.</p><p>Das agile Reifegradmodell wurde im Competence Center 08 und 09 entwickelt. Ziel ist die Einschätzung des Reifegrads agiler Fähigkeiten, Ableitung des agilen Reifegrads des Unternehmens sowie Bereitstellung indikativer Handlungsempfehlungen zum Fähigkeitenaufbau. </p><p>Das Modell umfasst folgende Artefakte:</p><ul><li>Der <b>Agile Maturity Grid</b> gibt eine übersicht über notwendige agile Fähigkeiten inklusive Beschreibung und einem Mapping auf die zugehörige Agility Dimension.</li><li>Der Nutzen des <b>Schnell-Check</b> liegt in der schnellen Einschätzung des vorhandenen Reifegrads der entsprechenden agilen Fähigkeiten sowie Indikation über den agilen Reifegrad des Unternehmens.</li><li>Das <b>Tool</b> dient zur Ergänzung der ersten beiden Artefakte und erlaubt es Nutzern indikative Handlungsempfehlungen zur Verbesserung der agilen Fähigkeiten und somit des agilen Reifegrads des Unternehmens </li></ul> <p>Alle drei Artefakte können auf verschiedene Unternehmensbereiche angewendet werden. Voraussetzung hierfür ist, das sich der betreffende Unternehmensbereich am Anfang oder mitten in einer agilen Transformation befindet. Das Modell sollte von einer repräsentativen Anzahl der Mitarbeitenden ausgefüllt werden. Hierbei sollte beachtet werden, dass auch unterschiedliche Fachbereiche und Hierarchiestufen berücksichtigt werden, um eine möglichst realistische Einschätzung zu der Ausprägung der aufgeführten agilen Fähigkeiten zu enthalten.</p>",
       deleteButtonText: 'Wenn Sie bereits eine vorherige Version des Tools getestet haben kann es sein, dass die neue Version wegen bestehenden Daten nicht richtig funktioniert. Falls das passiert, können Sie alten Daten mit diesem Button löschen:',
-      deleteButton: "Daten löschen"
+      deleteButton: "Daten löschen",
+      import: "Sie können einen vorherigen Export importieren (xlsx oder csv File), um vorherige Antworten wiederherzustellen."
     },
     userInfo: {
       company: "Firma:",
@@ -16685,7 +16694,7 @@ class EvaluationChart extends SvelteComponentDev {
 
 /* src\EvaluationDataTable.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$3, console: console_1$5 } = globals;
+const { Object: Object_1$3 } = globals;
 const file$7 = "src\\EvaluationDataTable.svelte";
 
 function get_each_context$4(ctx, list, i) {
@@ -16695,7 +16704,7 @@ function get_each_context$4(ctx, list, i) {
 	return child_ctx;
 }
 
-// (30:4) {:else}
+// (28:4) {:else}
 function create_else_block$1(ctx) {
 	let tr;
 	let td0;
@@ -16731,14 +16740,14 @@ function create_else_block$1(ctx) {
 			t6 = text(t6_value);
 			t7 = space();
 			attr_dev(td0, "class", "middle svelte-1ljxjtz");
-			add_location(td0, file$7, 31, 8, 666);
+			add_location(td0, file$7, 29, 8, 637);
 			attr_dev(td1, "class", "left svelte-1ljxjtz");
-			add_location(td1, file$7, 34, 8, 739);
+			add_location(td1, file$7, 32, 8, 710);
 			attr_dev(td2, "class", "middle svelte-1ljxjtz");
-			add_location(td2, file$7, 37, 8, 843);
+			add_location(td2, file$7, 35, 8, 814);
 			attr_dev(td3, "class", "right svelte-1ljxjtz");
-			add_location(td3, file$7, 40, 8, 915);
-			add_location(tr, file$7, 30, 4, 652);
+			add_location(td3, file$7, 38, 8, 886);
+			add_location(tr, file$7, 28, 4, 623);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, tr, anchor);
@@ -16770,14 +16779,14 @@ function create_else_block$1(ctx) {
 		block,
 		id: create_else_block$1.name,
 		type: "else",
-		source: "(30:4) {:else}",
+		source: "(28:4) {:else}",
 		ctx
 	});
 
 	return block;
 }
 
-// (28:4) {#if data.notRelevant && isHidden}
+// (26:4) {#if data.notRelevant && isHidden}
 function create_if_block$3(ctx) {
 	const block = { c: noop, m: noop, p: noop, d: noop };
 
@@ -16785,14 +16794,14 @@ function create_if_block$3(ctx) {
 		block,
 		id: create_if_block$3.name,
 		type: "if",
-		source: "(28:4) {#if data.notRelevant && isHidden}",
+		source: "(26:4) {#if data.notRelevant && isHidden}",
 		ctx
 	});
 
 	return block;
 }
 
-// (27:4) {#each Object.entries(tableData) as [capability_id, data]}
+// (25:4) {#each Object.entries(tableData) as [capability_id, data]}
 function create_each_block$4(ctx) {
 	let if_block_anchor;
 
@@ -16836,7 +16845,7 @@ function create_each_block$4(ctx) {
 		block,
 		id: create_each_block$4.name,
 		type: "each",
-		source: "(27:4) {#each Object.entries(tableData) as [capability_id, data]}",
+		source: "(25:4) {#each Object.entries(tableData) as [capability_id, data]}",
 		ctx
 	});
 
@@ -16884,16 +16893,16 @@ function create_fragment$8(ctx) {
 			}
 
 			attr_dev(th0, "class", "middle svelte-1ljxjtz");
-			add_location(th0, file$7, 14, 8, 270);
+			add_location(th0, file$7, 12, 8, 241);
 			attr_dev(th1, "class", "left svelte-1ljxjtz");
-			add_location(th1, file$7, 17, 8, 337);
+			add_location(th1, file$7, 15, 8, 308);
 			attr_dev(th2, "class", "middle svelte-1ljxjtz");
-			add_location(th2, file$7, 20, 8, 410);
+			add_location(th2, file$7, 18, 8, 381);
 			attr_dev(th3, "class", "right svelte-1ljxjtz");
-			add_location(th3, file$7, 21, 8, 449);
-			add_location(tr, file$7, 13, 4, 256);
+			add_location(th3, file$7, 19, 8, 420);
+			add_location(tr, file$7, 11, 4, 227);
 			attr_dev(table, "class", "svelte-1ljxjtz");
-			add_location(table, file$7, 12, 0, 243);
+			add_location(table, file$7, 10, 0, 214);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -16970,27 +16979,26 @@ function instance$8($$self, $$props, $$invalidate) {
 	let { tableData } = $$props;
 	let { isHidden } = $$props;
 	let { language } = $$props;
-	console.log(language);
 	let text = $ui[language].evaluationDataTable;
 
 	$$self.$$.on_mount.push(function () {
 		if (tableData === undefined && !('tableData' in $$props || $$self.$$.bound[$$self.$$.props['tableData']])) {
-			console_1$5.warn("<EvaluationDataTable> was created without expected prop 'tableData'");
+			console.warn("<EvaluationDataTable> was created without expected prop 'tableData'");
 		}
 
 		if (isHidden === undefined && !('isHidden' in $$props || $$self.$$.bound[$$self.$$.props['isHidden']])) {
-			console_1$5.warn("<EvaluationDataTable> was created without expected prop 'isHidden'");
+			console.warn("<EvaluationDataTable> was created without expected prop 'isHidden'");
 		}
 
 		if (language === undefined && !('language' in $$props || $$self.$$.bound[$$self.$$.props['language']])) {
-			console_1$5.warn("<EvaluationDataTable> was created without expected prop 'language'");
+			console.warn("<EvaluationDataTable> was created without expected prop 'language'");
 		}
 	});
 
 	const writable_props = ['tableData', 'isHidden', 'language'];
 
 	Object_1$3.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$5.warn(`<EvaluationDataTable> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<EvaluationDataTable> was created with unknown prop '${key}'`);
 	});
 
 	$$self.$$set = $$props => {
@@ -43566,7 +43574,7 @@ var FileSaver_min = createCommonjsModule(function (module, exports) {
 
 /* src\ExportButton.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$2, console: console_1$4 } = globals;
+const { Object: Object_1$2, console: console_1$5 } = globals;
 const file$6 = "src\\ExportButton.svelte";
 
 function create_fragment$7(ctx) {
@@ -43736,22 +43744,22 @@ Expected format by SheetJS:
 
 	$$self.$$.on_mount.push(function () {
 		if (data === undefined && !('data' in $$props || $$self.$$.bound[$$self.$$.props['data']])) {
-			console_1$4.warn("<ExportButton> was created without expected prop 'data'");
+			console_1$5.warn("<ExportButton> was created without expected prop 'data'");
 		}
 
 		if (images === undefined && !('images' in $$props || $$self.$$.bound[$$self.$$.props['images']])) {
-			console_1$4.warn("<ExportButton> was created without expected prop 'images'");
+			console_1$5.warn("<ExportButton> was created without expected prop 'images'");
 		}
 
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$4.warn("<ExportButton> was created without expected prop 'appConfig'");
+			console_1$5.warn("<ExportButton> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['data', 'images', 'appConfig'];
 
 	Object_1$2.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<ExportButton> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$5.warn(`<ExportButton> was created with unknown prop '${key}'`);
 	});
 
 	$$self.$$set = $$props => {
@@ -43840,7 +43848,7 @@ class ExportButton extends SvelteComponentDev {
 
 /* src\Evalutation.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$1, console: console_1$3 } = globals;
+const { Object: Object_1$1, console: console_1$4 } = globals;
 const file$5 = "src\\Evalutation.svelte";
 
 function get_each_context$3(ctx, list, i) {
@@ -44425,14 +44433,14 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$3.warn("<Evalutation> was created without expected prop 'appConfig'");
+			console_1$4.warn("<Evalutation> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object_1$1.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<Evalutation> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<Evalutation> was created with unknown prop '${key}'`);
 	});
 
 	function evaluationchart_images_binding(value) {
@@ -45221,7 +45229,7 @@ class CapabilityTableRow extends SvelteComponentDev {
 
 /* src\CapabilityTable.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1, console: console_1$2 } = globals;
+const { Object: Object_1, console: console_1$3 } = globals;
 const file$3 = "src\\CapabilityTable.svelte";
 
 function get_each_context$1(ctx, list, i) {
@@ -45804,14 +45812,14 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$2.warn("<CapabilityTable> was created without expected prop 'appConfig'");
+			console_1$3.warn("<CapabilityTable> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object_1.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<CapabilityTable> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<CapabilityTable> was created with unknown prop '${key}'`);
 	});
 
 	function tablerow_appConfig_binding(value) {
@@ -46007,7 +46015,7 @@ class UserInput extends SvelteComponentDev {
 
 /* src\UserInfo.svelte generated by Svelte v3.52.0 */
 
-const { console: console_1$1 } = globals;
+const { console: console_1$2 } = globals;
 const file$2 = "src\\UserInfo.svelte";
 
 function create_fragment$2(ctx) {
@@ -46185,14 +46193,14 @@ function instance$2($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$1.warn("<UserInfo> was created without expected prop 'appConfig'");
+			console_1$2.warn("<UserInfo> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<UserInfo> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<UserInfo> was created with unknown prop '${key}'`);
 	});
 
 	function input0_input_handler() {
@@ -46276,18 +46284,28 @@ class UserInfo extends SvelteComponentDev {
 }
 
 /* src\Index.svelte generated by Svelte v3.52.0 */
+
+const { console: console_1$1 } = globals;
 const file$1 = "src\\Index.svelte";
 
 function create_fragment$1(ctx) {
-	let userinfo;
-	let t0;
+	let form;
+	let div0;
 	let p0;
-	let raw_value = /*text*/ ctx[1].intro + "";
 	let t1;
-	let div;
+	let input;
+	let t2;
+	let button0;
+	let t4;
+	let userinfo;
+	let t5;
 	let p1;
-	let t3;
-	let button;
+	let raw_value = /*text*/ ctx[2].intro + "";
+	let t6;
+	let div1;
+	let p2;
+	let t8;
+	let button1;
 	let b;
 	let current;
 	let mounted;
@@ -46300,44 +46318,78 @@ function create_fragment$1(ctx) {
 
 	const block = {
 		c: function create() {
-			create_component(userinfo.$$.fragment);
-			t0 = space();
+			form = element("form");
+			div0 = element("div");
 			p0 = element("p");
+			p0.textContent = `${/*text*/ ctx[2].import}`;
 			t1 = space();
-			div = element("div");
+			input = element("input");
+			t2 = space();
+			button0 = element("button");
+			button0.textContent = "Upload";
+			t4 = space();
+			create_component(userinfo.$$.fragment);
+			t5 = space();
 			p1 = element("p");
-			p1.textContent = `${/*text*/ ctx[1].deleteButtonText}`;
-			t3 = space();
-			button = element("button");
+			t6 = space();
+			div1 = element("div");
+			p2 = element("p");
+			p2.textContent = `${/*text*/ ctx[2].deleteButtonText}`;
+			t8 = space();
+			button1 = element("button");
 			b = element("b");
-			b.textContent = `${/*text*/ ctx[1].deleteButton}`;
-			attr_dev(p0, "class", "svelte-1ifbvwu");
-			add_location(p0, file$1, 17, 0, 328);
-			attr_dev(p1, "class", "svelte-1ifbvwu");
-			add_location(p1, file$1, 20, 4, 383);
-			add_location(b, file$1, 21, 42, 457);
-			add_location(button, file$1, 21, 4, 419);
-			attr_dev(div, "class", "delete svelte-1ifbvwu");
-			add_location(div, file$1, 19, 0, 357);
+			b.textContent = `${/*text*/ ctx[2].deleteButton}`;
+			attr_dev(p0, "class", "svelte-ruyr4b");
+			add_location(p0, file$1, 88, 8, 2825);
+			attr_dev(input, "type", "file");
+			attr_dev(input, "id", "file-selector");
+			attr_dev(input, "accept", ".csv, .xlsx");
+			add_location(input, file$1, 89, 8, 2855);
+			attr_dev(button0, "type", "submit");
+			add_location(button0, file$1, 90, 8, 2935);
+			attr_dev(div0, "class", "import svelte-ruyr4b");
+			add_location(div0, file$1, 87, 4, 2795);
+			add_location(form, file$1, 85, 0, 2737);
+			attr_dev(p1, "class", "svelte-ruyr4b");
+			add_location(p1, file$1, 97, 0, 3036);
+			attr_dev(p2, "class", "svelte-ruyr4b");
+			add_location(p2, file$1, 100, 4, 3091);
+			add_location(b, file$1, 101, 42, 3165);
+			add_location(button1, file$1, 101, 4, 3127);
+			attr_dev(div1, "class", "delete svelte-ruyr4b");
+			add_location(div1, file$1, 99, 0, 3065);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
+			insert_dev(target, form, anchor);
+			append_dev(form, div0);
+			append_dev(div0, p0);
+			append_dev(div0, t1);
+			append_dev(div0, input);
+			append_dev(div0, t2);
+			append_dev(div0, button0);
+			insert_dev(target, t4, anchor);
 			mount_component(userinfo, target, anchor);
-			insert_dev(target, t0, anchor);
-			insert_dev(target, p0, anchor);
-			p0.innerHTML = raw_value;
-			insert_dev(target, t1, anchor);
-			insert_dev(target, div, anchor);
-			append_dev(div, p1);
-			append_dev(div, t3);
-			append_dev(div, button);
-			append_dev(button, b);
+			insert_dev(target, t5, anchor);
+			insert_dev(target, p1, anchor);
+			p1.innerHTML = raw_value;
+			insert_dev(target, t6, anchor);
+			insert_dev(target, div1, anchor);
+			append_dev(div1, p2);
+			append_dev(div1, t8);
+			append_dev(div1, button1);
+			append_dev(button1, b);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen_dev(button, "click", deleteLocalStorage, false, false, false);
+				dispose = [
+					listen_dev(input, "change", /*input_change_handler*/ ctx[4]),
+					listen_dev(form, "submit", prevent_default(/*handleFileUpload*/ ctx[3]), false, true, false),
+					listen_dev(button1, "click", deleteLocalStorage, false, false, false)
+				];
+
 				mounted = true;
 			}
 		},
@@ -46356,13 +46408,15 @@ function create_fragment$1(ctx) {
 			current = false;
 		},
 		d: function destroy(detaching) {
+			if (detaching) detach_dev(form);
+			if (detaching) detach_dev(t4);
 			destroy_component(userinfo, detaching);
-			if (detaching) detach_dev(t0);
-			if (detaching) detach_dev(p0);
-			if (detaching) detach_dev(t1);
-			if (detaching) detach_dev(div);
+			if (detaching) detach_dev(t5);
+			if (detaching) detach_dev(p1);
+			if (detaching) detach_dev(t6);
+			if (detaching) detach_dev(div1);
 			mounted = false;
-			dispose();
+			run_all(dispose);
 		}
 	};
 
@@ -46377,55 +46431,153 @@ function create_fragment$1(ctx) {
 	return block;
 }
 
+function getFileType(file) {
+	return file.name.split('.').pop();
+}
+
 function deleteLocalStorage() {
 	localStorage.clear();
 	location.reload();
 }
 
 function instance$1($$self, $$props, $$invalidate) {
+	let $emptyUserInfo;
+	let $emptyUserData;
 	let $ui;
+	validate_store(emptyUserInfo, 'emptyUserInfo');
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(6, $emptyUserInfo = $$value));
+	validate_store(emptyUserData, 'emptyUserData');
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(7, $emptyUserData = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(2, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(8, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('Index', slots, []);
 	let { appConfig } = $$props;
 	let text = $ui[appConfig.language].index;
+	let files;
+	let filetype;
+	let sheetNames = ["Capabilities", "User Info"];
+
+	async function handleFileUpload(event) {
+		const file = files[0];
+		filetype = getFileType(file);
+		const reader = new FileReader();
+		reader.readAsBinaryString(file);
+
+		reader.onload = function () {
+			importData(reader.result);
+		};
+	}
+
+	function importData(data) {
+		if (filetype == "csv") {
+			importCSV(data);
+		} else if (filetype == "xlsx") {
+			importXLSX(data);
+		} else {
+			console.log("3");
+		}
+	}
+
+	function importXLSX(data) {
+		let newUserInput = $emptyUserData;
+		let workbook = readSync(data, { type: "binary" });
+		const inputData = utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
+
+		for (const capability of inputData) {
+			let id = capability.ID;
+			newUserInput[id].explanation = capability["Comments"];
+			newUserInput[id].isValue = capability["Is Value"];
+			newUserInput[id].shouldValue = capability["Should Value"];
+			newUserInput[id].notRelevant = capability["Not Relevant"];
+		}
+
+		dataManager.saveToLocalStorage("dataUserInput", newUserInput);
+		location.reload();
+	}
+
+	function importCSV(data) {
+		let newUserInput = $emptyUserData;
+		let newUserInfo = $emptyUserInfo;
+		let workbook = readSync(data, { type: "binary" });
+		const inputData = utils.sheet_to_json(workbook.Sheets["Sheet1"]);
+		newUserInfo.company = inputData[0].Firma;
+		newUserInfo.department = inputData[0].Bereich;
+		newUserInfo.project = inputData[0].Projekt;
+
+		for (const row of inputData) {
+			if (row.Begruendung) {
+				newUserInput[row.Capability].explanation = row.Begruendung;
+			}
+
+			if (row.Bewertung) {
+				newUserInput[row.Capability].isValue = row.Bewertung;
+			}
+		}
+
+		dataManager.saveToLocalStorage("dataUserInput", newUserInput);
+		dataManager.saveToLocalStorage("dataUserInfo", newUserInfo);
+		location.reload();
+	}
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console.warn("<Index> was created without expected prop 'appConfig'");
+			console_1$1.warn("<Index> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Index> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<Index> was created with unknown prop '${key}'`);
 	});
+
+	function input_change_handler() {
+		files = this.files;
+		$$invalidate(1, files);
+	}
 
 	$$self.$$set = $$props => {
 		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
 	};
 
 	$$self.$capture_state = () => ({
+		writeXLSX: writeSyncXLSX,
+		XLSX: XLSX$1,
 		UserInfo,
 		ui,
+		emptyUserData,
+		emptyUserInfo,
+		dataManager,
 		appConfig,
 		text,
+		files,
+		filetype,
+		sheetNames,
+		handleFileUpload,
+		getFileType,
+		importData,
+		importXLSX,
+		importCSV,
 		deleteLocalStorage,
+		$emptyUserInfo,
+		$emptyUserData,
 		$ui
 	});
 
 	$$self.$inject_state = $$props => {
 		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
-		if ('text' in $$props) $$invalidate(1, text = $$props.text);
+		if ('text' in $$props) $$invalidate(2, text = $$props.text);
+		if ('files' in $$props) $$invalidate(1, files = $$props.files);
+		if ('filetype' in $$props) filetype = $$props.filetype;
+		if ('sheetNames' in $$props) sheetNames = $$props.sheetNames;
 	};
 
 	if ($$props && "$$inject" in $$props) {
 		$$self.$inject_state($$props.$$inject);
 	}
 
-	return [appConfig, text];
+	return [appConfig, files, text, handleFileUpload, input_change_handler];
 }
 
 class Index extends SvelteComponentDev {
@@ -46869,7 +47021,7 @@ function create_fragment(ctx) {
 			div1 = element("div");
 			div0 = element("div");
 			span0 = element("span");
-			span0.textContent = "EN";
+			span0.textContent = "DE";
 			t3 = space();
 			label = element("label");
 			input = element("input");
@@ -46877,7 +47029,7 @@ function create_fragment(ctx) {
 			span1 = element("span");
 			t5 = space();
 			span2 = element("span");
-			span2.textContent = "DE";
+			span2.textContent = "EN";
 			t7 = space();
 			key_block.c();
 			attr_dev(h1, "class", "svelte-11jq1um");
@@ -46976,7 +47128,7 @@ function instance($$self, $$props, $$invalidate) {
 	component_subscribe($$self, ui, $$value => $$invalidate(9, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('App', slots, []);
-	let appConfig = { hideIrrelevant: false, language: "en" };
+	let appConfig = { hideIrrelevant: false, language: "de" };
 	let text;
 	let buttonText;
 	let userInput = $emptyUserData;
