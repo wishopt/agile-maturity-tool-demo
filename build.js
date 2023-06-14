@@ -99,6 +99,20 @@ function set_style(node, key, value, important) {
         node.style.setProperty(key, value, important ? 'important' : '');
     }
 }
+function select_option(select, value) {
+    for (let i = 0; i < select.options.length; i += 1) {
+        const option = select.options[i];
+        if (option.__value === value) {
+            option.selected = true;
+            return;
+        }
+    }
+    select.selectedIndex = -1; // no option should be selected
+}
+function select_value(select) {
+    const selected_option = select.querySelector(':checked') || select.options[0];
+    return selected_option && selected_option.__value;
+}
 function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
     const e = document.createEvent('CustomEvent');
     e.initCustomEvent(type, bubbles, cancelable, detail);
@@ -434,6 +448,10 @@ function attr_dev(node, attribute, value) {
         dispatch_dev('SvelteDOMRemoveAttribute', { node, attribute });
     else
         dispatch_dev('SvelteDOMSetAttribute', { node, attribute, value });
+}
+function prop_dev(node, property, value) {
+    node[property] = value;
+    dispatch_dev('SvelteDOMSetProperty', { node, property, value });
 }
 function set_data_dev(text, data) {
     data = '' + data;
@@ -2249,6 +2267,7 @@ const levelAmount = readable(5);
 
 const emptyUserInfo = readable({
   company: '',
+  function: '',
   department: '',
   project: '',
   description: ''
@@ -2260,810 +2279,945 @@ const emptyUserData = readable({
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "1-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "1-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "1-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "1-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "1-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-19": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "1-20": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-21": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "1-22": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "2-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation", "innovation"],
   },
   "2-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "2-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "3-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "3-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "3-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "3-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "3-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "4-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it", "innovation"],
   },
   "4-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it", "organisation"],
   },
   "4-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "4-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "5-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "5-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "5-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "5-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "5-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "5-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-19": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "5-20": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "5-21": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-22": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-23": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "5-24": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "5-25": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "5-26": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "5-27": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "5-28": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "6-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "6-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "6-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "6-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["it"],
   },
   "6-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "7-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "7-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   },
   "7-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "7-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["innovation"],
   },
   "7-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-19": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-20": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-21": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-22": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": [],
   },
   "7-23": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
       "notRelevant": false,
+      "tags": ["organisation"],
   }
 });
 
@@ -3092,6 +3246,7 @@ const ui = readable({
     userInfo: {
       company: "Company:",
       organisation: "Organisation:",
+      function: "Function",
       project: "Name of agile project:",
       description: "Description:"
     },
@@ -3137,6 +3292,7 @@ const ui = readable({
     userInfo: {
       company: "Firma:",
       organisation: "Organisation:",
+      function: "Funktion",
       project: "Name des agilen Projektes:",
       description: "Beschreibung:"
     },
@@ -3159,6 +3315,122 @@ const ui = readable({
       button: "Resultate exportieren"
     }
   }
+});
+
+const defaultFilters = readable({
+  'Strategy & Purpose': ['1-01','1-02','1-03','1-04','1-05','1-06','1-07','1-08','1-09','1-10','1-11','1-12','1-13','1-14','1-15','1-16','1-17','1-18','1-19','1-20','1-21','1-22'],
+  Structure: ['2-01','2-02','2-03','2-04','2-05','2-06','2-07','2-08','2-09','2-10','2-11','2-12','2-13','2-14','2-15','2-16','2-17','2-18'],
+  Process: ['3-01','3-02','3-03','3-04','3-05','3-06','3-07','3-08','3-09','3-10','3-11','3-12','3-13','3-14','3-15','3-16','3-17'],
+  IT: ['4-01','4-02','4-03','4-04','4-05','4-06','4-07','4-08','4-09','4-10','4-11','4-12','4-13','4-14','4-15'],
+  People: ['5-01','5-02','5-03','5-04','5-05','5-06','5-07','5-08','5-09','5-10','5-11','5-12','5-13','5-14','5-15','5-16','5-17','5-18','5-19','5-20','5-21','5-22','5-23','5-24','5-25','5-26','5-27','5-28'],
+  'Customer-Centric Product Development': ['6-01','6-02','6-03','6-04','6-05','6-06','6-07','6-08','6-09','6-10','6-11','6-12'],
+  Leadership: ['7-01','7-02','7-03','7-04','7-05','7-06','7-07','7-08','7-09','7-10','7-11','7-12','7-13','7-14','7-15','7-16','7-17','7-18','7-19','7-20','7-21','7-22','7-23'],
+  Adaptability: ['1-01','1-02','1-03','1-04','1-05','1-07','1-10','2-13','2-14','2-15','2-17','2-18','3-02','3-03','4-07','4-10','5-08','5-09','5-12','5-13','5-14','5-15','5-16','6-04','6-05','6-06','6-11','6-12','7-01','7-02','7-15'],
+  'CI-CD': ['4-04','4-08','4-12','4-13','4-14','6-09','6-10'],
+  Collaboration: ['1-11','1-12','1-13','1-15','5-05','5-06','5-07','5-17','5-22','6-03','7-04','7-11','7-19'],
+  Communication: ['1-14','1-22','2-08','2-09','2-16','4-06','4-15','5-21','5-25','7-14','7-16','7-17','7-18','7-21'],
+  'Customer Focus': ['5-28','6-01','6-02','7-10'],
+  Efficiency: ['3-05','3-06','3-12','3-13','3-14','3-17','4-01','4-03','5-01','5-18','7-22'],
+  Innovation: ['1-08','1-09','2-12','3-01','3-04','3-15','4-02','5-02','5-03','5-10','5-11','5-24','7-09','7-13'],
+  'Knowledge Management': ['1-06','1-18','1-20','1-21','2-10','2-11','3-07','3-08','3-09','3-10','3-16','4-09','4-11','5-04','6-07','7-12','7-20'],
+  'Organizational and Management Structures': ['1-16','1-17','1-19','2-01','2-02','2-03','2-04','2-05','2-06','2-07','3-11','4-05','5-19','5-20','5-23','5-26','5-27','6-08','7-03','7-07','7-08','7-23']
+});
+
+const defaultPresets = readable({
+  IT: {
+    'Strategy & Purpose': false,
+    Structure: false,
+    Process: false,
+    IT: true,
+    People: false,
+    'Customer-Centric Product Development': false,
+    Leadership: false,
+    Adaptability: false,
+    'CI-CD': true,
+    Collaboration: false,
+    Communication: false,
+    'Customer Focus': false,
+    Efficiency: false,
+    Innovation: false,
+    'Knowledge Management': false,
+    'Organizational and Management Structures': false,
+  },
+  Projektleitung: {
+    'Strategy & Purpose': true,
+    Structure: true,
+    Process: true,
+    IT: false,
+    People: true,
+    'Customer-Centric Product Development': true,
+    Leadership: true,
+    Adaptability: false,
+    'CI-CD': false,
+    Collaboration: true,
+    Communication: true,
+    'Customer Focus': true,
+    Efficiency: true,
+    Innovation: true,
+    'Knowledge Management': true,
+    'Organizational and Management Structures': false,
+  },
+  Organisation: {
+    'Strategy & Purpose': true,
+    Structure: true,
+    Process: true,
+    IT: false,
+    People: false,
+    'Customer-Centric Product Development': false,
+    Leadership: false,
+    Adaptability: false,
+    'CI-CD': false,
+    Collaboration: false,
+    Communication: true,
+    'Customer Focus': false,
+    Efficiency: false,
+    Innovation: false,
+    'Knowledge Management': true,
+    'Organizational and Management Structures': true,
+  },
+  'anderes (alle Capabilites anzeigen)': {
+    'Strategy & Purpose': true,
+    Structure: true,
+    Process: true,
+    IT: true,
+    People: true,
+    'Customer-Centric Product Development': true,
+    Leadership: true,
+    Adaptability: false,
+    'CI-CD': false,
+    Collaboration: false,
+    Communication: false,
+    'Customer Focus': false,
+    Efficiency: false,
+    Innovation: false,
+    'Knowledge Management': false,
+    'Organizational and Management Structures': false,
+  },
+});
+
+const capabilityConverter = readable({
+  'Strategie und Zweck': 'Strategy & Purpose',
+  Struktur: "Structure",
+  Prozess: "Process",
+  IT: "IT",
+  Menschen: "People",
+  "Kundenzentrierte Produktentwicklung": 'Customer-Centric Product Development',
+  "Führung": "Leadership",
+});
+
+const topicConverter = readable({
+  "Anpassungsfähigkeit": "Adaptability",
+  "CI-CD": 'CI-CD',
+  "Kollaboration": "Collaboration",
+  "Kommunikation": "Communication",
+  "Kundenfokus": 'Customer Focus',
+  "Effizienz": "Efficiency",
+  "Innovation": "Innovation",
+  "Wissensmanagement": 'Knowledge Management',
+  "Organisations- und Managementstrukturen": 'Organizational and Management Structures',
 });
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -16463,7 +16735,7 @@ const dataManager = {
 
 /* src\EvaluationChart.svelte generated by Svelte v3.52.0 */
 
-const { console: console_1$6 } = globals;
+const { console: console_1$5 } = globals;
 const file$8 = "src\\EvaluationChart.svelte";
 
 function create_fragment$9(ctx) {
@@ -16593,22 +16865,22 @@ function instance$9($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (chartData === undefined && !('chartData' in $$props || $$self.$$.bound[$$self.$$.props['chartData']])) {
-			console_1$6.warn("<EvaluationChart> was created without expected prop 'chartData'");
+			console_1$5.warn("<EvaluationChart> was created without expected prop 'chartData'");
 		}
 
 		if (images === undefined && !('images' in $$props || $$self.$$.bound[$$self.$$.props['images']])) {
-			console_1$6.warn("<EvaluationChart> was created without expected prop 'images'");
+			console_1$5.warn("<EvaluationChart> was created without expected prop 'images'");
 		}
 
 		if (language === undefined && !('language' in $$props || $$self.$$.bound[$$self.$$.props['language']])) {
-			console_1$6.warn("<EvaluationChart> was created without expected prop 'language'");
+			console_1$5.warn("<EvaluationChart> was created without expected prop 'language'");
 		}
 	});
 
 	const writable_props = ['chartData', 'images', 'language'];
 
 	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$6.warn(`<EvaluationChart> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$5.warn(`<EvaluationChart> was created with unknown prop '${key}'`);
 	});
 
 	$$self.$$set = $$props => {
@@ -16694,10 +16966,10 @@ class EvaluationChart extends SvelteComponentDev {
 
 /* src\EvaluationDataTable.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$3 } = globals;
+const { Object: Object_1$4 } = globals;
 const file$7 = "src\\EvaluationDataTable.svelte";
 
-function get_each_context$4(ctx, list, i) {
+function get_each_context$5(ctx, list, i) {
 	const child_ctx = ctx.slice();
 	child_ctx[6] = list[i][0];
 	child_ctx[7] = list[i][1];
@@ -16787,12 +17059,12 @@ function create_else_block$1(ctx) {
 }
 
 // (26:4) {#if data.notRelevant && isHidden}
-function create_if_block$3(ctx) {
+function create_if_block$4(ctx) {
 	const block = { c: noop, m: noop, p: noop, d: noop };
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block$3.name,
+		id: create_if_block$4.name,
 		type: "if",
 		source: "(26:4) {#if data.notRelevant && isHidden}",
 		ctx
@@ -16802,11 +17074,11 @@ function create_if_block$3(ctx) {
 }
 
 // (25:4) {#each Object.entries(tableData) as [capability_id, data]}
-function create_each_block$4(ctx) {
+function create_each_block$5(ctx) {
 	let if_block_anchor;
 
 	function select_block_type(ctx, dirty) {
-		if (/*data*/ ctx[7].notRelevant && /*isHidden*/ ctx[1]) return create_if_block$3;
+		if (/*data*/ ctx[7].notRelevant && /*isHidden*/ ctx[1]) return create_if_block$4;
 		return create_else_block$1;
 	}
 
@@ -16843,7 +17115,7 @@ function create_each_block$4(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block$4.name,
+		id: create_each_block$5.name,
 		type: "each",
 		source: "(25:4) {#each Object.entries(tableData) as [capability_id, data]}",
 		ctx
@@ -16868,7 +17140,7 @@ function create_fragment$8(ctx) {
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+		each_blocks[i] = create_each_block$5(get_each_context$5(ctx, each_value, i));
 	}
 
 	const block = {
@@ -16930,12 +17202,12 @@ function create_fragment$8(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$4(ctx, each_value, i);
+					const child_ctx = get_each_context$5(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block$4(child_ctx);
+						each_blocks[i] = create_each_block$5(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(table, null);
 					}
@@ -16997,7 +17269,7 @@ function instance$8($$self, $$props, $$invalidate) {
 
 	const writable_props = ['tableData', 'isHidden', 'language'];
 
-	Object_1$3.keys($$props).forEach(key => {
+	Object_1$4.keys($$props).forEach(key => {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<EvaluationDataTable> was created with unknown prop '${key}'`);
 	});
 
@@ -43574,7 +43846,7 @@ var FileSaver_min = createCommonjsModule(function (module, exports) {
 
 /* src\ExportButton.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$2, console: console_1$5 } = globals;
+const { Object: Object_1$3, console: console_1$4 } = globals;
 const file$6 = "src\\ExportButton.svelte";
 
 function create_fragment$7(ctx) {
@@ -43744,22 +44016,22 @@ Expected format by SheetJS:
 
 	$$self.$$.on_mount.push(function () {
 		if (data === undefined && !('data' in $$props || $$self.$$.bound[$$self.$$.props['data']])) {
-			console_1$5.warn("<ExportButton> was created without expected prop 'data'");
+			console_1$4.warn("<ExportButton> was created without expected prop 'data'");
 		}
 
 		if (images === undefined && !('images' in $$props || $$self.$$.bound[$$self.$$.props['images']])) {
-			console_1$5.warn("<ExportButton> was created without expected prop 'images'");
+			console_1$4.warn("<ExportButton> was created without expected prop 'images'");
 		}
 
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$5.warn("<ExportButton> was created without expected prop 'appConfig'");
+			console_1$4.warn("<ExportButton> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['data', 'images', 'appConfig'];
 
-	Object_1$2.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$5.warn(`<ExportButton> was created with unknown prop '${key}'`);
+	Object_1$3.keys($$props).forEach(key => {
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<ExportButton> was created with unknown prop '${key}'`);
 	});
 
 	$$self.$$set = $$props => {
@@ -43848,23 +44120,23 @@ class ExportButton extends SvelteComponentDev {
 
 /* src\Evalutation.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$1, console: console_1$4 } = globals;
+const { Object: Object_1$2, console: console_1$3 } = globals;
 const file$5 = "src\\Evalutation.svelte";
 
-function get_each_context$3(ctx, list, i) {
+function get_each_context$4(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[24] = list[i];
+	child_ctx[26] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[27] = list[i];
+	child_ctx[29] = list[i];
 	return child_ctx;
 }
 
-// (172:1) {#each Object.keys(dimensionDescriptions) as dimension}
-function create_each_block_1$2(ctx) {
+// (185:1) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
+function create_if_block_1$3(ctx) {
 	let evaluationchart;
 	let updating_images;
 	let t;
@@ -43872,11 +44144,11 @@ function create_each_block_1$2(ctx) {
 	let current;
 
 	function evaluationchart_images_binding(value) {
-		/*evaluationchart_images_binding*/ ctx[7](value);
+		/*evaluationchart_images_binding*/ ctx[9](value);
 	}
 
 	let evaluationchart_props = {
-		chartData: /*generateChartData*/ ctx[6](/*dimension*/ ctx[27]),
+		chartData: /*generateChartData*/ ctx[8](/*dimension*/ ctx[29]),
 		language: /*appConfig*/ ctx[0].language
 	};
 
@@ -43893,7 +44165,7 @@ function create_each_block_1$2(ctx) {
 
 	evaluationdatatable = new EvaluationDataTable({
 			props: {
-				tableData: /*generateTableData*/ ctx[5](/*dimension*/ ctx[27]),
+				tableData: /*generateTableData*/ ctx[7](/*dimension*/ ctx[29]),
 				isHidden: /*appConfig*/ ctx[0].hideIrrelevant,
 				language: /*appConfig*/ ctx[0].language
 			},
@@ -43914,9 +44186,9 @@ function create_each_block_1$2(ctx) {
 		},
 		p: function update(ctx, dirty) {
 			const evaluationchart_changes = {};
-			if (dirty & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
+			if (dirty[0] & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
 
-			if (!updating_images && dirty & /*images*/ 4) {
+			if (!updating_images && dirty[0] & /*images*/ 4) {
 				updating_images = true;
 				evaluationchart_changes.images = /*images*/ ctx[2];
 				add_flush_callback(() => updating_images = false);
@@ -43924,8 +44196,8 @@ function create_each_block_1$2(ctx) {
 
 			evaluationchart.$set(evaluationchart_changes);
 			const evaluationdatatable_changes = {};
-			if (dirty & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
-			if (dirty & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
 			evaluationdatatable.$set(evaluationdatatable_changes);
 		},
 		i: function intro(local) {
@@ -43948,17 +44220,83 @@ function create_each_block_1$2(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block_1$2.name,
-		type: "each",
-		source: "(172:1) {#each Object.keys(dimensionDescriptions) as dimension}",
+		id: create_if_block_1$3.name,
+		type: "if",
+		source: "(185:1) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (180:1) {#each Object.values(categoryDescriptions) as category}
-function create_each_block$3(ctx) {
+// (183:1) {#each Object.keys(dimensionDescriptions) as dimension}
+function create_each_block_1$2(ctx) {
+	let if_block_anchor;
+	let current;
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[3][/*dimension*/ ctx[29]]] && create_if_block_1$3(ctx);
+
+	const block = {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insert_dev(target, if_block_anchor, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[3][/*dimension*/ ctx[29]]]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+
+					if (dirty[0] & /*appConfig, $capabilityConverter*/ 9) {
+						transition_in(if_block, 1);
+					}
+				} else {
+					if_block = create_if_block_1$3(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				group_outros();
+
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
+
+				check_outros();
+			}
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach_dev(if_block_anchor);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_1$2.name,
+		type: "each",
+		source: "(183:1) {#each Object.keys(dimensionDescriptions) as dimension}",
+		ctx
+	});
+
+	return block;
+}
+
+// (196:1) {#if appConfig.checkedFilters[$topicConverter[category]]}
+function create_if_block$3(ctx) {
 	let evaluationchart;
 	let updating_images;
 	let t;
@@ -43966,11 +44304,11 @@ function create_each_block$3(ctx) {
 	let current;
 
 	function evaluationchart_images_binding_1(value) {
-		/*evaluationchart_images_binding_1*/ ctx[8](value);
+		/*evaluationchart_images_binding_1*/ ctx[10](value);
 	}
 
 	let evaluationchart_props = {
-		chartData: /*generateChartData*/ ctx[6](/*category*/ ctx[24]),
+		chartData: /*generateChartData*/ ctx[8](/*category*/ ctx[26]),
 		language: /*appConfig*/ ctx[0].language
 	};
 
@@ -43987,7 +44325,7 @@ function create_each_block$3(ctx) {
 
 	evaluationdatatable = new EvaluationDataTable({
 			props: {
-				tableData: /*generateTableData*/ ctx[5](/*category*/ ctx[24]),
+				tableData: /*generateTableData*/ ctx[7](/*category*/ ctx[26]),
 				isHidden: /*appConfig*/ ctx[0].hideIrrelevant,
 				language: /*appConfig*/ ctx[0].language
 			},
@@ -44008,9 +44346,9 @@ function create_each_block$3(ctx) {
 		},
 		p: function update(ctx, dirty) {
 			const evaluationchart_changes = {};
-			if (dirty & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
+			if (dirty[0] & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
 
-			if (!updating_images && dirty & /*images*/ 4) {
+			if (!updating_images && dirty[0] & /*images*/ 4) {
 				updating_images = true;
 				evaluationchart_changes.images = /*images*/ ctx[2];
 				add_flush_callback(() => updating_images = false);
@@ -44018,8 +44356,8 @@ function create_each_block$3(ctx) {
 
 			evaluationchart.$set(evaluationchart_changes);
 			const evaluationdatatable_changes = {};
-			if (dirty & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
-			if (dirty & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
 			evaluationdatatable.$set(evaluationdatatable_changes);
 		},
 		i: function intro(local) {
@@ -44042,9 +44380,75 @@ function create_each_block$3(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block$3.name,
+		id: create_if_block$3.name,
+		type: "if",
+		source: "(196:1) {#if appConfig.checkedFilters[$topicConverter[category]]}",
+		ctx
+	});
+
+	return block;
+}
+
+// (194:1) {#each Object.values(categoryDescriptions) as category}
+function create_each_block$4(ctx) {
+	let if_block_anchor;
+	let current;
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[4][/*category*/ ctx[26]]] && create_if_block$3(ctx);
+
+	const block = {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insert_dev(target, if_block_anchor, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[4][/*category*/ ctx[26]]]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+
+					if (dirty[0] & /*appConfig, $topicConverter*/ 17) {
+						transition_in(if_block, 1);
+					}
+				} else {
+					if_block = create_if_block$3(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				group_outros();
+
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
+
+				check_outros();
+			}
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach_dev(if_block_anchor);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block$4.name,
 		type: "each",
-		source: "(180:1) {#each Object.values(categoryDescriptions) as category}",
+		source: "(194:1) {#each Object.values(categoryDescriptions) as category}",
 		ctx
 	});
 
@@ -44069,7 +44473,7 @@ function create_fragment$6(ctx) {
 			$$inline: true
 		});
 
-	let each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[3]);
+	let each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[5]);
 	validate_each_argument(each_value_1);
 	let each_blocks_1 = [];
 
@@ -44081,12 +44485,12 @@ function create_fragment$6(ctx) {
 		each_blocks_1[i] = null;
 	});
 
-	let each_value = Object.values(/*categoryDescriptions*/ ctx[4]);
+	let each_value = Object.values(/*categoryDescriptions*/ ctx[6]);
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
+		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
 	}
 
 	const out_1 = i => transition_out(each_blocks[i], 1, 1, () => {
@@ -44121,7 +44525,7 @@ function create_fragment$6(ctx) {
 			t2 = space();
 			create_component(exportbutton1.$$.fragment);
 			attr_dev(div, "id", "auswertung");
-			add_location(div, file$5, 167, 0, 4318);
+			add_location(div, file$5, 178, 0, 4267);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -44145,15 +44549,15 @@ function create_fragment$6(ctx) {
 			mount_component(exportbutton1, div, null);
 			current = true;
 		},
-		p: function update(ctx, [dirty]) {
+		p: function update(ctx, dirty) {
 			const exportbutton0_changes = {};
-			if (dirty & /*userInput*/ 2) exportbutton0_changes.data = /*userInput*/ ctx[1];
-			if (dirty & /*images*/ 4) exportbutton0_changes.images = /*images*/ ctx[2];
-			if (dirty & /*appConfig*/ 1) exportbutton0_changes.appConfig = /*appConfig*/ ctx[0];
+			if (dirty[0] & /*userInput*/ 2) exportbutton0_changes.data = /*userInput*/ ctx[1];
+			if (dirty[0] & /*images*/ 4) exportbutton0_changes.images = /*images*/ ctx[2];
+			if (dirty[0] & /*appConfig*/ 1) exportbutton0_changes.appConfig = /*appConfig*/ ctx[0];
 			exportbutton0.$set(exportbutton0_changes);
 
-			if (dirty & /*generateTableData, Object, dimensionDescriptions, appConfig, generateChartData, images*/ 109) {
-				each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[3]);
+			if (dirty[0] & /*generateTableData, dimensionDescriptions, appConfig, generateChartData, images, $capabilityConverter*/ 429) {
+				each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[5]);
 				validate_each_argument(each_value_1);
 				let i;
 
@@ -44180,19 +44584,19 @@ function create_fragment$6(ctx) {
 				check_outros();
 			}
 
-			if (dirty & /*generateTableData, Object, categoryDescriptions, appConfig, generateChartData, images*/ 117) {
-				each_value = Object.values(/*categoryDescriptions*/ ctx[4]);
+			if (dirty[0] & /*generateTableData, categoryDescriptions, appConfig, generateChartData, images, $topicConverter*/ 469) {
+				each_value = Object.values(/*categoryDescriptions*/ ctx[6]);
 				validate_each_argument(each_value);
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$3(ctx, each_value, i);
+					const child_ctx = get_each_context$4(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 						transition_in(each_blocks[i], 1);
 					} else {
-						each_blocks[i] = create_each_block$3(child_ctx);
+						each_blocks[i] = create_each_block$4(child_ctx);
 						each_blocks[i].c();
 						transition_in(each_blocks[i], 1);
 						each_blocks[i].m(div, t2);
@@ -44209,9 +44613,9 @@ function create_fragment$6(ctx) {
 			}
 
 			const exportbutton1_changes = {};
-			if (dirty & /*userInput*/ 2) exportbutton1_changes.data = /*userInput*/ ctx[1];
-			if (dirty & /*images*/ 4) exportbutton1_changes.images = /*images*/ ctx[2];
-			if (dirty & /*appConfig*/ 1) exportbutton1_changes.appConfig = /*appConfig*/ ctx[0];
+			if (dirty[0] & /*userInput*/ 2) exportbutton1_changes.data = /*userInput*/ ctx[1];
+			if (dirty[0] & /*images*/ 4) exportbutton1_changes.images = /*images*/ ctx[2];
+			if (dirty[0] & /*appConfig*/ 1) exportbutton1_changes.appConfig = /*appConfig*/ ctx[0];
 			exportbutton1.$set(exportbutton1_changes);
 		},
 		i: function intro(local) {
@@ -44271,22 +44675,41 @@ function round(value, precision) {
 	return Math.round(value * multiplier) / multiplier;
 }
 
+function arrayIntersection$1(array1, array2) {
+	// refactor to avoid duplication
+	let intersection;
+
+	intersection = array1.filter(item => array2.includes(item));
+
+	if (intersection.length > 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function instance$6($$self, $$props, $$invalidate) {
 	let $emptyUserInfo;
 	let $emptyUserData;
 	let $capabilityList;
 	let $categories;
 	let $dimensionDesc;
+	let $capabilityConverter;
+	let $topicConverter;
 	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(14, $emptyUserInfo = $$value));
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(16, $emptyUserInfo = $$value));
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(15, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(17, $emptyUserData = $$value));
 	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(16, $capabilityList = $$value));
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(18, $capabilityList = $$value));
 	validate_store(categories, 'categories');
-	component_subscribe($$self, categories, $$value => $$invalidate(17, $categories = $$value));
+	component_subscribe($$self, categories, $$value => $$invalidate(19, $categories = $$value));
 	validate_store(dimensionDesc, 'dimensionDesc');
-	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(18, $dimensionDesc = $$value));
+	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(20, $dimensionDesc = $$value));
+	validate_store(capabilityConverter, 'capabilityConverter');
+	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(3, $capabilityConverter = $$value));
+	validate_store(topicConverter, 'topicConverter');
+	component_subscribe($$self, topicConverter, $$value => $$invalidate(4, $topicConverter = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('Evalutation', slots, []);
 	let { appConfig } = $$props;
@@ -44341,13 +44764,13 @@ function instance$6($$self, $$props, $$invalidate) {
 
 		if (dimensionDescriptions.hasOwnProperty(input)) {
 			for (const [id, capabilityData] of Object.entries(capabilities)) {
-				if (capabilityData.dimension == input && !(userInput[id].notRelevant && appConfig.hideIrrelevant)) {
+				if (capabilityData.dimension == input) {
 					array.push(capabilityData.title);
 				}
 			}
 		} else {
 			for (const [id, capabilityData] of Object.entries(capabilities)) {
-				if (capabilityData.category == input && !(userInput[id].notRelevant && appConfig.hideIrrelevant)) {
+				if (capabilityData.category == input) {
 					array.push(capabilityData.title);
 				}
 			}
@@ -44363,13 +44786,13 @@ function instance$6($$self, $$props, $$invalidate) {
 
 		if (dimensionDescriptions.hasOwnProperty(input)) {
 			for (const [id, capabilityData] of Object.entries(capabilities)) {
-				if (capabilityData.dimension == input && !(userInput[id].notRelevant && appConfig.hideIrrelevant)) {
+				if (capabilityData.dimension == input) {
 					array.push(Number(userInput[id].isValue));
 				}
 			}
 		} else {
 			for (const [id, capabilityData] of Object.entries(capabilities)) {
-				if (capabilityData.category == input && !(userInput[id].notRelevant && appConfig.hideIrrelevant)) {
+				if (capabilityData.category == input) {
 					array.push(Number(userInput[id].isValue));
 				}
 			}
@@ -44385,13 +44808,13 @@ function instance$6($$self, $$props, $$invalidate) {
 
 		if (dimensionDescriptions.hasOwnProperty(input)) {
 			for (const [id, capabilityData] of Object.entries(capabilities)) {
-				if (capabilityData.dimension == input && !(userInput[id].notRelevant && appConfig.hideIrrelevant)) {
+				if (capabilityData.dimension == input) {
 					array.push(Number(userInput[id].shouldValue));
 				}
 			}
 		} else {
 			for (const [id, capabilityData] of Object.entries(capabilities)) {
-				if (capabilityData.category == input && !(userInput[id].notRelevant && appConfig.hideIrrelevant)) {
+				if (capabilityData.category == input) {
 					array.push(Number(userInput[id].shouldValue));
 				}
 			}
@@ -44433,14 +44856,14 @@ function instance$6($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$4.warn("<Evalutation> was created without expected prop 'appConfig'");
+			console_1$3.warn("<Evalutation> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
-	Object_1$1.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<Evalutation> was created with unknown prop '${key}'`);
+	Object_1$2.keys($$props).forEach(key => {
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<Evalutation> was created with unknown prop '${key}'`);
 	});
 
 	function evaluationchart_images_binding(value) {
@@ -44464,6 +44887,9 @@ function instance$6($$self, $$props, $$invalidate) {
 		dimensionDesc,
 		categories,
 		capabilityList,
+		defaultFilters,
+		capabilityConverter,
+		topicConverter,
 		EvaluationChart,
 		EvaluationDataTable,
 		ExportButton,
@@ -44486,11 +44912,14 @@ function instance$6($$self, $$props, $$invalidate) {
 		getShouldValues,
 		generateTableData,
 		generateChartData,
+		arrayIntersection: arrayIntersection$1,
 		$emptyUserInfo,
 		$emptyUserData,
 		$capabilityList,
 		$categories,
-		$dimensionDesc
+		$dimensionDesc,
+		$capabilityConverter,
+		$topicConverter
 	});
 
 	$$self.$inject_state = $$props => {
@@ -44502,8 +44931,8 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('average' in $$props) average = $$props.average;
 		if ('averages' in $$props) averages = $$props.averages;
 		if ('images' in $$props) $$invalidate(2, images = $$props.images);
-		if ('dimensionDescriptions' in $$props) $$invalidate(3, dimensionDescriptions = $$props.dimensionDescriptions);
-		if ('categoryDescriptions' in $$props) $$invalidate(4, categoryDescriptions = $$props.categoryDescriptions);
+		if ('dimensionDescriptions' in $$props) $$invalidate(5, dimensionDescriptions = $$props.dimensionDescriptions);
+		if ('categoryDescriptions' in $$props) $$invalidate(6, categoryDescriptions = $$props.categoryDescriptions);
 		if ('capabilities' in $$props) capabilities = $$props.capabilities;
 	};
 
@@ -44515,6 +44944,8 @@ function instance$6($$self, $$props, $$invalidate) {
 		appConfig,
 		userInput,
 		images,
+		$capabilityConverter,
+		$topicConverter,
 		dimensionDescriptions,
 		categoryDescriptions,
 		generateTableData,
@@ -44527,7 +44958,7 @@ function instance$6($$self, $$props, $$invalidate) {
 class Evalutation extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance$6, create_fragment$6, safe_not_equal, { appConfig: 0 });
+		init(this, options, instance$6, create_fragment$6, safe_not_equal, { appConfig: 0 }, null, [-1, -1]);
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -44549,15 +44980,15 @@ class Evalutation extends SvelteComponentDev {
 /* src\CapabilityTableRow.svelte generated by Svelte v3.52.0 */
 const file$4 = "src\\CapabilityTableRow.svelte";
 
-function get_each_context$2(ctx, list, i) {
+function get_each_context$3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[12] = list[i];
+	child_ctx[11] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[12] = list[i];
+	child_ctx[11] = list[i];
 	return child_ctx;
 }
 
@@ -44574,7 +45005,7 @@ function create_else_block_1(ctx) {
 			attr_dev(input, "type", "radio");
 			attr_dev(input, "class", "col is svelte-15rfiap");
 			attr_dev(input, "name", input_name_value = "is" + /*capabilityID*/ ctx[1]);
-			input.value = /*i*/ ctx[12] + 1;
+			input.value = /*i*/ ctx[11] + 1;
 			add_location(input, file$4, 48, 3, 1458);
 		},
 		m: function mount(target, anchor) {
@@ -44609,7 +45040,7 @@ function create_else_block_1(ctx) {
 }
 
 // (46:3) {#if i+1 == userInput[capabilityID].isValue}
-function create_if_block_1$1(ctx) {
+function create_if_block_1$2(ctx) {
 	let input;
 	let input_name_value;
 
@@ -44637,7 +45068,7 @@ function create_if_block_1$1(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_1$1.name,
+		id: create_if_block_1$2.name,
 		type: "if",
 		source: "(46:3) {#if i+1 == userInput[capabilityID].isValue}",
 		ctx
@@ -44651,7 +45082,7 @@ function create_each_block_1$1(ctx) {
 	let if_block_anchor;
 
 	function select_block_type(ctx, dirty) {
-		if (/*i*/ ctx[12] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].isValue) return create_if_block_1$1;
+		if (/*i*/ ctx[11] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].isValue) return create_if_block_1$2;
 		return create_else_block_1;
 	}
 
@@ -44710,7 +45141,7 @@ function create_else_block(ctx) {
 			attr_dev(input, "type", "radio");
 			attr_dev(input, "class", "col should svelte-15rfiap");
 			attr_dev(input, "name", input_name_value = "should" + /*capabilityID*/ ctx[1]);
-			input.value = /*i*/ ctx[12] + 1;
+			input.value = /*i*/ ctx[11] + 1;
 			add_location(input, file$4, 58, 3, 1805);
 		},
 		m: function mount(target, anchor) {
@@ -44783,11 +45214,11 @@ function create_if_block$2(ctx) {
 }
 
 // (55:3) {#each levelArray as i}
-function create_each_block$2(ctx) {
+function create_each_block$3(ctx) {
 	let if_block_anchor;
 
 	function select_block_type_1(ctx, dirty) {
-		if (/*i*/ ctx[12] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].shouldValue) return create_if_block$2;
+		if (/*i*/ ctx[11] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].shouldValue) return create_if_block$2;
 		return create_else_block;
 	}
 
@@ -44824,7 +45255,7 @@ function create_each_block$2(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block$2.name,
+		id: create_each_block$3.name,
 		type: "each",
 		source: "(55:3) {#each levelArray as i}",
 		ctx
@@ -44834,7 +45265,7 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$5(ctx) {
-	let div4;
+	let div3;
 	let details;
 	let summary;
 	let t0_value = /*capabilities*/ ctx[3][/*capabilityID*/ ctx[1]].title + "";
@@ -44851,9 +45282,6 @@ function create_fragment$5(ctx) {
 	let t7;
 	let div1;
 	let t8;
-	let div3;
-	let input;
-	let t9;
 	let textarea;
 	let mounted;
 	let dispose;
@@ -44870,12 +45298,12 @@ function create_fragment$5(ctx) {
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
 	}
 
 	const block = {
 		c: function create() {
-			div4 = element("div");
+			div3 = element("div");
 			details = element("details");
 			summary = element("summary");
 			t0 = text(t0_value);
@@ -44900,9 +45328,6 @@ function create_fragment$5(ctx) {
 			}
 
 			t8 = space();
-			div3 = element("div");
-			input = element("input");
-			t9 = space();
 			textarea = element("textarea");
 			attr_dev(summary, "class", "capability_title svelte-15rfiap");
 			add_location(summary, file$4, 38, 2, 1077);
@@ -44914,22 +45339,17 @@ function create_fragment$5(ctx) {
 			add_location(div1, file$4, 53, 2, 1594);
 			attr_dev(div2, "class", "radioGroups svelte-15rfiap");
 			add_location(div2, file$4, 42, 1, 1234);
-			attr_dev(input, "type", "checkbox");
-			attr_dev(input, "class", "svelte-15rfiap");
-			add_location(input, file$4, 65, 2, 1989);
-			attr_dev(div3, "class", "notrelevant svelte-15rfiap");
-			add_location(div3, file$4, 64, 1, 1960);
 			attr_dev(textarea, "class", "col svelte-15rfiap");
-			add_location(textarea, file$4, 68, 1, 2102);
-			attr_dev(div4, "class", "row svelte-15rfiap");
-			add_location(div4, file$4, 36, 0, 1032);
+			add_location(textarea, file$4, 69, 1, 2113);
+			attr_dev(div3, "class", "row svelte-15rfiap");
+			add_location(div3, file$4, 36, 0, 1032);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, div4, anchor);
-			append_dev(div4, details);
+			insert_dev(target, div3, anchor);
+			append_dev(div3, details);
 			append_dev(details, summary);
 			append_dev(summary, t0);
 			append_dev(summary, t1);
@@ -44937,8 +45357,8 @@ function create_fragment$5(ctx) {
 			append_dev(summary, t3);
 			append_dev(details, t4);
 			append_dev(details, t5);
-			append_dev(div4, t6);
-			append_dev(div4, div2);
+			append_dev(div3, t6);
+			append_dev(div3, div2);
 			append_dev(div2, div0);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -44952,19 +45372,13 @@ function create_fragment$5(ctx) {
 				each_blocks[i].m(div1, null);
 			}
 
-			append_dev(div4, t8);
-			append_dev(div4, div3);
-			append_dev(div3, input);
-			input.checked = /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].notRelevant;
-			append_dev(div4, t9);
-			append_dev(div4, textarea);
+			append_dev(div3, t8);
+			append_dev(div3, textarea);
 			set_input_value(textarea, /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].explanation);
 
 			if (!mounted) {
 				dispose = [
-					listen_dev(input, "change", /*input_change_handler*/ ctx[8]),
-					listen_dev(input, "change", /*reloadConfig*/ ctx[6], false, false, false),
-					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[9]),
+					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[7]),
 					listen_dev(
 						textarea,
 						"change",
@@ -45016,12 +45430,12 @@ function create_fragment$5(ctx) {
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$2(ctx, each_value, i);
+					const child_ctx = get_each_context$3(ctx, each_value, i);
 
 					if (each_blocks[i]) {
 						each_blocks[i].p(child_ctx, dirty);
 					} else {
-						each_blocks[i] = create_each_block$2(child_ctx);
+						each_blocks[i] = create_each_block$3(child_ctx);
 						each_blocks[i].c();
 						each_blocks[i].m(div1, null);
 					}
@@ -45035,17 +45449,13 @@ function create_fragment$5(ctx) {
 			}
 
 			if (dirty & /*userInput, capabilityID*/ 3) {
-				input.checked = /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].notRelevant;
-			}
-
-			if (dirty & /*userInput, capabilityID*/ 3) {
 				set_input_value(textarea, /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].explanation);
 			}
 		},
 		i: noop,
 		o: noop,
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(div4);
+			if (detaching) detach_dev(div3);
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
 			mounted = false;
@@ -45068,9 +45478,9 @@ function instance$5($$self, $$props, $$invalidate) {
 	let $capabilityList;
 	let $levelAmount;
 	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(10, $capabilityList = $$value));
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(8, $capabilityList = $$value));
 	validate_store(levelAmount, 'levelAmount');
-	component_subscribe($$self, levelAmount, $$value => $$invalidate(11, $levelAmount = $$value));
+	component_subscribe($$self, levelAmount, $$value => $$invalidate(9, $levelAmount = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('CapabilityTableRow', slots, []);
 	let { capabilityID } = $$props;
@@ -45103,7 +45513,7 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	function reloadConfig() {
 		dataManager.saveToLocalStorage("dataUserInput", userInput);
-		$$invalidate(7, appConfig);
+		$$invalidate(6, appConfig);
 	}
 
 	$$self.$$.on_mount.push(function () {
@@ -45126,11 +45536,6 @@ function instance$5($$self, $$props, $$invalidate) {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<CapabilityTableRow> was created with unknown prop '${key}'`);
 	});
 
-	function input_change_handler() {
-		userInput[capabilityID].notRelevant = this.checked;
-		$$invalidate(0, userInput);
-	}
-
 	function textarea_input_handler() {
 		userInput[capabilityID].explanation = this.value;
 		$$invalidate(0, userInput);
@@ -45139,7 +45544,7 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$self.$$set = $$props => {
 		if ('capabilityID' in $$props) $$invalidate(1, capabilityID = $$props.capabilityID);
 		if ('userInput' in $$props) $$invalidate(0, userInput = $$props.userInput);
-		if ('appConfig' in $$props) $$invalidate(7, appConfig = $$props.appConfig);
+		if ('appConfig' in $$props) $$invalidate(6, appConfig = $$props.appConfig);
 	};
 
 	$$self.$capture_state = () => ({
@@ -45161,7 +45566,7 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$self.$inject_state = $$props => {
 		if ('capabilityID' in $$props) $$invalidate(1, capabilityID = $$props.capabilityID);
 		if ('userInput' in $$props) $$invalidate(0, userInput = $$props.userInput);
-		if ('appConfig' in $$props) $$invalidate(7, appConfig = $$props.appConfig);
+		if ('appConfig' in $$props) $$invalidate(6, appConfig = $$props.appConfig);
 		if ('levelArray' in $$props) $$invalidate(2, levelArray = $$props.levelArray);
 		if ('capabilities' in $$props) $$invalidate(3, capabilities = $$props.capabilities);
 	};
@@ -45177,9 +45582,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		capabilities,
 		updateIsValue,
 		updateShouldValue,
-		reloadConfig,
 		appConfig,
-		input_change_handler,
 		textarea_input_handler
 	];
 }
@@ -45191,7 +45594,7 @@ class CapabilityTableRow extends SvelteComponentDev {
 		init(this, options, instance$5, create_fragment$5, safe_not_equal, {
 			capabilityID: 1,
 			userInput: 0,
-			appConfig: 7
+			appConfig: 6
 		});
 
 		dispatch_dev("SvelteRegisterComponent", {
@@ -45229,40 +45632,268 @@ class CapabilityTableRow extends SvelteComponentDev {
 
 /* src\CapabilityTable.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1, console: console_1$3 } = globals;
+const { Object: Object_1$1, console: console_1$2 } = globals;
 const file$3 = "src\\CapabilityTable.svelte";
 
-function get_each_context$1(ctx, list, i) {
+function get_each_context$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[15] = list[i][0];
-	child_ctx[16] = list[i][1];
+	child_ctx[37] = list[i][0];
+	child_ctx[38] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[19] = list[i][0];
-	child_ctx[20] = list[i][1];
+	child_ctx[41] = list[i][0];
+	child_ctx[42] = list[i][1];
+	child_ctx[43] = list;
+	child_ctx[44] = i;
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[23] = list[i];
-	child_ctx[25] = i;
+	child_ctx[41] = list[i][0];
+	child_ctx[42] = list[i][1];
+	child_ctx[45] = list;
+	child_ctx[46] = i;
 	return child_ctx;
 }
 
-// (40:2) {#each Array(numLevels) as _, i}
-function create_each_block_2(ctx) {
+function get_each_context_3(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[47] = list[i][0];
+	child_ctx[48] = list[i][1];
+	return child_ctx;
+}
+
+function get_each_context_4(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[51] = list[i][0];
+	child_ctx[52] = list[i][1];
+	return child_ctx;
+}
+
+function get_each_context_5(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[55] = list[i];
+	child_ctx[57] = i;
+	return child_ctx;
+}
+
+// (166:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}
+function create_if_block_2(ctx) {
+	let div0;
+	let details;
+	let summary;
+	let t0_value = /*dimension*/ ctx[47] + "";
+	let t0;
+	let t1;
+	let t2_value = /*description*/ ctx[48] + "";
+	let t2;
+	let t3;
+	let div2;
+	let div1;
+	let t4;
+	let t5;
+	let span;
+	let t7;
+	let div3;
+	let current;
+	let each_value_5 = Array(/*numLevels*/ ctx[8]);
+	validate_each_argument(each_value_5);
+	let each_blocks_1 = [];
+
+	for (let i = 0; i < each_value_5.length; i += 1) {
+		each_blocks_1[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
+	}
+
+	let each_value_4 = Object.entries(/*capabilities*/ ctx[11]);
+	validate_each_argument(each_value_4);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value_4.length; i += 1) {
+		each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+	}
+
+	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+		each_blocks[i] = null;
+	});
+
+	const block = {
+		c: function create() {
+			div0 = element("div");
+			details = element("details");
+			summary = element("summary");
+			t0 = text(t0_value);
+			t1 = space();
+			t2 = text(t2_value);
+			t3 = space();
+			div2 = element("div");
+			div1 = element("div");
+			t4 = space();
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].c();
+			}
+
+			t5 = space();
+			span = element("span");
+			span.textContent = `${/*text*/ ctx[7].explanation}`;
+			t7 = space();
+			div3 = element("div");
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
+			attr_dev(summary, "class", "summary-level svelte-1n7fdro");
+			add_location(summary, file$3, 168, 3, 4028);
+			attr_dev(details, "class", "col dimensionDescription svelte-1n7fdro");
+			add_location(details, file$3, 167, 2, 3981);
+			attr_dev(div0, "class", "titlebar");
+			add_location(div0, file$3, 166, 1, 3955);
+			attr_dev(div1, "class", "empty col svelte-1n7fdro");
+			add_location(div1, file$3, 173, 2, 4152);
+			attr_dev(span, "class", "col explanation svelte-1n7fdro");
+			attr_dev(span, "id", "explanation");
+			add_location(span, file$3, 181, 2, 4451);
+			attr_dev(div2, "class", "row titles svelte-1n7fdro");
+			add_location(div2, file$3, 172, 1, 4124);
+			attr_dev(div3, "class", "capabilities svelte-1n7fdro");
+			add_location(div3, file$3, 183, 1, 4535);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, div0, anchor);
+			append_dev(div0, details);
+			append_dev(details, summary);
+			append_dev(summary, t0);
+			append_dev(details, t1);
+			append_dev(details, t2);
+			insert_dev(target, t3, anchor);
+			insert_dev(target, div2, anchor);
+			append_dev(div2, div1);
+			append_dev(div2, t4);
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].m(div2, null);
+			}
+
+			append_dev(div2, t5);
+			append_dev(div2, span);
+			insert_dev(target, t7, anchor);
+			insert_dev(target, div3, anchor);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(div3, null);
+			}
+
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*levelDescriptions*/ 512) {
+				each_value_5 = Array(/*numLevels*/ ctx[8]);
+				validate_each_argument(each_value_5);
+				let i;
+
+				for (i = 0; i < each_value_5.length; i += 1) {
+					const child_ctx = get_each_context_5(ctx, each_value_5, i);
+
+					if (each_blocks_1[i]) {
+						each_blocks_1[i].p(child_ctx, dirty);
+					} else {
+						each_blocks_1[i] = create_each_block_5(child_ctx);
+						each_blocks_1[i].c();
+						each_blocks_1[i].m(div2, t5);
+					}
+				}
+
+				for (; i < each_blocks_1.length; i += 1) {
+					each_blocks_1[i].d(1);
+				}
+
+				each_blocks_1.length = each_value_5.length;
+			}
+
+			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions*/ 3075) {
+				each_value_4 = Object.entries(/*capabilities*/ ctx[11]);
+				validate_each_argument(each_value_4);
+				let i;
+
+				for (i = 0; i < each_value_4.length; i += 1) {
+					const child_ctx = get_each_context_4(ctx, each_value_4, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+						transition_in(each_blocks[i], 1);
+					} else {
+						each_blocks[i] = create_each_block_4(child_ctx);
+						each_blocks[i].c();
+						transition_in(each_blocks[i], 1);
+						each_blocks[i].m(div3, null);
+					}
+				}
+
+				group_outros();
+
+				for (i = each_value_4.length; i < each_blocks.length; i += 1) {
+					out(i);
+				}
+
+				check_outros();
+			}
+		},
+		i: function intro(local) {
+			if (current) return;
+
+			for (let i = 0; i < each_value_4.length; i += 1) {
+				transition_in(each_blocks[i]);
+			}
+
+			current = true;
+		},
+		o: function outro(local) {
+			each_blocks = each_blocks.filter(Boolean);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				transition_out(each_blocks[i]);
+			}
+
+			current = false;
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(div0);
+			if (detaching) detach_dev(t3);
+			if (detaching) detach_dev(div2);
+			destroy_each(each_blocks_1, detaching);
+			if (detaching) detach_dev(t7);
+			if (detaching) detach_dev(div3);
+			destroy_each(each_blocks, detaching);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_2.name,
+		type: "if",
+		source: "(166:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}",
+		ctx
+	});
+
+	return block;
+}
+
+// (175:2) {#each Array(numLevels) as _, i}
+function create_each_block_5(ctx) {
 	let details;
 	let summary;
 	let t0;
-	let t1_value = /*i*/ ctx[25] + 1 + "";
+	let t1_value = /*i*/ ctx[57] + 1 + "";
 	let t1;
 	let t2;
-	let t3_value = /*levelDescriptions*/ ctx[4][/*i*/ ctx[25]] + "";
+	let t3_value = /*levelDescriptions*/ ctx[9][/*i*/ ctx[57]] + "";
 	let t3;
+	let t4;
 
 	const block = {
 		c: function create() {
@@ -45272,10 +45903,11 @@ function create_each_block_2(ctx) {
 			t1 = text(t1_value);
 			t2 = space();
 			t3 = text(t3_value);
-			attr_dev(summary, "class", "summary-level svelte-1iktvra");
-			add_location(summary, file$3, 41, 4, 1228);
-			attr_dev(details, "class", "col level-item svelte-1iktvra");
-			add_location(details, file$3, 40, 3, 1190);
+			t4 = space();
+			attr_dev(summary, "class", "summary-level svelte-1n7fdro");
+			add_location(summary, file$3, 176, 4, 4260);
+			attr_dev(details, "class", "col level-item svelte-1n7fdro");
+			add_location(details, file$3, 175, 3, 4222);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, details, anchor);
@@ -45284,6 +45916,7 @@ function create_each_block_2(ctx) {
 			append_dev(summary, t1);
 			append_dev(details, t2);
 			append_dev(details, t3);
+			append_dev(details, t4);
 		},
 		p: noop,
 		d: function destroy(detaching) {
@@ -45293,27 +45926,27 @@ function create_each_block_2(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block_2.name,
+		id: create_each_block_5.name,
 		type: "each",
-		source: "(40:2) {#each Array(numLevels) as _, i}",
+		source: "(175:2) {#each Array(numLevels) as _, i}",
 		ctx
 	});
 
 	return block;
 }
 
-// (53:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant)}
-function create_if_block$1(ctx) {
+// (186:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}
+function create_if_block_3(ctx) {
 	let tablerow;
 	let updating_appConfig;
 	let current;
 
 	function tablerow_appConfig_binding(value) {
-		/*tablerow_appConfig_binding*/ ctx[7](value);
+		/*tablerow_appConfig_binding*/ ctx[18](value);
 	}
 
 	let tablerow_props = {
-		capabilityID: /*id*/ ctx[19],
+		capabilityID: /*id*/ ctx[51],
 		userInput: /*userInput*/ ctx[1]
 	};
 
@@ -45334,9 +45967,9 @@ function create_if_block$1(ctx) {
 		},
 		p: function update(ctx, dirty) {
 			const tablerow_changes = {};
-			if (dirty & /*userInput*/ 2) tablerow_changes.userInput = /*userInput*/ ctx[1];
+			if (dirty[0] & /*userInput*/ 2) tablerow_changes.userInput = /*userInput*/ ctx[1];
 
-			if (!updating_appConfig && dirty & /*appConfig*/ 1) {
+			if (!updating_appConfig && dirty[0] & /*appConfig*/ 1) {
 				updating_appConfig = true;
 				tablerow_changes.appConfig = /*appConfig*/ ctx[0];
 				add_flush_callback(() => updating_appConfig = false);
@@ -45360,20 +45993,21 @@ function create_if_block$1(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block$1.name,
+		id: create_if_block_3.name,
 		type: "if",
-		source: "(53:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant)}",
+		source: "(186:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}",
 		ctx
 	});
 
 	return block;
 }
 
-// (52:2) {#each Object.entries(capabilities) as [id, capability]}
-function create_each_block_1(ctx) {
+// (185:2) {#each Object.entries(capabilities) as [id, capability]}
+function create_each_block_4(ctx) {
+	let show_if = /*capability*/ ctx[52].dimension == /*dimension*/ ctx[47] && !(/*userInput*/ ctx[1][/*id*/ ctx[51]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[51]);
 	let if_block_anchor;
 	let current;
-	let if_block = /*capability*/ ctx[20].dimension == /*dimension*/ ctx[15] && !(/*userInput*/ ctx[1][/*id*/ ctx[19]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && create_if_block$1(ctx);
+	let if_block = show_if && create_if_block_3(ctx);
 
 	const block = {
 		c: function create() {
@@ -45386,15 +46020,17 @@ function create_each_block_1(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*capability*/ ctx[20].dimension == /*dimension*/ ctx[15] && !(/*userInput*/ ctx[1][/*id*/ ctx[19]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant)) {
+			if (dirty[0] & /*userInput, appConfig*/ 3) show_if = /*capability*/ ctx[52].dimension == /*dimension*/ ctx[47] && !(/*userInput*/ ctx[1][/*id*/ ctx[51]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[51]);
+
+			if (show_if) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty & /*userInput, appConfig*/ 3) {
+					if (dirty[0] & /*userInput, appConfig*/ 3) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block$1(ctx);
+					if_block = create_if_block_3(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -45426,225 +46062,458 @@ function create_each_block_1(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block_1.name,
+		id: create_each_block_4.name,
 		type: "each",
-		source: "(52:2) {#each Object.entries(capabilities) as [id, capability]}",
+		source: "(185:2) {#each Object.entries(capabilities) as [id, capability]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (28:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}
-function create_each_block$1(ctx) {
-	let div4;
-	let div0;
-	let details;
-	let summary;
-	let t0_value = /*dimension*/ ctx[15] + "";
-	let t0;
-	let t1;
-	let t2_value = /*description*/ ctx[16] + "";
-	let t2;
-	let t3;
-	let div2;
-	let div1;
-	let t4;
-	let t5;
-	let span0;
-	let t7;
-	let span1;
-	let t9;
-	let div3;
-	let t10;
+// (163:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}
+function create_each_block_3(ctx) {
+	let div;
+	let show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[4][/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[47]]]);
 	let current;
-	let each_value_2 = Array(/*numLevels*/ ctx[3]);
-	validate_each_argument(each_value_2);
-	let each_blocks_1 = [];
-
-	for (let i = 0; i < each_value_2.length; i += 1) {
-		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
-	}
-
-	let each_value_1 = Object.entries(/*capabilities*/ ctx[6]);
-	validate_each_argument(each_value_1);
-	let each_blocks = [];
-
-	for (let i = 0; i < each_value_1.length; i += 1) {
-		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
-	}
-
-	const out = i => transition_out(each_blocks[i], 1, 1, () => {
-		each_blocks[i] = null;
-	});
+	let if_block = show_if && create_if_block_2(ctx);
 
 	const block = {
 		c: function create() {
-			div4 = element("div");
-			div0 = element("div");
-			details = element("details");
-			summary = element("summary");
-			t0 = text(t0_value);
-			t1 = space();
-			t2 = text(t2_value);
-			t3 = space();
-			div2 = element("div");
-			div1 = element("div");
-			t4 = space();
-
-			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].c();
-			}
-
-			t5 = space();
-			span0 = element("span");
-			span0.textContent = `${/*text*/ ctx[2].notRelevant}`;
-			t7 = space();
-			span1 = element("span");
-			span1.textContent = `${/*text*/ ctx[2].explanation}`;
-			t9 = space();
-			div3 = element("div");
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
-			t10 = space();
-			attr_dev(summary, "class", "summary-level svelte-1iktvra");
-			add_location(summary, file$3, 32, 3, 994);
-			attr_dev(details, "class", "col dimensionDescription svelte-1iktvra");
-			add_location(details, file$3, 31, 2, 947);
-			attr_dev(div0, "class", "titlebar");
-			add_location(div0, file$3, 30, 1, 921);
-			attr_dev(div1, "class", "empty col svelte-1iktvra");
-			add_location(div1, file$3, 38, 2, 1120);
-			attr_dev(span0, "class", "col relevant svelte-1iktvra");
-			attr_dev(span0, "id", "relevant");
-			add_location(span0, file$3, 45, 2, 1340);
-			attr_dev(span1, "class", "col explanation svelte-1iktvra");
-			attr_dev(span1, "id", "explanation");
-			add_location(span1, file$3, 46, 2, 1410);
-			attr_dev(div2, "class", "row titles svelte-1iktvra");
-			add_location(div2, file$3, 37, 1, 1092);
-			attr_dev(div3, "class", "capabilities svelte-1iktvra");
-			add_location(div3, file$3, 50, 1, 1499);
-			attr_dev(div4, "class", "capability_container");
-			add_location(div4, file$3, 28, 0, 882);
+			div = element("div");
+			if (if_block) if_block.c();
+			attr_dev(div, "class", "capability_container");
+			add_location(div, file$3, 164, 0, 3825);
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, div4, anchor);
-			append_dev(div4, div0);
-			append_dev(div0, details);
-			append_dev(details, summary);
-			append_dev(summary, t0);
-			append_dev(details, t1);
-			append_dev(details, t2);
-			append_dev(div4, t3);
-			append_dev(div4, div2);
-			append_dev(div2, div1);
-			append_dev(div2, t4);
-
-			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].m(div2, null);
-			}
-
-			append_dev(div2, t5);
-			append_dev(div2, span0);
-			append_dev(div2, t7);
-			append_dev(div2, span1);
-			append_dev(div4, t9);
-			append_dev(div4, div3);
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div3, null);
-			}
-
-			append_dev(div4, t10);
+			insert_dev(target, div, anchor);
+			if (if_block) if_block.m(div, null);
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*levelDescriptions*/ 16) {
-				each_value_2 = Array(/*numLevels*/ ctx[3]);
-				validate_each_argument(each_value_2);
-				let i;
+			if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 49) show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[4][/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[47]]]);
 
-				for (i = 0; i < each_value_2.length; i += 1) {
-					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+			if (show_if) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
 
-					if (each_blocks_1[i]) {
-						each_blocks_1[i].p(child_ctx, dirty);
-					} else {
-						each_blocks_1[i] = create_each_block_2(child_ctx);
-						each_blocks_1[i].c();
-						each_blocks_1[i].m(div2, t5);
+					if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 49) {
+						transition_in(if_block, 1);
 					}
+				} else {
+					if_block = create_if_block_2(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(div, null);
 				}
-
-				for (; i < each_blocks_1.length; i += 1) {
-					each_blocks_1[i].d(1);
-				}
-
-				each_blocks_1.length = each_value_2.length;
-			}
-
-			if (dirty & /*Object, capabilities, userInput, appConfig, dimensionDescriptions*/ 99) {
-				each_value_1 = Object.entries(/*capabilities*/ ctx[6]);
-				validate_each_argument(each_value_1);
-				let i;
-
-				for (i = 0; i < each_value_1.length; i += 1) {
-					const child_ctx = get_each_context_1(ctx, each_value_1, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-						transition_in(each_blocks[i], 1);
-					} else {
-						each_blocks[i] = create_each_block_1(child_ctx);
-						each_blocks[i].c();
-						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(div3, null);
-					}
-				}
-
+			} else if (if_block) {
 				group_outros();
 
-				for (i = each_value_1.length; i < each_blocks.length; i += 1) {
-					out(i);
-				}
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
 
 				check_outros();
 			}
 		},
 		i: function intro(local) {
 			if (current) return;
-
-			for (let i = 0; i < each_value_1.length; i += 1) {
-				transition_in(each_blocks[i]);
-			}
-
+			transition_in(if_block);
 			current = true;
 		},
 		o: function outro(local) {
-			each_blocks = each_blocks.filter(Boolean);
-
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				transition_out(each_blocks[i]);
-			}
-
+			transition_out(if_block);
 			current = false;
 		},
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(div4);
-			destroy_each(each_blocks_1, detaching);
-			destroy_each(each_blocks, detaching);
+			if (detaching) detach_dev(div);
+			if (if_block) if_block.d();
 		}
 	};
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block$1.name,
+		id: create_each_block_3.name,
 		type: "each",
-		source: "(28:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}",
+		source: "(163:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}",
+		ctx
+	});
+
+	return block;
+}
+
+// (205:5) {#if !(name in categoryNames)}
+function create_if_block_1$1(ctx) {
+	let div;
+	let input;
+	let input_id_value;
+	let t0;
+	let span;
+	let t1_value = /*name*/ ctx[41] + "";
+	let t1;
+	let t2;
+	let br;
+	let mounted;
+	let dispose;
+
+	function input_change_handler() {
+		/*input_change_handler*/ ctx[19].call(input, /*name*/ ctx[41]);
+	}
+
+	const block = {
+		c: function create() {
+			div = element("div");
+			input = element("input");
+			t0 = space();
+			span = element("span");
+			t1 = text(t1_value);
+			t2 = space();
+			br = element("br");
+			attr_dev(input, "type", "checkbox");
+			attr_dev(input, "name", "filter");
+			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[41]);
+			attr_dev(input, "class", "svelte-1n7fdro");
+			add_location(input, file$3, 206, 7, 5203);
+			add_location(span, file$3, 207, 7, 5314);
+			attr_dev(div, "class", "filterRow svelte-1n7fdro");
+			add_location(div, file$3, 205, 6, 5171);
+			add_location(br, file$3, 209, 6, 5355);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, div, anchor);
+			append_dev(div, input);
+			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			append_dev(div, t0);
+			append_dev(div, span);
+			append_dev(span, t1);
+			insert_dev(target, t2, anchor);
+			insert_dev(target, br, anchor);
+
+			if (!mounted) {
+				dispose = listen_dev(input, "change", input_change_handler);
+				mounted = true;
+			}
+		},
+		p: function update(new_ctx, dirty) {
+			ctx = new_ctx;
+
+			if (dirty[0] & /*filters*/ 16 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[41])) {
+				attr_dev(input, "id", input_id_value);
+			}
+
+			if (dirty[0] & /*appConfig, filters*/ 17) {
+				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			}
+
+			if (dirty[0] & /*filters*/ 16 && t1_value !== (t1_value = /*name*/ ctx[41] + "")) set_data_dev(t1, t1_value);
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(div);
+			if (detaching) detach_dev(t2);
+			if (detaching) detach_dev(br);
+			mounted = false;
+			dispose();
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_1$1.name,
+		type: "if",
+		source: "(205:5) {#if !(name in categoryNames)}",
+		ctx
+	});
+
+	return block;
+}
+
+// (204:4) {#each Object.entries(filters) as [name, idArray]}
+function create_each_block_2(ctx) {
+	let if_block_anchor;
+	let if_block = !(/*name*/ ctx[41] in /*categoryNames*/ ctx[6]) && create_if_block_1$1(ctx);
+
+	const block = {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insert_dev(target, if_block_anchor, anchor);
+		},
+		p: function update(ctx, dirty) {
+			if (!(/*name*/ ctx[41] in /*categoryNames*/ ctx[6])) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+				} else {
+					if_block = create_if_block_1$1(ctx);
+					if_block.c();
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				if_block.d(1);
+				if_block = null;
+			}
+		},
+		d: function destroy(detaching) {
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach_dev(if_block_anchor);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_2.name,
+		type: "each",
+		source: "(204:4) {#each Object.entries(filters) as [name, idArray]}",
+		ctx
+	});
+
+	return block;
+}
+
+// (217:5) {#if name in categoryNames}
+function create_if_block$1(ctx) {
+	let div;
+	let input;
+	let input_id_value;
+	let t0;
+	let span;
+	let t1_value = /*name*/ ctx[41] + "";
+	let t1;
+	let t2;
+	let br;
+	let mounted;
+	let dispose;
+
+	function input_change_handler_1() {
+		/*input_change_handler_1*/ ctx[20].call(input, /*name*/ ctx[41]);
+	}
+
+	const block = {
+		c: function create() {
+			div = element("div");
+			input = element("input");
+			t0 = space();
+			span = element("span");
+			t1 = text(t1_value);
+			t2 = space();
+			br = element("br");
+			attr_dev(input, "type", "checkbox");
+			attr_dev(input, "name", "filter");
+			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[41]);
+			attr_dev(input, "class", "filterCheckbox svelte-1n7fdro");
+			add_location(input, file$3, 218, 7, 5581);
+			add_location(span, file$3, 219, 7, 5715);
+			attr_dev(div, "class", "filterRow svelte-1n7fdro");
+			add_location(div, file$3, 217, 6, 5549);
+			add_location(br, file$3, 221, 6, 5756);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, div, anchor);
+			append_dev(div, input);
+			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			append_dev(div, t0);
+			append_dev(div, span);
+			append_dev(span, t1);
+			insert_dev(target, t2, anchor);
+			insert_dev(target, br, anchor);
+
+			if (!mounted) {
+				dispose = listen_dev(input, "change", input_change_handler_1);
+				mounted = true;
+			}
+		},
+		p: function update(new_ctx, dirty) {
+			ctx = new_ctx;
+
+			if (dirty[0] & /*filters*/ 16 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[41])) {
+				attr_dev(input, "id", input_id_value);
+			}
+
+			if (dirty[0] & /*appConfig, filters*/ 17) {
+				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			}
+
+			if (dirty[0] & /*filters*/ 16 && t1_value !== (t1_value = /*name*/ ctx[41] + "")) set_data_dev(t1, t1_value);
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(div);
+			if (detaching) detach_dev(t2);
+			if (detaching) detach_dev(br);
+			mounted = false;
+			dispose();
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_if_block$1.name,
+		type: "if",
+		source: "(217:5) {#if name in categoryNames}",
+		ctx
+	});
+
+	return block;
+}
+
+// (216:4) {#each Object.entries(filters) as [name, idArray]}
+function create_each_block_1(ctx) {
+	let if_block_anchor;
+	let if_block = /*name*/ ctx[41] in /*categoryNames*/ ctx[6] && create_if_block$1(ctx);
+
+	const block = {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insert_dev(target, if_block_anchor, anchor);
+		},
+		p: function update(ctx, dirty) {
+			if (/*name*/ ctx[41] in /*categoryNames*/ ctx[6]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+				} else {
+					if_block = create_if_block$1(ctx);
+					if_block.c();
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				if_block.d(1);
+				if_block = null;
+			}
+		},
+		d: function destroy(detaching) {
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach_dev(if_block_anchor);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_1.name,
+		type: "each",
+		source: "(216:4) {#each Object.entries(filters) as [name, idArray]}",
+		ctx
+	});
+
+	return block;
+}
+
+// (228:4) {#each Object.entries(presets) as [title, filterNames]}
+function create_each_block$2(ctx) {
+	let div;
+	let input;
+	let input_id_value;
+	let input_value_value;
+	let t0;
+	let span;
+	let t1_value = /*title*/ ctx[37] + "";
+	let t1;
+	let t2;
+	let button;
+	let t3;
+	let button_id_value;
+	let button_value_value;
+	let t4;
+	let br;
+	let t5;
+	let mounted;
+	let dispose;
+
+	const block = {
+		c: function create() {
+			div = element("div");
+			input = element("input");
+			t0 = space();
+			span = element("span");
+			t1 = text(t1_value);
+			t2 = space();
+			button = element("button");
+			t3 = text("bearbeiten");
+			t4 = space();
+			br = element("br");
+			t5 = space();
+			attr_dev(input, "type", "radio");
+			attr_dev(input, "name", "selectedPreset");
+			attr_dev(input, "id", input_id_value = /*title*/ ctx[37]);
+			input.__value = input_value_value = /*title*/ ctx[37];
+			input.value = input.__value;
+			attr_dev(input, "class", "svelte-1n7fdro");
+			/*$$binding_groups*/ ctx[22][0].push(input);
+			add_location(input, file$3, 229, 5, 5947);
+			add_location(span, file$3, 230, 5, 6079);
+			attr_dev(button, "id", button_id_value = "btn_" + /*title*/ ctx[37]);
+			button.value = button_value_value = /*title*/ ctx[37];
+			attr_dev(button, "class", "svelte-1n7fdro");
+			add_location(button, file$3, 231, 5, 6107);
+			add_location(br, file$3, 232, 5, 6200);
+			attr_dev(div, "class", "preset svelte-1n7fdro");
+			add_location(div, file$3, 228, 4, 5920);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, div, anchor);
+			append_dev(div, input);
+			input.checked = input.__value === /*selectedPreset*/ ctx[2];
+			append_dev(div, t0);
+			append_dev(div, span);
+			append_dev(span, t1);
+			append_dev(div, t2);
+			append_dev(div, button);
+			append_dev(button, t3);
+			append_dev(div, t4);
+			append_dev(div, br);
+			append_dev(div, t5);
+
+			if (!mounted) {
+				dispose = [
+					listen_dev(input, "change", /*input_change_handler_2*/ ctx[21]),
+					listen_dev(input, "change", /*updateFilters*/ ctx[14], false, false, false),
+					listen_dev(button, "click", /*toggleEditMode*/ ctx[15], false, false, false)
+				];
+
+				mounted = true;
+			}
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*presets*/ 8 && input_id_value !== (input_id_value = /*title*/ ctx[37])) {
+				attr_dev(input, "id", input_id_value);
+			}
+
+			if (dirty[0] & /*presets*/ 8 && input_value_value !== (input_value_value = /*title*/ ctx[37])) {
+				prop_dev(input, "__value", input_value_value);
+				input.value = input.__value;
+			}
+
+			if (dirty[0] & /*selectedPreset*/ 4) {
+				input.checked = input.__value === /*selectedPreset*/ ctx[2];
+			}
+
+			if (dirty[0] & /*presets*/ 8 && t1_value !== (t1_value = /*title*/ ctx[37] + "")) set_data_dev(t1, t1_value);
+
+			if (dirty[0] & /*presets*/ 8 && button_id_value !== (button_id_value = "btn_" + /*title*/ ctx[37])) {
+				attr_dev(button, "id", button_id_value);
+			}
+
+			if (dirty[0] & /*presets*/ 8 && button_value_value !== (button_value_value = /*title*/ ctx[37])) {
+				prop_dev(button, "value", button_value_value);
+			}
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(div);
+			/*$$binding_groups*/ ctx[22][0].splice(/*$$binding_groups*/ ctx[22][0].indexOf(input), 1);
+			mounted = false;
+			run_all(dispose);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block$2.name,
+		type: "each",
+		source: "(228:4) {#each Object.entries(presets) as [title, filterNames]}",
 		ctx
 	});
 
@@ -45652,113 +46521,380 @@ function create_each_block$1(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	let span0;
+	let button0;
 	let t1;
+	let br;
+	let t2;
+	let span0;
+	let t4;
 	let span1;
-	let t3;
-	let each_1_anchor;
+	let t6;
+	let t7;
+	let div5;
+	let div4;
+	let h2;
+	let t9;
+	let div3;
+	let div0;
+	let h30;
+	let t11;
+	let t12;
+	let div1;
+	let h31;
+	let t14;
+	let t15;
+	let div2;
+	let h32;
+	let t17;
+	let t18;
+	let button1;
+	let t20;
+	let button2;
+	let t22;
+	let button3;
+	let t24;
+	let button4;
 	let current;
-	let each_value = Object.entries(/*dimensionDescriptions*/ ctx[5]);
+	let mounted;
+	let dispose;
+	let each_value_3 = Object.entries(/*dimensionDescriptions*/ ctx[10]);
+	validate_each_argument(each_value_3);
+	let each_blocks_3 = [];
+
+	for (let i = 0; i < each_value_3.length; i += 1) {
+		each_blocks_3[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+	}
+
+	const out = i => transition_out(each_blocks_3[i], 1, 1, () => {
+		each_blocks_3[i] = null;
+	});
+
+	let each_value_2 = Object.entries(/*filters*/ ctx[4]);
+	validate_each_argument(each_value_2);
+	let each_blocks_2 = [];
+
+	for (let i = 0; i < each_value_2.length; i += 1) {
+		each_blocks_2[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+	}
+
+	let each_value_1 = Object.entries(/*filters*/ ctx[4]);
+	validate_each_argument(each_value_1);
+	let each_blocks_1 = [];
+
+	for (let i = 0; i < each_value_1.length; i += 1) {
+		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+	}
+
+	let each_value = Object.entries(/*presets*/ ctx[3]);
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
 	}
-
-	const out = i => transition_out(each_blocks[i], 1, 1, () => {
-		each_blocks[i] = null;
-	});
 
 	const block = {
 		c: function create() {
+			button0 = element("button");
+			button0.textContent = "Filter Anwenden";
+			t1 = space();
+			br = element("br");
+			t2 = space();
 			span0 = element("span");
-			span0.textContent = `${/*text*/ ctx[2].is}`;
-			t1 = text(" | ");
+			span0.textContent = `${/*text*/ ctx[7].is}`;
+			t4 = text(" | ");
 			span1 = element("span");
-			span1.textContent = `${/*text*/ ctx[2].should}`;
-			t3 = space();
+			span1.textContent = `${/*text*/ ctx[7].should}`;
+			t6 = space();
+
+			for (let i = 0; i < each_blocks_3.length; i += 1) {
+				each_blocks_3[i].c();
+			}
+
+			t7 = space();
+			div5 = element("div");
+			div4 = element("div");
+			h2 = element("h2");
+			h2.textContent = "Capabilites filtern";
+			t9 = space();
+			div3 = element("div");
+			div0 = element("div");
+			h30 = element("h3");
+			h30.textContent = "Kategorien";
+			t11 = space();
+
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				each_blocks_2[i].c();
+			}
+
+			t12 = space();
+			div1 = element("div");
+			h31 = element("h3");
+			h31.textContent = "Themen";
+			t14 = space();
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].c();
+			}
+
+			t15 = space();
+			div2 = element("div");
+			h32 = element("h3");
+			h32.textContent = "Presets";
+			t17 = space();
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			each_1_anchor = empty();
+			t18 = space();
+			button1 = element("button");
+			button1.textContent = "Schliessen";
+			t20 = space();
+			button2 = element("button");
+			button2.textContent = "Alle Filter entfernen";
+			t22 = space();
+			button3 = element("button");
+			button3.textContent = "Presets zurücksetzen";
+			t24 = space();
+			button4 = element("button");
+			button4.textContent = "Preset hinzufügen";
+			add_location(button0, file$3, 157, 0, 3585);
+			add_location(br, file$3, 159, 0, 3648);
 			set_style(span0, "color", "red");
-			add_location(span0, file$3, 26, 0, 715);
+			add_location(span0, file$3, 161, 0, 3656);
 			set_style(span1, "color", "blue");
-			add_location(span1, file$3, 26, 44, 759);
+			add_location(span1, file$3, 161, 44, 3700);
+			add_location(h2, file$3, 198, 2, 4944);
+			add_location(h30, file$3, 202, 4, 5051);
+			attr_dev(div0, "class", "filterContainer svelte-1n7fdro");
+			add_location(div0, file$3, 201, 3, 5016);
+			add_location(h31, file$3, 214, 4, 5436);
+			attr_dev(div1, "class", "filterContainer svelte-1n7fdro");
+			add_location(div1, file$3, 213, 3, 5401);
+			add_location(h32, file$3, 226, 4, 5837);
+			attr_dev(div2, "class", "filterContainer svelte-1n7fdro");
+			add_location(div2, file$3, 225, 3, 5802);
+			attr_dev(div3, "class", "filterwindowContent svelte-1n7fdro");
+			add_location(div3, file$3, 200, 2, 4978);
+			add_location(button1, file$3, 238, 2, 6256);
+			add_location(button2, file$3, 240, 2, 6317);
+			add_location(button3, file$3, 242, 2, 6384);
+			add_location(button4, file$3, 244, 2, 6451);
+			attr_dev(div4, "id", "filterwindow");
+			attr_dev(div4, "class", "svelte-1n7fdro");
+			add_location(div4, file$3, 197, 1, 4917);
+			attr_dev(div5, "id", "overlay");
+			attr_dev(div5, "class", "svelte-1n7fdro");
+			add_location(div5, file$3, 196, 0, 4896);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, span0, anchor);
+			insert_dev(target, button0, anchor);
 			insert_dev(target, t1, anchor);
+			insert_dev(target, br, anchor);
+			insert_dev(target, t2, anchor);
+			insert_dev(target, span0, anchor);
+			insert_dev(target, t4, anchor);
 			insert_dev(target, span1, anchor);
-			insert_dev(target, t3, anchor);
+			insert_dev(target, t6, anchor);
 
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(target, anchor);
+			for (let i = 0; i < each_blocks_3.length; i += 1) {
+				each_blocks_3[i].m(target, anchor);
 			}
 
-			insert_dev(target, each_1_anchor, anchor);
+			insert_dev(target, t7, anchor);
+			insert_dev(target, div5, anchor);
+			append_dev(div5, div4);
+			append_dev(div4, h2);
+			append_dev(div4, t9);
+			append_dev(div4, div3);
+			append_dev(div3, div0);
+			append_dev(div0, h30);
+			append_dev(div0, t11);
+
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				each_blocks_2[i].m(div0, null);
+			}
+
+			append_dev(div3, t12);
+			append_dev(div3, div1);
+			append_dev(div1, h31);
+			append_dev(div1, t14);
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].m(div1, null);
+			}
+
+			append_dev(div3, t15);
+			append_dev(div3, div2);
+			append_dev(div2, h32);
+			append_dev(div2, t17);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(div2, null);
+			}
+
+			append_dev(div4, t18);
+			append_dev(div4, button1);
+			append_dev(div4, t20);
+			append_dev(div4, button2);
+			append_dev(div4, t22);
+			append_dev(div4, button3);
+			append_dev(div4, t24);
+			append_dev(div4, button4);
 			current = true;
+
+			if (!mounted) {
+				dispose = [
+					listen_dev(button0, "click", openFilterPopUp, false, false, false),
+					listen_dev(button1, "click", /*closeFilterPopUp*/ ctx[12], false, false, false),
+					listen_dev(button2, "click", /*resetFilter*/ ctx[13], false, false, false),
+					listen_dev(button3, "click", /*resetPresets*/ ctx[16], false, false, false),
+					listen_dev(button4, "click", /*addPreset*/ ctx[17], false, false, false)
+				];
+
+				mounted = true;
+			}
 		},
-		p: function update(ctx, [dirty]) {
-			if (dirty & /*Object, capabilities, userInput, appConfig, dimensionDescriptions, text, Array, numLevels, levelDescriptions*/ 127) {
-				each_value = Object.entries(/*dimensionDescriptions*/ ctx[5]);
-				validate_each_argument(each_value);
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions, text, numLevels, levelDescriptions, filters, $capabilityConverter*/ 4019) {
+				each_value_3 = Object.entries(/*dimensionDescriptions*/ ctx[10]);
+				validate_each_argument(each_value_3);
 				let i;
 
-				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$1(ctx, each_value, i);
+				for (i = 0; i < each_value_3.length; i += 1) {
+					const child_ctx = get_each_context_3(ctx, each_value_3, i);
 
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-						transition_in(each_blocks[i], 1);
+					if (each_blocks_3[i]) {
+						each_blocks_3[i].p(child_ctx, dirty);
+						transition_in(each_blocks_3[i], 1);
 					} else {
-						each_blocks[i] = create_each_block$1(child_ctx);
-						each_blocks[i].c();
-						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+						each_blocks_3[i] = create_each_block_3(child_ctx);
+						each_blocks_3[i].c();
+						transition_in(each_blocks_3[i], 1);
+						each_blocks_3[i].m(t7.parentNode, t7);
 					}
 				}
 
 				group_outros();
 
-				for (i = each_value.length; i < each_blocks.length; i += 1) {
+				for (i = each_value_3.length; i < each_blocks_3.length; i += 1) {
 					out(i);
 				}
 
 				check_outros();
 			}
+
+			if (dirty[0] & /*filters, appConfig, categoryNames*/ 81) {
+				each_value_2 = Object.entries(/*filters*/ ctx[4]);
+				validate_each_argument(each_value_2);
+				let i;
+
+				for (i = 0; i < each_value_2.length; i += 1) {
+					const child_ctx = get_each_context_2(ctx, each_value_2, i);
+
+					if (each_blocks_2[i]) {
+						each_blocks_2[i].p(child_ctx, dirty);
+					} else {
+						each_blocks_2[i] = create_each_block_2(child_ctx);
+						each_blocks_2[i].c();
+						each_blocks_2[i].m(div0, null);
+					}
+				}
+
+				for (; i < each_blocks_2.length; i += 1) {
+					each_blocks_2[i].d(1);
+				}
+
+				each_blocks_2.length = each_value_2.length;
+			}
+
+			if (dirty[0] & /*filters, appConfig, categoryNames*/ 81) {
+				each_value_1 = Object.entries(/*filters*/ ctx[4]);
+				validate_each_argument(each_value_1);
+				let i;
+
+				for (i = 0; i < each_value_1.length; i += 1) {
+					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+					if (each_blocks_1[i]) {
+						each_blocks_1[i].p(child_ctx, dirty);
+					} else {
+						each_blocks_1[i] = create_each_block_1(child_ctx);
+						each_blocks_1[i].c();
+						each_blocks_1[i].m(div1, null);
+					}
+				}
+
+				for (; i < each_blocks_1.length; i += 1) {
+					each_blocks_1[i].d(1);
+				}
+
+				each_blocks_1.length = each_value_1.length;
+			}
+
+			if (dirty[0] & /*presets, toggleEditMode, selectedPreset, updateFilters*/ 49164) {
+				each_value = Object.entries(/*presets*/ ctx[3]);
+				validate_each_argument(each_value);
+				let i;
+
+				for (i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context$2(ctx, each_value, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block$2(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(div2, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value.length;
+			}
 		},
 		i: function intro(local) {
 			if (current) return;
 
-			for (let i = 0; i < each_value.length; i += 1) {
-				transition_in(each_blocks[i]);
+			for (let i = 0; i < each_value_3.length; i += 1) {
+				transition_in(each_blocks_3[i]);
 			}
 
 			current = true;
 		},
 		o: function outro(local) {
-			each_blocks = each_blocks.filter(Boolean);
+			each_blocks_3 = each_blocks_3.filter(Boolean);
 
-			for (let i = 0; i < each_blocks.length; i += 1) {
-				transition_out(each_blocks[i]);
+			for (let i = 0; i < each_blocks_3.length; i += 1) {
+				transition_out(each_blocks_3[i]);
 			}
 
 			current = false;
 		},
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(span0);
+			if (detaching) detach_dev(button0);
 			if (detaching) detach_dev(t1);
+			if (detaching) detach_dev(br);
+			if (detaching) detach_dev(t2);
+			if (detaching) detach_dev(span0);
+			if (detaching) detach_dev(t4);
 			if (detaching) detach_dev(span1);
-			if (detaching) detach_dev(t3);
+			if (detaching) detach_dev(t6);
+			destroy_each(each_blocks_3, detaching);
+			if (detaching) detach_dev(t7);
+			if (detaching) detach_dev(div5);
+			destroy_each(each_blocks_2, detaching);
+			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
-			if (detaching) detach_dev(each_1_anchor);
+			mounted = false;
+			run_all(dispose);
 		}
 	};
 
@@ -45773,35 +46909,68 @@ function create_fragment$4(ctx) {
 	return block;
 }
 
+function openFilterPopUp() {
+	document.getElementById("overlay").style.display = "block";
+}
+
+function arrayIntersection(array1, array2) {
+	let intersection;
+	intersection = array1.filter(item => array2.includes(item));
+
+	if (intersection.length > 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function instance$4($$self, $$props, $$invalidate) {
+	let $defaultPresets;
+	let $defaultFilters;
+	let $emptyUserInfo;
 	let $emptyUserData;
 	let $capabilityList;
 	let $dimensionDesc;
 	let $levelDesc;
 	let $levelAmount;
 	let $ui;
+	let $categories;
+	let $capabilityConverter;
+	validate_store(defaultPresets, 'defaultPresets');
+	component_subscribe($$self, defaultPresets, $$value => $$invalidate(25, $defaultPresets = $$value));
+	validate_store(defaultFilters, 'defaultFilters');
+	component_subscribe($$self, defaultFilters, $$value => $$invalidate(26, $defaultFilters = $$value));
+	validate_store(emptyUserInfo, 'emptyUserInfo');
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(27, $emptyUserInfo = $$value));
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(8, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(28, $emptyUserData = $$value));
 	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(9, $capabilityList = $$value));
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(29, $capabilityList = $$value));
 	validate_store(dimensionDesc, 'dimensionDesc');
-	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(10, $dimensionDesc = $$value));
+	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(30, $dimensionDesc = $$value));
 	validate_store(levelDesc, 'levelDesc');
-	component_subscribe($$self, levelDesc, $$value => $$invalidate(11, $levelDesc = $$value));
+	component_subscribe($$self, levelDesc, $$value => $$invalidate(31, $levelDesc = $$value));
 	validate_store(levelAmount, 'levelAmount');
-	component_subscribe($$self, levelAmount, $$value => $$invalidate(12, $levelAmount = $$value));
+	component_subscribe($$self, levelAmount, $$value => $$invalidate(32, $levelAmount = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(13, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(33, $ui = $$value));
+	validate_store(categories, 'categories');
+	component_subscribe($$self, categories, $$value => $$invalidate(34, $categories = $$value));
+	validate_store(capabilityConverter, 'capabilityConverter');
+	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(5, $capabilityConverter = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('CapabilityTable', slots, []);
 	let { appConfig } = $$props;
+	let categoryNames = $categories.en;
 	let text = $ui[appConfig.language].capabilityTable;
 	let numLevels = $levelAmount;
 	let levelDescriptions = $levelDesc[appConfig.language];
 	let dimensionDescriptions = $dimensionDesc[appConfig.language];
 	let capabilities = $capabilityList[appConfig.language];
 	let reload = {};
+	let editMode = false;
 	let userInput;
+	let selectedPreset = "alles";
 
 	try {
 		userInput = dataManager.loadFromLocalStorage("dataUserInput");
@@ -45810,21 +46979,135 @@ function instance$4($$self, $$props, $$invalidate) {
 		userInput = $emptyUserData;
 	}
 
+	let userInfo;
+
+	try {
+		userInfo = dataManager.loadFromLocalStorage("dataUserInfo");
+	} catch(error) {
+		console.log(error);
+		userInfo = $emptyUserInfo;
+	}
+
+	let presets;
+
+	try {
+		presets = dataManager.loadFromLocalStorage("dataUserPresets");
+	} catch(error) {
+		console.log(error);
+		presets = $defaultPresets;
+	}
+
+	let filters;
+
+	try {
+		filters = dataManager.loadFromLocalStorage("dataUserFilters");
+	} catch(error) {
+		console.log(error);
+		filters = $defaultFilters;
+	}
+
+	function closeFilterPopUp() {
+		initFilter();
+		document.getElementById("overlay").style.display = "none";
+	}
+
+	function initFilter() {
+		let newFilter = [];
+
+		for (filter in appConfig.checkedFilters) {
+			let idArray = filters[filter];
+
+			if (appConfig.checkedFilters[filter]) {
+				for (id of idArray) {
+					newFilter.push(id);
+				}
+			}
+		}
+
+		$$invalidate(0, appConfig.currentFilter = newFilter, appConfig);
+	}
+
+	function resetFilter() {
+		$$invalidate(0, appConfig.currentFilter = [], appConfig);
+
+		for (filter in appConfig.checkedFilters) {
+			$$invalidate(0, appConfig.checkedFilters[filter] = false, appConfig);
+		}
+
+		$$invalidate(2, selectedPreset = "");
+	}
+
+	function updateFilters() {
+		$$invalidate(0, appConfig.checkedFilters = presets[selectedPreset], appConfig);
+	}
+
+	function toggleEditMode(event) {
+		if (editMode) {
+			document.getElementById(event.srcElement.id).textContent = "bearbeiten";
+			let newFilter = appConfig.checkedFilters;
+			console.log(newFilter);
+			console.log();
+			$$invalidate(3, presets[event.srcElement.value] = newFilter, presets);
+			dataManager.saveToLocalStorage("dataUserPresets", presets);
+		} else // for (box in checkboxes) {
+		// 	console.log(box.style)
+		// }
+		{
+			document.getElementById(event.srcElement.id).textContent = "speichern"; // let checkboxes = document.collection = document.getElementsByClassName("filterCheckbox")
+		} // let checkboxes = document.collection = document.getElementsByClassName("filterCheckbox")
+		// for (box in checkboxes) {
+
+		// box.style.accentColor = 'red';
+		// }
+		editMode = !editMode;
+	}
+
+	function resetPresets() {
+		$$invalidate(3, presets = $defaultPresets);
+		dataManager.saveToLocalStorage("dataUserPresets", presets);
+	}
+
+	function addPreset() {
+		let name = prompt();
+		$$invalidate(3, presets[name] = $defaultPresets['anderes (alle Capabilites anzeigen)'], presets);
+	}
+
+	selectedPreset = userInfo.function;
+	updateFilters();
+	initFilter();
+
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$3.warn("<CapabilityTable> was created without expected prop 'appConfig'");
+			console_1$2.warn("<CapabilityTable> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
-	Object_1.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<CapabilityTable> was created with unknown prop '${key}'`);
+	Object_1$1.keys($$props).forEach(key => {
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<CapabilityTable> was created with unknown prop '${key}'`);
 	});
+
+	const $$binding_groups = [[]];
 
 	function tablerow_appConfig_binding(value) {
 		appConfig = value;
 		$$invalidate(0, appConfig);
+	}
+
+	function input_change_handler(name) {
+		appConfig.checkedFilters[name] = this.checked;
+		$$invalidate(0, appConfig);
+	}
+
+	function input_change_handler_1(name) {
+		appConfig.checkedFilters[name] = this.checked;
+		$$invalidate(0, appConfig);
+	}
+
+	function input_change_handler_2() {
+		selectedPreset = this.__value;
+		$$invalidate(2, selectedPreset);
 	}
 
 	$$self.$$set = $$props => {
@@ -45838,33 +47121,65 @@ function instance$4($$self, $$props, $$invalidate) {
 		capabilityList,
 		levelAmount,
 		emptyUserData,
+		defaultFilters,
+		categories,
+		defaultPresets,
+		emptyUserInfo,
+		capabilityConverter,
 		TableRow: CapabilityTableRow,
 		dataManager,
+		App,
 		appConfig,
+		categoryNames,
 		text,
 		numLevels,
 		levelDescriptions,
 		dimensionDescriptions,
 		capabilities,
 		reload,
+		editMode,
 		userInput,
+		selectedPreset,
+		userInfo,
+		openFilterPopUp,
+		presets,
+		filters,
+		closeFilterPopUp,
+		initFilter,
+		resetFilter,
+		updateFilters,
+		arrayIntersection,
+		toggleEditMode,
+		resetPresets,
+		addPreset,
+		$defaultPresets,
+		$defaultFilters,
+		$emptyUserInfo,
 		$emptyUserData,
 		$capabilityList,
 		$dimensionDesc,
 		$levelDesc,
 		$levelAmount,
-		$ui
+		$ui,
+		$categories,
+		$capabilityConverter
 	});
 
 	$$self.$inject_state = $$props => {
 		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
-		if ('text' in $$props) $$invalidate(2, text = $$props.text);
-		if ('numLevels' in $$props) $$invalidate(3, numLevels = $$props.numLevels);
-		if ('levelDescriptions' in $$props) $$invalidate(4, levelDescriptions = $$props.levelDescriptions);
-		if ('dimensionDescriptions' in $$props) $$invalidate(5, dimensionDescriptions = $$props.dimensionDescriptions);
-		if ('capabilities' in $$props) $$invalidate(6, capabilities = $$props.capabilities);
+		if ('categoryNames' in $$props) $$invalidate(6, categoryNames = $$props.categoryNames);
+		if ('text' in $$props) $$invalidate(7, text = $$props.text);
+		if ('numLevels' in $$props) $$invalidate(8, numLevels = $$props.numLevels);
+		if ('levelDescriptions' in $$props) $$invalidate(9, levelDescriptions = $$props.levelDescriptions);
+		if ('dimensionDescriptions' in $$props) $$invalidate(10, dimensionDescriptions = $$props.dimensionDescriptions);
+		if ('capabilities' in $$props) $$invalidate(11, capabilities = $$props.capabilities);
 		if ('reload' in $$props) reload = $$props.reload;
+		if ('editMode' in $$props) editMode = $$props.editMode;
 		if ('userInput' in $$props) $$invalidate(1, userInput = $$props.userInput);
+		if ('selectedPreset' in $$props) $$invalidate(2, selectedPreset = $$props.selectedPreset);
+		if ('userInfo' in $$props) userInfo = $$props.userInfo;
+		if ('presets' in $$props) $$invalidate(3, presets = $$props.presets);
+		if ('filters' in $$props) $$invalidate(4, filters = $$props.filters);
 	};
 
 	if ($$props && "$$inject" in $$props) {
@@ -45874,19 +47189,34 @@ function instance$4($$self, $$props, $$invalidate) {
 	return [
 		appConfig,
 		userInput,
+		selectedPreset,
+		presets,
+		filters,
+		$capabilityConverter,
+		categoryNames,
 		text,
 		numLevels,
 		levelDescriptions,
 		dimensionDescriptions,
 		capabilities,
-		tablerow_appConfig_binding
+		closeFilterPopUp,
+		resetFilter,
+		updateFilters,
+		toggleEditMode,
+		resetPresets,
+		addPreset,
+		tablerow_appConfig_binding,
+		input_change_handler,
+		input_change_handler_1,
+		input_change_handler_2,
+		$$binding_groups
 	];
 }
 
 class CapabilityTable extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance$4, create_fragment$4, safe_not_equal, { appConfig: 0 });
+		init(this, options, instance$4, create_fragment$4, safe_not_equal, { appConfig: 0 }, null, [-1, -1]);
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -46015,8 +47345,57 @@ class UserInput extends SvelteComponentDev {
 
 /* src\UserInfo.svelte generated by Svelte v3.52.0 */
 
-const { console: console_1$2 } = globals;
+const { Object: Object_1, console: console_1$1 } = globals;
 const file$2 = "src\\UserInfo.svelte";
+
+function get_each_context$1(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[13] = list[i];
+	return child_ctx;
+}
+
+// (49:2) {#each Object.keys(presets) as name}
+function create_each_block$1(ctx) {
+	let option;
+	let t_value = /*name*/ ctx[13] + "";
+	let t;
+	let option_value_value;
+
+	const block = {
+		c: function create() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = /*name*/ ctx[13];
+			option.value = option.__value;
+			add_location(option, file$2, 49, 2, 1617);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, option, anchor);
+			append_dev(option, t);
+		},
+		p: function update(ctx, dirty) {
+			if (dirty & /*presets*/ 1 && t_value !== (t_value = /*name*/ ctx[13] + "")) set_data_dev(t, t_value);
+
+			if (dirty & /*presets*/ 1 && option_value_value !== (option_value_value = /*name*/ ctx[13])) {
+				prop_dev(option, "__value", option_value_value);
+				option.value = option.__value;
+			}
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(option);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block$1.name,
+		type: "each",
+		source: "(49:2) {#each Object.keys(presets) as name}",
+		ctx
+	});
+
+	return block;
+}
 
 function create_fragment$2(ctx) {
 	let form;
@@ -46035,60 +47414,88 @@ function create_fragment$2(ctx) {
 	let label3;
 	let t10;
 	let textarea;
+	let t11;
+	let label4;
+	let t13;
+	let select;
 	let mounted;
 	let dispose;
+	let each_value = Object.keys(/*presets*/ ctx[0]);
+	validate_each_argument(each_value);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+	}
 
 	const block = {
 		c: function create() {
 			form = element("form");
 			label0 = element("label");
-			label0.textContent = `${/*text*/ ctx[1].company}`;
+			label0.textContent = `${/*text*/ ctx[2].company}`;
 			t1 = space();
 			input0 = element("input");
 			t2 = space();
 			label1 = element("label");
-			label1.textContent = `${/*text*/ ctx[1].organisation}`;
+			label1.textContent = `${/*text*/ ctx[2].organisation}`;
 			t4 = space();
 			input1 = element("input");
 			t5 = space();
 			label2 = element("label");
-			label2.textContent = `${/*text*/ ctx[1].project}`;
+			label2.textContent = `${/*text*/ ctx[2].project}`;
 			t7 = space();
 			input2 = element("input");
 			t8 = space();
 			label3 = element("label");
-			label3.textContent = `${/*text*/ ctx[1].description}`;
+			label3.textContent = `${/*text*/ ctx[2].description}`;
 			t10 = space();
 			textarea = element("textarea");
+			t11 = space();
+			label4 = element("label");
+			label4.textContent = `${/*text*/ ctx[2].function}`;
+			t13 = space();
+			select = element("select");
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+
 			attr_dev(label0, "for", "unternehmen");
-			add_location(label0, file$2, 25, 1, 491);
+			add_location(label0, file$2, 34, 1, 674);
 			attr_dev(input0, "type", "text");
 			attr_dev(input0, "id", "unternehmen");
 			attr_dev(input0, "name", "unternehmen");
 			attr_dev(input0, "class", "frontmatter svelte-18mh6e9");
-			add_location(input0, file$2, 26, 1, 541);
+			add_location(input0, file$2, 35, 1, 724);
 			attr_dev(label1, "for", "bereich");
-			add_location(label1, file$2, 28, 1, 676);
+			add_location(label1, file$2, 37, 1, 859);
 			attr_dev(input1, "type", "text");
 			attr_dev(input1, "id", "bereich");
 			attr_dev(input1, "name", "bereich");
 			attr_dev(input1, "class", "frontmatter svelte-18mh6e9");
-			add_location(input1, file$2, 29, 1, 727);
+			add_location(input1, file$2, 38, 1, 910);
 			attr_dev(label2, "for", "projekt");
-			add_location(label2, file$2, 31, 1, 857);
+			add_location(label2, file$2, 40, 1, 1040);
 			attr_dev(input2, "type", "text");
 			attr_dev(input2, "id", "projekt");
 			attr_dev(input2, "name", "projekt");
 			attr_dev(input2, "class", "frontmatter svelte-18mh6e9");
-			add_location(input2, file$2, 32, 1, 903);
+			add_location(input2, file$2, 41, 1, 1086);
 			attr_dev(label3, "for", "beschreibung");
-			add_location(label3, file$2, 35, 1, 1032);
+			add_location(label3, file$2, 43, 1, 1213);
 			attr_dev(textarea, "id", "beschreibung");
 			attr_dev(textarea, "name", "beschreibung");
 			attr_dev(textarea, "class", "frontmatter svelte-18mh6e9");
-			add_location(textarea, file$2, 36, 1, 1087);
+			add_location(textarea, file$2, 44, 1, 1268);
+			attr_dev(label4, "for", "funktion");
+			add_location(label4, file$2, 46, 1, 1411);
+			attr_dev(select, "id", "funktion");
+			attr_dev(select, "name", "funktion");
+			attr_dev(select, "class", "frontmatter svelte-18mh6e9");
+			if (/*userInfo*/ ctx[1].function === void 0) add_render_callback(() => /*select_change_handler*/ ctx[9].call(select));
+			add_location(select, file$2, 47, 1, 1459);
 			attr_dev(form, "id", "firmenInfo");
-			add_location(form, file$2, 23, 0, 463);
+			add_location(form, file$2, 32, 0, 646);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -46098,59 +47505,100 @@ function create_fragment$2(ctx) {
 			append_dev(form, label0);
 			append_dev(form, t1);
 			append_dev(form, input0);
-			set_input_value(input0, /*userInfo*/ ctx[0].company);
+			set_input_value(input0, /*userInfo*/ ctx[1].company);
 			append_dev(form, t2);
 			append_dev(form, label1);
 			append_dev(form, t4);
 			append_dev(form, input1);
-			set_input_value(input1, /*userInfo*/ ctx[0].department);
+			set_input_value(input1, /*userInfo*/ ctx[1].department);
 			append_dev(form, t5);
 			append_dev(form, label2);
 			append_dev(form, t7);
 			append_dev(form, input2);
-			set_input_value(input2, /*userInfo*/ ctx[0].project);
+			set_input_value(input2, /*userInfo*/ ctx[1].project);
 			append_dev(form, t8);
 			append_dev(form, label3);
 			append_dev(form, t10);
 			append_dev(form, textarea);
-			set_input_value(textarea, /*userInfo*/ ctx[0].description);
+			set_input_value(textarea, /*userInfo*/ ctx[1].description);
+			append_dev(form, t11);
+			append_dev(form, label4);
+			append_dev(form, t13);
+			append_dev(form, select);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(select, null);
+			}
+
+			select_option(select, /*userInfo*/ ctx[1].function);
 
 			if (!mounted) {
 				dispose = [
-					listen_dev(input0, "input", /*input0_input_handler*/ ctx[4]),
-					listen_dev(input0, "change", /*saveUserInfo*/ ctx[2], false, false, false),
-					listen_dev(input1, "input", /*input1_input_handler*/ ctx[5]),
-					listen_dev(input1, "change", /*saveUserInfo*/ ctx[2], false, false, false),
-					listen_dev(input2, "input", /*input2_input_handler*/ ctx[6]),
-					listen_dev(input2, "change", /*saveUserInfo*/ ctx[2], false, false, false),
-					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[7]),
-					listen_dev(textarea, "change", /*saveUserInfo*/ ctx[2], false, false, false)
+					listen_dev(input0, "input", /*input0_input_handler*/ ctx[5]),
+					listen_dev(input0, "change", /*saveUserInfo*/ ctx[3], false, false, false),
+					listen_dev(input1, "input", /*input1_input_handler*/ ctx[6]),
+					listen_dev(input1, "change", /*saveUserInfo*/ ctx[3], false, false, false),
+					listen_dev(input2, "input", /*input2_input_handler*/ ctx[7]),
+					listen_dev(input2, "change", /*saveUserInfo*/ ctx[3], false, false, false),
+					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[8]),
+					listen_dev(textarea, "change", /*saveUserInfo*/ ctx[3], false, false, false),
+					listen_dev(select, "change", /*select_change_handler*/ ctx[9]),
+					listen_dev(select, "change", /*saveUserInfo*/ ctx[3], false, false, false)
 				];
 
 				mounted = true;
 			}
 		},
 		p: function update(ctx, [dirty]) {
-			if (dirty & /*userInfo*/ 1 && input0.value !== /*userInfo*/ ctx[0].company) {
-				set_input_value(input0, /*userInfo*/ ctx[0].company);
+			if (dirty & /*userInfo, Object, presets*/ 3 && input0.value !== /*userInfo*/ ctx[1].company) {
+				set_input_value(input0, /*userInfo*/ ctx[1].company);
 			}
 
-			if (dirty & /*userInfo*/ 1 && input1.value !== /*userInfo*/ ctx[0].department) {
-				set_input_value(input1, /*userInfo*/ ctx[0].department);
+			if (dirty & /*userInfo, Object, presets*/ 3 && input1.value !== /*userInfo*/ ctx[1].department) {
+				set_input_value(input1, /*userInfo*/ ctx[1].department);
 			}
 
-			if (dirty & /*userInfo*/ 1 && input2.value !== /*userInfo*/ ctx[0].project) {
-				set_input_value(input2, /*userInfo*/ ctx[0].project);
+			if (dirty & /*userInfo, Object, presets*/ 3 && input2.value !== /*userInfo*/ ctx[1].project) {
+				set_input_value(input2, /*userInfo*/ ctx[1].project);
 			}
 
-			if (dirty & /*userInfo*/ 1) {
-				set_input_value(textarea, /*userInfo*/ ctx[0].description);
+			if (dirty & /*userInfo, Object, presets*/ 3) {
+				set_input_value(textarea, /*userInfo*/ ctx[1].description);
+			}
+
+			if (dirty & /*Object, presets*/ 1) {
+				each_value = Object.keys(/*presets*/ ctx[0]);
+				validate_each_argument(each_value);
+				let i;
+
+				for (i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+					} else {
+						each_blocks[i] = create_each_block$1(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(select, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+
+				each_blocks.length = each_value.length;
+			}
+
+			if (dirty & /*userInfo, Object, presets*/ 3) {
+				select_option(select, /*userInfo*/ ctx[1].function);
 			}
 		},
 		i: noop,
 		o: noop,
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(form);
+			destroy_each(each_blocks, detaching);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -46169,15 +47617,27 @@ function create_fragment$2(ctx) {
 
 function instance$2($$self, $$props, $$invalidate) {
 	let $emptyUserInfo;
+	let $defaultPresets;
 	let $ui;
 	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(8, $emptyUserInfo = $$value));
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(10, $emptyUserInfo = $$value));
+	validate_store(defaultPresets, 'defaultPresets');
+	component_subscribe($$self, defaultPresets, $$value => $$invalidate(11, $defaultPresets = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(9, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(12, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('UserInfo', slots, []);
 	let { appConfig } = $$props;
 	let text = $ui[appConfig.language].userInfo;
+	let presets;
+
+	try {
+		presets = dataManager.loadFromLocalStorage("dataUserPresets");
+	} catch(error) {
+		console.log(error);
+		presets = $defaultPresets;
+	}
+
 	let userInfo;
 
 	try {
@@ -46193,56 +47653,70 @@ function instance$2($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$2.warn("<UserInfo> was created without expected prop 'appConfig'");
+			console_1$1.warn("<UserInfo> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
-	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<UserInfo> was created with unknown prop '${key}'`);
+	Object_1.keys($$props).forEach(key => {
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<UserInfo> was created with unknown prop '${key}'`);
 	});
 
 	function input0_input_handler() {
 		userInfo.company = this.value;
-		$$invalidate(0, userInfo);
+		$$invalidate(1, userInfo);
+		$$invalidate(0, presets);
 	}
 
 	function input1_input_handler() {
 		userInfo.department = this.value;
-		$$invalidate(0, userInfo);
+		$$invalidate(1, userInfo);
+		$$invalidate(0, presets);
 	}
 
 	function input2_input_handler() {
 		userInfo.project = this.value;
-		$$invalidate(0, userInfo);
+		$$invalidate(1, userInfo);
+		$$invalidate(0, presets);
 	}
 
 	function textarea_input_handler() {
 		userInfo.description = this.value;
-		$$invalidate(0, userInfo);
+		$$invalidate(1, userInfo);
+		$$invalidate(0, presets);
+	}
+
+	function select_change_handler() {
+		userInfo.function = select_value(this);
+		$$invalidate(1, userInfo);
+		$$invalidate(0, presets);
 	}
 
 	$$self.$$set = $$props => {
-		if ('appConfig' in $$props) $$invalidate(3, appConfig = $$props.appConfig);
+		if ('appConfig' in $$props) $$invalidate(4, appConfig = $$props.appConfig);
 	};
 
 	$$self.$capture_state = () => ({
 		dataManager,
 		emptyUserInfo,
 		ui,
+		defaultPresets,
 		appConfig,
 		text,
+		presets,
 		userInfo,
 		saveUserInfo,
 		$emptyUserInfo,
+		$defaultPresets,
 		$ui
 	});
 
 	$$self.$inject_state = $$props => {
-		if ('appConfig' in $$props) $$invalidate(3, appConfig = $$props.appConfig);
-		if ('text' in $$props) $$invalidate(1, text = $$props.text);
-		if ('userInfo' in $$props) $$invalidate(0, userInfo = $$props.userInfo);
+		if ('appConfig' in $$props) $$invalidate(4, appConfig = $$props.appConfig);
+		if ('text' in $$props) $$invalidate(2, text = $$props.text);
+		if ('presets' in $$props) $$invalidate(0, presets = $$props.presets);
+		if ('userInfo' in $$props) $$invalidate(1, userInfo = $$props.userInfo);
 	};
 
 	if ($$props && "$$inject" in $$props) {
@@ -46250,6 +47724,7 @@ function instance$2($$self, $$props, $$invalidate) {
 	}
 
 	return [
+		presets,
 		userInfo,
 		text,
 		saveUserInfo,
@@ -46257,14 +47732,15 @@ function instance$2($$self, $$props, $$invalidate) {
 		input0_input_handler,
 		input1_input_handler,
 		input2_input_handler,
-		textarea_input_handler
+		textarea_input_handler,
+		select_change_handler
 	];
 }
 
 class UserInfo extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance$2, create_fragment$2, safe_not_equal, { appConfig: 3 });
+		init(this, options, instance$2, create_fragment$2, safe_not_equal, { appConfig: 4 });
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -46284,8 +47760,6 @@ class UserInfo extends SvelteComponentDev {
 }
 
 /* src\Index.svelte generated by Svelte v3.52.0 */
-
-const { console: console_1$1 } = globals;
 const file$1 = "src\\Index.svelte";
 
 function create_fragment$1(ctx) {
@@ -46339,25 +47813,25 @@ function create_fragment$1(ctx) {
 			button1 = element("button");
 			b = element("b");
 			b.textContent = `${/*text*/ ctx[2].deleteButton}`;
-			attr_dev(p0, "class", "svelte-ruyr4b");
-			add_location(p0, file$1, 88, 8, 2825);
+			attr_dev(p0, "class", "svelte-9yq3rd");
+			add_location(p0, file$1, 89, 8, 2859);
 			attr_dev(input, "type", "file");
 			attr_dev(input, "id", "file-selector");
 			attr_dev(input, "accept", ".csv, .xlsx");
-			add_location(input, file$1, 89, 8, 2855);
+			add_location(input, file$1, 90, 8, 2889);
 			attr_dev(button0, "type", "submit");
-			add_location(button0, file$1, 90, 8, 2935);
-			attr_dev(div0, "class", "import svelte-ruyr4b");
-			add_location(div0, file$1, 87, 4, 2795);
-			add_location(form, file$1, 85, 0, 2737);
-			attr_dev(p1, "class", "svelte-ruyr4b");
-			add_location(p1, file$1, 97, 0, 3036);
-			attr_dev(p2, "class", "svelte-ruyr4b");
-			add_location(p2, file$1, 100, 4, 3091);
-			add_location(b, file$1, 101, 42, 3165);
-			add_location(button1, file$1, 101, 4, 3127);
-			attr_dev(div1, "class", "delete svelte-ruyr4b");
-			add_location(div1, file$1, 99, 0, 3065);
+			add_location(button0, file$1, 91, 8, 2969);
+			attr_dev(div0, "class", "import svelte-9yq3rd");
+			add_location(div0, file$1, 88, 4, 2829);
+			add_location(form, file$1, 86, 0, 2771);
+			attr_dev(p1, "class", "svelte-9yq3rd");
+			add_location(p1, file$1, 98, 0, 3070);
+			attr_dev(p2, "class", "svelte-9yq3rd");
+			add_location(p2, file$1, 101, 4, 3125);
+			add_location(b, file$1, 102, 42, 3199);
+			add_location(button1, file$1, 102, 4, 3161);
+			attr_dev(div1, "class", "delete svelte-9yq3rd");
+			add_location(div1, file$1, 100, 0, 3099);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -46475,7 +47949,7 @@ function instance$1($$self, $$props, $$invalidate) {
 		} else if (filetype == "xlsx") {
 			importXLSX(data);
 		} else {
-			console.log("3");
+			alert("The import must be a .csv or .xlsx file");
 		}
 	}
 
@@ -46522,14 +47996,14 @@ function instance$1($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$1.warn("<Index> was created without expected prop 'appConfig'");
+			console.warn("<Index> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<Index> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Index> was created with unknown prop '${key}'`);
 	});
 
 	function input_change_handler() {
@@ -46625,7 +48099,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (74:3) {#each navOptions as option, componentId}
+// (93:3) {#each navOptions as option, componentId}
 function create_each_block(ctx) {
 	let li;
 	let button;
@@ -46644,9 +48118,9 @@ function create_each_block(ctx) {
 			attr_dev(button, "id", String(/*componentId*/ ctx[16]));
 			attr_dev(button, "role", "tab");
 			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 75, 4, 1725);
+			add_location(button, file, 94, 4, 2222);
 			attr_dev(li, "class", "svelte-11jq1um");
-			add_location(li, file, 74, 3, 1715);
+			add_location(li, file, 93, 3, 2212);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, li, anchor);
@@ -46673,60 +48147,29 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(74:3) {#each navOptions as option, componentId}",
+		source: "(93:3) {#each navOptions as option, componentId}",
 		ctx
 	});
 
 	return block;
 }
 
-// (81:2) {#if currentNav != 0}
+// (100:2) {#if currentNav != 0}
 function create_if_block_1(ctx) {
-	let button;
-	let t_value = /*text*/ ctx[1].hideButton + "";
-	let t;
-	let mounted;
-	let dispose;
-
-	const block = {
-		c: function create() {
-			button = element("button");
-			t = text(t_value);
-			attr_dev(button, "id", "hide");
-			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 81, 2, 1890);
-		},
-		m: function mount(target, anchor) {
-			insert_dev(target, button, anchor);
-			append_dev(button, t);
-
-			if (!mounted) {
-				dispose = listen_dev(button, "click", /*toggleHidden*/ ctx[7], false, false, false);
-				mounted = true;
-			}
-		},
-		p: function update(ctx, dirty) {
-			if (dirty & /*text*/ 2 && t_value !== (t_value = /*text*/ ctx[1].hideButton + "")) set_data_dev(t, t_value);
-		},
-		d: function destroy(detaching) {
-			if (detaching) detach_dev(button);
-			mounted = false;
-			dispose();
-		}
-	};
+	const block = { c: noop, m: noop, d: noop };
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(81:2) {#if currentNav != 0}",
+		source: "(100:2) {#if currentNav != 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (91:2) {#if !buttonHidden}
+// (109:2) {#if !buttonHidden}
 function create_if_block(ctx) {
 	let button;
 	let t_value = /*text*/ ctx[1].next + "";
@@ -46741,7 +48184,7 @@ function create_if_block(ctx) {
 			t = text(t_value);
 			attr_dev(button, "id", button_id_value = /*currentNav*/ ctx[3] + 1);
 			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 91, 2, 2142);
+			add_location(button, file, 109, 2, 2644);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, button, anchor);
@@ -46770,14 +48213,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(91:2) {#if !buttonHidden}",
+		source: "(109:2) {#if !buttonHidden}",
 		ctx
 	});
 
 	return block;
 }
 
-// (72:2) {#key unique}
+// (91:2) {#key unique}
 function create_key_block(ctx) {
 	let ul;
 	let t0;
@@ -46803,7 +48246,7 @@ function create_key_block(ctx) {
 	let if_block0 = /*currentNav*/ ctx[3] != 0 && create_if_block_1(ctx);
 
 	function switch_instance_appConfig_binding(value) {
-		/*switch_instance_appConfig_binding*/ ctx[10](value);
+		/*switch_instance_appConfig_binding*/ ctx[9](value);
 	}
 
 	var switch_value = /*selected*/ ctx[2].component;
@@ -46847,10 +48290,10 @@ function create_key_block(ctx) {
 			t4 = space();
 			if (if_block1) if_block1.c();
 			if_block1_anchor = empty();
-			add_location(ul, file, 72, 2, 1660);
-			add_location(h2, file, 86, 3, 2002);
+			add_location(ul, file, 91, 2, 2157);
+			add_location(h2, file, 104, 3, 2504);
 			attr_dev(div, "class", "page");
-			add_location(div, file, 85, 2, 1979);
+			add_location(div, file, 103, 2, 2481);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, ul, anchor);
@@ -46898,9 +48341,7 @@ function create_key_block(ctx) {
 			}
 
 			if (/*currentNav*/ ctx[3] != 0) {
-				if (if_block0) {
-					if_block0.p(ctx, dirty);
-				} else {
+				if (if_block0) ; else {
 					if_block0 = create_if_block_1(ctx);
 					if_block0.c();
 					if_block0.m(t1.parentNode, t1);
@@ -46984,7 +48425,7 @@ function create_key_block(ctx) {
 		block,
 		id: create_key_block.name,
 		type: "key",
-		source: "(72:2) {#key unique}",
+		source: "(91:2) {#key unique}",
 		ctx
 	});
 
@@ -47033,24 +48474,24 @@ function create_fragment(ctx) {
 			t7 = space();
 			key_block.c();
 			attr_dev(h1, "class", "svelte-11jq1um");
-			add_location(h1, file, 60, 1, 1352);
+			add_location(h1, file, 79, 1, 1849);
 			attr_dev(span0, "class", "lang svelte-11jq1um");
-			add_location(span0, file, 63, 3, 1429);
+			add_location(span0, file, 82, 3, 1926);
 			attr_dev(input, "type", "checkbox");
 			attr_dev(input, "class", "svelte-11jq1um");
-			add_location(input, file, 65, 4, 1517);
+			add_location(input, file, 84, 4, 2014);
 			attr_dev(span1, "class", "slider round svelte-11jq1um");
-			add_location(span1, file, 66, 4, 1546);
+			add_location(span1, file, 85, 4, 2043);
 			attr_dev(label, "class", "switch svelte-11jq1um");
-			add_location(label, file, 64, 3, 1462);
+			add_location(label, file, 83, 3, 1959);
 			attr_dev(span2, "class", "lang svelte-11jq1um");
-			add_location(span2, file, 68, 3, 1598);
+			add_location(span2, file, 87, 3, 2095);
 			attr_dev(div0, "id", "languageSwitch");
 			attr_dev(div0, "class", "svelte-11jq1um");
-			add_location(div0, file, 62, 2, 1399);
-			add_location(div1, file, 61, 1, 1390);
+			add_location(div0, file, 81, 2, 1896);
+			add_location(div1, file, 80, 1, 1887);
 			attr_dev(main, "class", "svelte-11jq1um");
-			add_location(main, file, 59, 0, 1343);
+			add_location(main, file, 78, 0, 1840);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -47074,7 +48515,7 @@ function create_fragment(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen_dev(label, "change", /*changeLanguage*/ ctx[8], false, false, false);
+				dispose = listen_dev(label, "change", /*changeLanguage*/ ctx[7], false, false, false);
 				mounted = true;
 			}
 		},
@@ -47123,12 +48564,36 @@ function instance($$self, $$props, $$invalidate) {
 	let $emptyUserData;
 	let $ui;
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(13, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(12, $emptyUserData = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(9, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(8, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('App', slots, []);
-	let appConfig = { hideIrrelevant: false, language: "de" };
+
+	let appConfig = {
+		hideIrrelevant: false,
+		language: "de",
+		currentFilter: [],
+		checkedFilters: {
+			'Strategy & Purpose': true,
+			Structure: true,
+			Process: true,
+			IT: true,
+			People: true,
+			'Customer-Centric Product Development': true,
+			Leadership: true,
+			Adaptability: false,
+			'CI-CD': false,
+			Collaboration: false,
+			Communication: false,
+			'Customer Focus': false,
+			Efficiency: false,
+			Innovation: false,
+			'Knowledge Management': false,
+			'Organizational and Management Structures': false
+		}
+	};
+
 	let text;
 	let buttonText;
 	let userInput = $emptyUserData;
@@ -47226,7 +48691,7 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*$ui, appConfig*/ 513) {
+		if ($$self.$$.dirty & /*$ui, appConfig*/ 257) {
 			$$invalidate(1, text = $ui[appConfig.language].main);
 		}
 	};
@@ -47239,7 +48704,6 @@ function instance($$self, $$props, $$invalidate) {
 		buttonHidden,
 		unique,
 		changeComponent,
-		toggleHidden,
 		changeLanguage,
 		$ui,
 		switch_instance_appConfig_binding
