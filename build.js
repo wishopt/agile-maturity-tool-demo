@@ -2224,8 +2224,8 @@ const dimensionDesc = readable({
   Process: 'Process comprises the process organization and the information and decision flow within the organization',
   IT: 'Information Technology comprises the techn. infrastructure and architecture and the application of technology.',
   People: 'People & Culture comprises the organizational culture, the behavior and mindset of individual employees, and their skills.',
+  'Customer-Centric Product Development': 'Customer-Centric Product Development comprises the approach to build products that place the customer at its core.',
   Leadership: 'Leadership comprises the leadership approach, leadership values and attitude, and workforce empowerment.',
-  'Customer-Centric Product Development': 'Customer-Centric Product Development comprises the approach to build products that place the customer at its core.'
   },
   de: {
     'Strategie und Zweck': 'Strategie und Zweck umfasst den Zweck einer Organisation, ihre Vision und Mission sowie ihr Geschäftsmodell.',
@@ -2233,8 +2233,8 @@ const dimensionDesc = readable({
     'Prozess': 'Prozess umfasst die Prozessorganisation und den Informations- und Entscheidungsfluss innerhalb der Organisation',
     'IT': 'Informationstechnologie umfasst die technische Infrastruktur und Architektur sowie die Anwendung der Technologie.',
     'Menschen': 'Menschen & Kultur umfasst die Organisationskultur, das Verhalten und die Denkweise der einzelnen Mitarbeiter sowie deren Fähigkeiten.',
+    'Kundenzentrierte Produktentwicklung': 'Kundenzentrierte Produktentwicklung umfasst den Ansatz, Produkte zu entwickeln, bei denen der Kunde im Mittelpunkt steht.',
     'Führung': 'Führung umfasst den Führungsansatz, die Führungswerte und -einstellung sowie die Befähigung der Mitarbeiter.',
-    'Kundenzentrierte Produktentwicklung': 'Kundenzentrierte Produktentwicklung umfasst den Ansatz, Produkte zu entwickeln, bei denen der Kunde im Mittelpunkt steht.'
   }
 });
 
@@ -3236,7 +3236,6 @@ const ui = readable({
         evaluation: "Evaluation"
       }
     },
-
     index: {
       intro: "<p>Welcome to the demo page of the Agile Maturity Tool!</p><p>This is a demo version of the tool to illustrate the functionality. The tool is still under development, which is why the visual aspects of the tool are not yet fully developed.<p><p>The agile maturity model was developed in Competence Centre 08 and 09. The aim is to assess the maturity level of agile skills, to derive the agile maturity level of the company and to provide indicative recommendations for action to build up skills. </p><p>The model includes the following artefacts:</p><ul><li>The <b>Agile Maturity Grid</b> provides an overview of necessary agile capabilities including a description and a mapping to the associated agility dimension</li><li>The benefit of the <b>Quick Check</b> lies in the quick assessment of the existing maturity level of the corresponding agile capabilities as well as an indication of the agile maturity level of the company</li><li>The <b>Tool</b> serves to complement the first two artefacts and allows users to make indicative recommendations for action to improve the agile capabilities and thus the agile maturity of the company</li><li>The <b>Tool</b> serves to complement the first two artefacts and allows users to make indicative recommendations for action to improve the agile capabilities and thus the agile maturity of the company</li></ul><p>All three artefacts can be applied to different areas of the company. The prerequisite for this is that the business unit in question is at the beginning or in the middle of an agile transformation. The model should be completed by a representative number of employees. It should be noted that different departments and hierarchical levels are also taken into account in order to contain as realistic an estimate as possible of the extent to which the agile skills listed are being implemented.</p>",
       deleteButtonText: 'If you\'ve already tested a previous version of the tool in the same browser, the existing data in the local storage might break the tool. If this happens, you can click on the "Delete Data" button below.',
@@ -3253,8 +3252,22 @@ const ui = readable({
     capabilityTable: {
       is: "Is = Red",
       should: "Should = Blue",
-      notRelevant: "Not relevant",
-      explanation: "Explanation"   
+      filterIncluded: "Included in filter",
+      explanation: "Explanation",
+      applyFilter: "Select filter",
+      filterClose: "Close",
+      filterRemove: "Remove all filters",
+      filterAddPreset: "Add preset",
+      filterResetPresets: "Reset all presets",
+      edit: "Edit",
+      categories: "Categories",
+      topics: "Topics",
+      filterCapabilites: "Filter capabilites",
+      filterPreset: "Current filter preset: ",
+      loadSnapshot: "Load snapshot",
+      deleteSnapshot: "Delete snapshot",
+      createSnapshot: "Create snapshot",
+      currentPreset: "Custom"
     },
     evaluationDataTable: {
       id: "ID",
@@ -3265,8 +3278,35 @@ const ui = readable({
       is: "Is-Value",
       should: "Should-Value"
     },
+    evaluation: {
+      changeMode: "Change mode"
+    },
     exportButton: {
       button: "Export Results"
+    },
+    categories: {
+      'Strategy & Purpose': 'Strategy & Purpose',
+      "Structure": "Structure",
+      "Process": "Process",
+      "People": "People",
+      'Customer-Centric Product Development': "Customer-Centric Product Development",
+      "Leadership": "Leadership",
+      IT: "IT",
+      "Adaptability": "Adaptability",
+      "CI-CD": 'CI-CD',
+      "Collaboration": "Collaboration",
+      "Communication": "Communication",
+      "Customer Focus": 'Customer Focus',
+      "Efficiency": "Efficiency",
+      "Innovation": "Innovation",
+      "Knowledge Management": 'Knowledge Management',
+      "Organizational and Management Structures": 'Organizational and Management Structures',
+    },
+    presets: {
+      IT: "IT",
+      projectManager: "Project Manager",
+      organisation: "Organisation",
+      other: "Other (display all capabilities)"
     }
   },
   de: {
@@ -3299,8 +3339,22 @@ const ui = readable({
     capabilityTable: {
       is: "Ist = Rot",
       should: "Soll = Blau",
-      notRelevant: "Nicht relevant",
-      explanation: "Begründung"   
+      filterIncluded: "Im Filter enthalten",
+      explanation: "Begründung",
+      applyFilter: "Filter wählen",
+      filterClose: "Schliessen",
+      filterRemove: "Alle Filter entfernen",
+      filterAddPreset: "Preset hinzufügen",
+      filterResetPresets: "Presets zurücksetzen",
+      edit: "bearbeiten",
+      categories: "Kategorien",
+      topics: "Themen",
+      filterCapabilites: "Capabilites filtern",
+      filterPreset: "Aktuelles Filter-Preset: ",
+      loadSnapshot: "Snapshot laden",
+      deleteSnapshot: "Snapshot löschen",
+      createSnapshot: "Snapshot erstellen",
+      currentPreset: "Benutzerdefiniert"
     },
     evaluationDataTable: {
       id: "ID",
@@ -3311,8 +3365,35 @@ const ui = readable({
       is: "Ist-Wert",
       should: "Soll-Wert"
     },
+    evaluation: {
+      changeMode: "Modus wechseln"
+    },
     exportButton: {
       button: "Resultate exportieren"
+    },
+    categories: {
+      'Strategy & Purpose': 'Strategie und Zweck',
+      "Structure": "Struktur",
+      "Process": "Prozess",
+      "People": "Menschen",
+      'Customer-Centric Product Development': "Kundenzentrierte Produktentwicklung",
+      "Leadership": "Führung",
+      IT: "IT",
+      "Adaptability": "Anpassungsfähigkeit",
+      "CI-CD": 'CI-CD',
+      "Collaboration": "Kollaboration",
+      "Communication": "Kommunikation",
+      "Customer Focus": 'Kundenfokus',
+      "Efficiency": "Effizienz",
+      "Innovation": "Innovation",
+      "Knowledge Management": 'Wissensmanagement',
+      "Organizational and Management Structures": 'Organisations- und Managementstrukturen',   
+    },
+    presets: {
+      IT: "IT",
+      projectManager: "Projektleiter",
+      organisation: "Organisation",
+      other: "Anderes (alle Capabilities anzeigen)"
     }
   }
 });
@@ -3355,7 +3436,7 @@ const defaultPresets = readable({
     'Knowledge Management': false,
     'Organizational and Management Structures': false,
   },
-  Projektleitung: {
+  projectManager: {
     'Strategy & Purpose': true,
     Structure: true,
     Process: true,
@@ -3373,7 +3454,7 @@ const defaultPresets = readable({
     'Knowledge Management': true,
     'Organizational and Management Structures': false,
   },
-  Organisation: {
+  organisation: {
     'Strategy & Purpose': true,
     Structure: true,
     Process: true,
@@ -3391,7 +3472,7 @@ const defaultPresets = readable({
     'Knowledge Management': true,
     'Organizational and Management Structures': true,
   },
-  'anderes (alle Capabilites anzeigen)': {
+  other: {
     'Strategy & Purpose': true,
     Structure: true,
     Process: true,
@@ -3419,6 +3500,12 @@ const capabilityConverter = readable({
   Menschen: "People",
   "Kundenzentrierte Produktentwicklung": 'Customer-Centric Product Development',
   "Führung": "Leadership",
+  'Strategy & Purpose': 'Strategy & Purpose',
+  "Structure": "Structure",
+  "Process": "Process",
+  "People": "People",
+  'Customer-Centric Product Development': "Customer-Centric Product Development",
+  "Leadership": "Leadership",
 });
 
 const topicConverter = readable({
@@ -16735,7 +16822,7 @@ const dataManager = {
 
 /* src\EvaluationChart.svelte generated by Svelte v3.52.0 */
 
-const { console: console_1$5 } = globals;
+const { console: console_1$4 } = globals;
 const file$8 = "src\\EvaluationChart.svelte";
 
 function create_fragment$9(ctx) {
@@ -16754,11 +16841,12 @@ function create_fragment$9(ctx) {
 			t1 = space();
 			div = element("div");
 			canvas = element("canvas");
-			add_location(h2, file$8, 72, 0, 1586);
+			add_location(h2, file$8, 85, 0, 1866);
 			attr_dev(canvas, "id", canvas_id_value = "chart-" + /*chartData*/ ctx[0].title.replace(/\s+/g, ''));
-			add_location(canvas, file$8, 74, 4, 1639);
+			add_location(canvas, file$8, 87, 4, 1934);
 			attr_dev(div, "class", "chart svelte-1le40kd");
-			add_location(div, file$8, 73, 0, 1614);
+			attr_dev(div, "id", "uniquediv");
+			add_location(div, file$8, 86, 0, 1894);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -16801,17 +16889,19 @@ function instance$9($$self, $$props, $$invalidate) {
 	let $emptyUserData;
 	let $ui;
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(5, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(8, $emptyUserData = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(6, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(9, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('EvaluationChart', slots, []);
 	let { chartData } = $$props;
 	let { images } = $$props;
 	let { language } = $$props;
+	let { snapConfig } = $$props;
 	let ctx;
 	let chart$1;
 	let text = $ui[language].evaluationChart;
+	let noImage = false;
 
 	try {
 		userInput = dataManager.loadFromLocalStorage("dataUserInput");
@@ -16821,6 +16911,14 @@ function instance$9($$self, $$props, $$invalidate) {
 	}
 
 	let generatePNG = function () {
+		try {
+			let image = chart$1.toBase64Image().replace(/^data:image\/(png|jpg);base64,/, "");
+		} catch {
+			$$invalidate(1, images[chartData.title] = "", images);
+			noImage = true;
+			return;
+		}
+
 		$$invalidate(1, images[chartData.title] = chart$1.toBase64Image().replace(/^data:image\/(png|jpg);base64,/, ""), images);
 	};
 
@@ -16859,34 +16957,44 @@ function instance$9($$self, $$props, $$invalidate) {
 
 	function updateChart() {
 		ctx = document.getElementById("chart-" + chartData.title.replace(/\s+/g, '')).getContext("2d");
+
+		if (snapConfig) {
+			config.data.datasets = snapConfig;
+		}
+
 		chart$1 = new chart.Chart(ctx, config);
 		chart$1.update();
 	}
 
 	$$self.$$.on_mount.push(function () {
 		if (chartData === undefined && !('chartData' in $$props || $$self.$$.bound[$$self.$$.props['chartData']])) {
-			console_1$5.warn("<EvaluationChart> was created without expected prop 'chartData'");
+			console_1$4.warn("<EvaluationChart> was created without expected prop 'chartData'");
 		}
 
 		if (images === undefined && !('images' in $$props || $$self.$$.bound[$$self.$$.props['images']])) {
-			console_1$5.warn("<EvaluationChart> was created without expected prop 'images'");
+			console_1$4.warn("<EvaluationChart> was created without expected prop 'images'");
 		}
 
 		if (language === undefined && !('language' in $$props || $$self.$$.bound[$$self.$$.props['language']])) {
-			console_1$5.warn("<EvaluationChart> was created without expected prop 'language'");
+			console_1$4.warn("<EvaluationChart> was created without expected prop 'language'");
+		}
+
+		if (snapConfig === undefined && !('snapConfig' in $$props || $$self.$$.bound[$$self.$$.props['snapConfig']])) {
+			console_1$4.warn("<EvaluationChart> was created without expected prop 'snapConfig'");
 		}
 	});
 
-	const writable_props = ['chartData', 'images', 'language'];
+	const writable_props = ['chartData', 'images', 'language', 'snapConfig'];
 
 	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$5.warn(`<EvaluationChart> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<EvaluationChart> was created with unknown prop '${key}'`);
 	});
 
 	$$self.$$set = $$props => {
 		if ('chartData' in $$props) $$invalidate(0, chartData = $$props.chartData);
 		if ('images' in $$props) $$invalidate(1, images = $$props.images);
 		if ('language' in $$props) $$invalidate(2, language = $$props.language);
+		if ('snapConfig' in $$props) $$invalidate(3, snapConfig = $$props.snapConfig);
 	};
 
 	$$self.$capture_state = () => ({
@@ -16898,9 +17006,11 @@ function instance$9($$self, $$props, $$invalidate) {
 		chartData,
 		images,
 		language,
+		snapConfig,
 		ctx,
 		chart: chart$1,
 		text,
+		noImage,
 		generatePNG,
 		config,
 		updateChart,
@@ -16912,9 +17022,11 @@ function instance$9($$self, $$props, $$invalidate) {
 		if ('chartData' in $$props) $$invalidate(0, chartData = $$props.chartData);
 		if ('images' in $$props) $$invalidate(1, images = $$props.images);
 		if ('language' in $$props) $$invalidate(2, language = $$props.language);
+		if ('snapConfig' in $$props) $$invalidate(3, snapConfig = $$props.snapConfig);
 		if ('ctx' in $$props) ctx = $$props.ctx;
 		if ('chart' in $$props) chart$1 = $$props.chart;
 		if ('text' in $$props) text = $$props.text;
+		if ('noImage' in $$props) noImage = $$props.noImage;
 		if ('generatePNG' in $$props) generatePNG = $$props.generatePNG;
 		if ('config' in $$props) config = $$props.config;
 	};
@@ -16923,13 +17035,19 @@ function instance$9($$self, $$props, $$invalidate) {
 		$$self.$inject_state($$props.$$inject);
 	}
 
-	return [chartData, images, language];
+	return [chartData, images, language, snapConfig];
 }
 
 class EvaluationChart extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance$9, create_fragment$9, safe_not_equal, { chartData: 0, images: 1, language: 2 });
+
+		init(this, options, instance$9, create_fragment$9, safe_not_equal, {
+			chartData: 0,
+			images: 1,
+			language: 2,
+			snapConfig: 3
+		});
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -16960,6 +17078,14 @@ class EvaluationChart extends SvelteComponentDev {
 	}
 
 	set language(value) {
+		throw new Error("<EvaluationChart>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	get snapConfig() {
+		throw new Error("<EvaluationChart>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	}
+
+	set snapConfig(value) {
 		throw new Error("<EvaluationChart>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 	}
 }
@@ -43846,7 +43972,7 @@ var FileSaver_min = createCommonjsModule(function (module, exports) {
 
 /* src\ExportButton.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$3, console: console_1$4 } = globals;
+const { Object: Object_1$3, console: console_1$3 } = globals;
 const file$6 = "src\\ExportButton.svelte";
 
 function create_fragment$7(ctx) {
@@ -44016,22 +44142,22 @@ Expected format by SheetJS:
 
 	$$self.$$.on_mount.push(function () {
 		if (data === undefined && !('data' in $$props || $$self.$$.bound[$$self.$$.props['data']])) {
-			console_1$4.warn("<ExportButton> was created without expected prop 'data'");
+			console_1$3.warn("<ExportButton> was created without expected prop 'data'");
 		}
 
 		if (images === undefined && !('images' in $$props || $$self.$$.bound[$$self.$$.props['images']])) {
-			console_1$4.warn("<ExportButton> was created without expected prop 'images'");
+			console_1$3.warn("<ExportButton> was created without expected prop 'images'");
 		}
 
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$4.warn("<ExportButton> was created without expected prop 'appConfig'");
+			console_1$3.warn("<ExportButton> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['data', 'images', 'appConfig'];
 
 	Object_1$3.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$4.warn(`<ExportButton> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<ExportButton> was created with unknown prop '${key}'`);
 	});
 
 	$$self.$$set = $$props => {
@@ -44120,23 +44246,35 @@ class ExportButton extends SvelteComponentDev {
 
 /* src\Evalutation.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$2, console: console_1$3 } = globals;
+const { Object: Object_1$2, console: console_1$2 } = globals;
 const file$5 = "src\\Evalutation.svelte";
 
 function get_each_context$4(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[26] = list[i];
+	child_ctx[32] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[29] = list[i];
+	child_ctx[35] = list[i];
 	return child_ctx;
 }
 
-// (185:1) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
-function create_if_block_1$3(ctx) {
+function get_each_context_2$1(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[32] = list[i];
+	return child_ctx;
+}
+
+function get_each_context_3$1(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[35] = list[i];
+	return child_ctx;
+}
+
+// (265:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
+function create_if_block_3$1(ctx) {
 	let evaluationchart;
 	let updating_images;
 	let t;
@@ -44144,11 +44282,11 @@ function create_if_block_1$3(ctx) {
 	let current;
 
 	function evaluationchart_images_binding(value) {
-		/*evaluationchart_images_binding*/ ctx[9](value);
+		/*evaluationchart_images_binding*/ ctx[11](value);
 	}
 
 	let evaluationchart_props = {
-		chartData: /*generateChartData*/ ctx[8](/*dimension*/ ctx[29]),
+		chartData: /*generateChartData*/ ctx[9](/*dimension*/ ctx[35]),
 		language: /*appConfig*/ ctx[0].language
 	};
 
@@ -44165,7 +44303,7 @@ function create_if_block_1$3(ctx) {
 
 	evaluationdatatable = new EvaluationDataTable({
 			props: {
-				tableData: /*generateTableData*/ ctx[7](/*dimension*/ ctx[29]),
+				tableData: /*generateTableData*/ ctx[8](/*dimension*/ ctx[35]),
 				isHidden: /*appConfig*/ ctx[0].hideIrrelevant,
 				language: /*appConfig*/ ctx[0].language
 			},
@@ -44220,20 +44358,20 @@ function create_if_block_1$3(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_1$3.name,
+		id: create_if_block_3$1.name,
 		type: "if",
-		source: "(185:1) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
+		source: "(265:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (183:1) {#each Object.keys(dimensionDescriptions) as dimension}
-function create_each_block_1$2(ctx) {
+// (263:2) {#each Object.keys(dimensionDescriptions) as dimension}
+function create_each_block_3$1(ctx) {
 	let if_block_anchor;
 	let current;
-	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[3][/*dimension*/ ctx[29]]] && create_if_block_1$3(ctx);
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]] && create_if_block_3$1(ctx);
 
 	const block = {
 		c: function create() {
@@ -44246,11 +44384,309 @@ function create_each_block_1$2(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[3][/*dimension*/ ctx[29]]]) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*appConfig, $capabilityConverter*/ 9) {
+					if (dirty[0] & /*appConfig, $capabilityConverter*/ 17) {
+						transition_in(if_block, 1);
+					}
+				} else {
+					if_block = create_if_block_3$1(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				group_outros();
+
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
+
+				check_outros();
+			}
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach_dev(if_block_anchor);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_3$1.name,
+		type: "each",
+		source: "(263:2) {#each Object.keys(dimensionDescriptions) as dimension}",
+		ctx
+	});
+
+	return block;
+}
+
+// (276:2) {#if appConfig.checkedFilters[$topicConverter[category]]}
+function create_if_block_2$1(ctx) {
+	let evaluationchart;
+	let updating_images;
+	let t;
+	let evaluationdatatable;
+	let current;
+
+	function evaluationchart_images_binding_1(value) {
+		/*evaluationchart_images_binding_1*/ ctx[12](value);
+	}
+
+	let evaluationchart_props = {
+		chartData: /*generateChartData*/ ctx[9](/*category*/ ctx[32]),
+		language: /*appConfig*/ ctx[0].language
+	};
+
+	if (/*images*/ ctx[2] !== void 0) {
+		evaluationchart_props.images = /*images*/ ctx[2];
+	}
+
+	evaluationchart = new EvaluationChart({
+			props: evaluationchart_props,
+			$$inline: true
+		});
+
+	binding_callbacks.push(() => bind(evaluationchart, 'images', evaluationchart_images_binding_1));
+
+	evaluationdatatable = new EvaluationDataTable({
+			props: {
+				tableData: /*generateTableData*/ ctx[8](/*category*/ ctx[32]),
+				isHidden: /*appConfig*/ ctx[0].hideIrrelevant,
+				language: /*appConfig*/ ctx[0].language
+			},
+			$$inline: true
+		});
+
+	const block = {
+		c: function create() {
+			create_component(evaluationchart.$$.fragment);
+			t = space();
+			create_component(evaluationdatatable.$$.fragment);
+		},
+		m: function mount(target, anchor) {
+			mount_component(evaluationchart, target, anchor);
+			insert_dev(target, t, anchor);
+			mount_component(evaluationdatatable, target, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			const evaluationchart_changes = {};
+			if (dirty[0] & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
+
+			if (!updating_images && dirty[0] & /*images*/ 4) {
+				updating_images = true;
+				evaluationchart_changes.images = /*images*/ ctx[2];
+				add_flush_callback(() => updating_images = false);
+			}
+
+			evaluationchart.$set(evaluationchart_changes);
+			const evaluationdatatable_changes = {};
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
+			evaluationdatatable.$set(evaluationdatatable_changes);
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(evaluationchart.$$.fragment, local);
+			transition_in(evaluationdatatable.$$.fragment, local);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(evaluationchart.$$.fragment, local);
+			transition_out(evaluationdatatable.$$.fragment, local);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			destroy_component(evaluationchart, detaching);
+			if (detaching) detach_dev(t);
+			destroy_component(evaluationdatatable, detaching);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_2$1.name,
+		type: "if",
+		source: "(276:2) {#if appConfig.checkedFilters[$topicConverter[category]]}",
+		ctx
+	});
+
+	return block;
+}
+
+// (274:2) {#each Object.values(categoryDescriptions) as category}
+function create_each_block_2$1(ctx) {
+	let if_block_anchor;
+	let current;
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]] && create_if_block_2$1(ctx);
+
+	const block = {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insert_dev(target, if_block_anchor, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+
+					if (dirty[0] & /*appConfig, $topicConverter*/ 33) {
+						transition_in(if_block, 1);
+					}
+				} else {
+					if_block = create_if_block_2$1(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				group_outros();
+
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
+
+				check_outros();
+			}
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach_dev(if_block_anchor);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_2$1.name,
+		type: "each",
+		source: "(274:2) {#each Object.values(categoryDescriptions) as category}",
+		ctx
+	});
+
+	return block;
+}
+
+// (290:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
+function create_if_block_1$3(ctx) {
+	let evaluationchart;
+	let updating_images;
+	let current;
+
+	function evaluationchart_images_binding_2(value) {
+		/*evaluationchart_images_binding_2*/ ctx[13](value);
+	}
+
+	let evaluationchart_props = {
+		chartData: prepareSnapshotData(/*generateChartData*/ ctx[9](/*dimension*/ ctx[35])),
+		language: /*appConfig*/ ctx[0].language,
+		snapConfig: /*generateSnapshotDatasets*/ ctx[10](/*dimension*/ ctx[35])
+	};
+
+	if (/*images*/ ctx[2] !== void 0) {
+		evaluationchart_props.images = /*images*/ ctx[2];
+	}
+
+	evaluationchart = new EvaluationChart({
+			props: evaluationchart_props,
+			$$inline: true
+		});
+
+	binding_callbacks.push(() => bind(evaluationchart, 'images', evaluationchart_images_binding_2));
+
+	const block = {
+		c: function create() {
+			create_component(evaluationchart.$$.fragment);
+		},
+		m: function mount(target, anchor) {
+			mount_component(evaluationchart, target, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			const evaluationchart_changes = {};
+			if (dirty[0] & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
+
+			if (!updating_images && dirty[0] & /*images*/ 4) {
+				updating_images = true;
+				evaluationchart_changes.images = /*images*/ ctx[2];
+				add_flush_callback(() => updating_images = false);
+			}
+
+			evaluationchart.$set(evaluationchart_changes);
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(evaluationchart.$$.fragment, local);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(evaluationchart.$$.fragment, local);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			destroy_component(evaluationchart, detaching);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_1$3.name,
+		type: "if",
+		source: "(290:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
+		ctx
+	});
+
+	return block;
+}
+
+// (288:2) {#each Object.keys(dimensionDescriptions) as dimension}
+function create_each_block_1$2(ctx) {
+	let if_block_anchor;
+	let current;
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]] && create_if_block_1$3(ctx);
+
+	const block = {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insert_dev(target, if_block_anchor, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+
+					if (dirty[0] & /*appConfig, $capabilityConverter*/ 17) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -44288,28 +44724,28 @@ function create_each_block_1$2(ctx) {
 		block,
 		id: create_each_block_1$2.name,
 		type: "each",
-		source: "(183:1) {#each Object.keys(dimensionDescriptions) as dimension}",
+		source: "(288:2) {#each Object.keys(dimensionDescriptions) as dimension}",
 		ctx
 	});
 
 	return block;
 }
 
-// (196:1) {#if appConfig.checkedFilters[$topicConverter[category]]}
+// (301:2) {#if appConfig.checkedFilters[$topicConverter[category]]}
 function create_if_block$3(ctx) {
 	let evaluationchart;
 	let updating_images;
 	let t;
-	let evaluationdatatable;
 	let current;
 
-	function evaluationchart_images_binding_1(value) {
-		/*evaluationchart_images_binding_1*/ ctx[10](value);
+	function evaluationchart_images_binding_3(value) {
+		/*evaluationchart_images_binding_3*/ ctx[14](value);
 	}
 
 	let evaluationchart_props = {
-		chartData: /*generateChartData*/ ctx[8](/*category*/ ctx[26]),
-		language: /*appConfig*/ ctx[0].language
+		chartData: prepareSnapshotData(/*generateChartData*/ ctx[9](/*category*/ ctx[32])),
+		language: /*appConfig*/ ctx[0].language,
+		snapConfig: /*generateSnapshotDatasets*/ ctx[10](/*category*/ ctx[32])
 	};
 
 	if (/*images*/ ctx[2] !== void 0) {
@@ -44321,27 +44757,16 @@ function create_if_block$3(ctx) {
 			$$inline: true
 		});
 
-	binding_callbacks.push(() => bind(evaluationchart, 'images', evaluationchart_images_binding_1));
-
-	evaluationdatatable = new EvaluationDataTable({
-			props: {
-				tableData: /*generateTableData*/ ctx[7](/*category*/ ctx[26]),
-				isHidden: /*appConfig*/ ctx[0].hideIrrelevant,
-				language: /*appConfig*/ ctx[0].language
-			},
-			$$inline: true
-		});
+	binding_callbacks.push(() => bind(evaluationchart, 'images', evaluationchart_images_binding_3));
 
 	const block = {
 		c: function create() {
 			create_component(evaluationchart.$$.fragment);
 			t = space();
-			create_component(evaluationdatatable.$$.fragment);
 		},
 		m: function mount(target, anchor) {
 			mount_component(evaluationchart, target, anchor);
 			insert_dev(target, t, anchor);
-			mount_component(evaluationdatatable, target, anchor);
 			current = true;
 		},
 		p: function update(ctx, dirty) {
@@ -44355,26 +44780,19 @@ function create_if_block$3(ctx) {
 			}
 
 			evaluationchart.$set(evaluationchart_changes);
-			const evaluationdatatable_changes = {};
-			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
-			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
-			evaluationdatatable.$set(evaluationdatatable_changes);
 		},
 		i: function intro(local) {
 			if (current) return;
 			transition_in(evaluationchart.$$.fragment, local);
-			transition_in(evaluationdatatable.$$.fragment, local);
 			current = true;
 		},
 		o: function outro(local) {
 			transition_out(evaluationchart.$$.fragment, local);
-			transition_out(evaluationdatatable.$$.fragment, local);
 			current = false;
 		},
 		d: function destroy(detaching) {
 			destroy_component(evaluationchart, detaching);
 			if (detaching) detach_dev(t);
-			destroy_component(evaluationdatatable, detaching);
 		}
 	};
 
@@ -44382,18 +44800,18 @@ function create_if_block$3(ctx) {
 		block,
 		id: create_if_block$3.name,
 		type: "if",
-		source: "(196:1) {#if appConfig.checkedFilters[$topicConverter[category]]}",
+		source: "(301:2) {#if appConfig.checkedFilters[$topicConverter[category]]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (194:1) {#each Object.values(categoryDescriptions) as category}
+// (299:2) {#each Object.values(categoryDescriptions) as category}
 function create_each_block$4(ctx) {
 	let if_block_anchor;
 	let current;
-	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[4][/*category*/ ctx[26]]] && create_if_block$3(ctx);
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]] && create_if_block$3(ctx);
 
 	const block = {
 		c: function create() {
@@ -44406,11 +44824,11 @@ function create_each_block$4(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[4][/*category*/ ctx[26]]]) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*appConfig, $topicConverter*/ 17) {
+					if (dirty[0] & /*appConfig, $topicConverter*/ 33) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -44448,7 +44866,7 @@ function create_each_block$4(ctx) {
 		block,
 		id: create_each_block$4.name,
 		type: "each",
-		source: "(194:1) {#each Object.values(categoryDescriptions) as category}",
+		source: "(299:2) {#each Object.values(categoryDescriptions) as category}",
 		ctx
 	});
 
@@ -44456,13 +44874,23 @@ function create_each_block$4(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	let div;
+	let div2;
 	let exportbutton0;
 	let t0;
+	let button;
+	let t1_value = /*$ui*/ ctx[3][/*appConfig*/ ctx[0].language].evaluation.changeMode + "";
 	let t1;
 	let t2;
+	let div0;
+	let t3;
+	let t4;
+	let div1;
+	let t5;
+	let t6;
 	let exportbutton1;
 	let current;
+	let mounted;
+	let dispose;
 
 	exportbutton0 = new ExportButton({
 			props: {
@@ -44473,7 +44901,31 @@ function create_fragment$6(ctx) {
 			$$inline: true
 		});
 
-	let each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[5]);
+	let each_value_3 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
+	validate_each_argument(each_value_3);
+	let each_blocks_3 = [];
+
+	for (let i = 0; i < each_value_3.length; i += 1) {
+		each_blocks_3[i] = create_each_block_3$1(get_each_context_3$1(ctx, each_value_3, i));
+	}
+
+	const out = i => transition_out(each_blocks_3[i], 1, 1, () => {
+		each_blocks_3[i] = null;
+	});
+
+	let each_value_2 = Object.values(/*categoryDescriptions*/ ctx[7]);
+	validate_each_argument(each_value_2);
+	let each_blocks_2 = [];
+
+	for (let i = 0; i < each_value_2.length; i += 1) {
+		each_blocks_2[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
+	}
+
+	const out_1 = i => transition_out(each_blocks_2[i], 1, 1, () => {
+		each_blocks_2[i] = null;
+	});
+
+	let each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
 	validate_each_argument(each_value_1);
 	let each_blocks_1 = [];
 
@@ -44481,11 +44933,11 @@ function create_fragment$6(ctx) {
 		each_blocks_1[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
 	}
 
-	const out = i => transition_out(each_blocks_1[i], 1, 1, () => {
+	const out_2 = i => transition_out(each_blocks_1[i], 1, 1, () => {
 		each_blocks_1[i] = null;
 	});
 
-	let each_value = Object.values(/*categoryDescriptions*/ ctx[6]);
+	let each_value = Object.values(/*categoryDescriptions*/ ctx[7]);
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
@@ -44493,7 +44945,7 @@ function create_fragment$6(ctx) {
 		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
 	}
 
-	const out_1 = i => transition_out(each_blocks[i], 1, 1, () => {
+	const out_3 = i => transition_out(each_blocks[i], 1, 1, () => {
 		each_blocks[i] = null;
 	});
 
@@ -44508,46 +44960,91 @@ function create_fragment$6(ctx) {
 
 	const block = {
 		c: function create() {
-			div = element("div");
+			div2 = element("div");
 			create_component(exportbutton0.$$.fragment);
 			t0 = space();
+			button = element("button");
+			t1 = text(t1_value);
+			t2 = space();
+			div0 = element("div");
+
+			for (let i = 0; i < each_blocks_3.length; i += 1) {
+				each_blocks_3[i].c();
+			}
+
+			t3 = space();
+
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				each_blocks_2[i].c();
+			}
+
+			t4 = space();
+			div1 = element("div");
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].c();
 			}
 
-			t1 = space();
+			t5 = space();
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			t2 = space();
+			t6 = space();
 			create_component(exportbutton1.$$.fragment);
-			attr_dev(div, "id", "auswertung");
-			add_location(div, file$5, 178, 0, 4267);
+			add_location(button, file$5, 259, 1, 6353);
+			attr_dev(div0, "id", "chartContainer");
+			attr_dev(div0, "class", "svelte-1s3zkb5");
+			add_location(div0, file$5, 261, 1, 6444);
+			attr_dev(div1, "id", "snapshotContainer");
+			add_location(div1, file$5, 286, 1, 7275);
+			attr_dev(div2, "id", "auswertung");
+			add_location(div2, file$5, 256, 0, 6254);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, div, anchor);
-			mount_component(exportbutton0, div, null);
-			append_dev(div, t0);
+			insert_dev(target, div2, anchor);
+			mount_component(exportbutton0, div2, null);
+			append_dev(div2, t0);
+			append_dev(div2, button);
+			append_dev(button, t1);
+			append_dev(div2, t2);
+			append_dev(div2, div0);
+
+			for (let i = 0; i < each_blocks_3.length; i += 1) {
+				each_blocks_3[i].m(div0, null);
+			}
+
+			append_dev(div0, t3);
+
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				each_blocks_2[i].m(div0, null);
+			}
+
+			append_dev(div2, t4);
+			append_dev(div2, div1);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].m(div, null);
+				each_blocks_1[i].m(div1, null);
 			}
 
-			append_dev(div, t1);
+			append_dev(div1, t5);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div, null);
+				each_blocks[i].m(div1, null);
 			}
 
-			append_dev(div, t2);
-			mount_component(exportbutton1, div, null);
+			append_dev(div2, t6);
+			mount_component(exportbutton1, div2, null);
 			current = true;
+
+			if (!mounted) {
+				dispose = listen_dev(button, "click", toggleMode, false, false, false);
+				mounted = true;
+			}
 		},
 		p: function update(ctx, dirty) {
 			const exportbutton0_changes = {};
@@ -44555,9 +45052,66 @@ function create_fragment$6(ctx) {
 			if (dirty[0] & /*images*/ 4) exportbutton0_changes.images = /*images*/ ctx[2];
 			if (dirty[0] & /*appConfig*/ 1) exportbutton0_changes.appConfig = /*appConfig*/ ctx[0];
 			exportbutton0.$set(exportbutton0_changes);
+			if ((!current || dirty[0] & /*$ui, appConfig*/ 9) && t1_value !== (t1_value = /*$ui*/ ctx[3][/*appConfig*/ ctx[0].language].evaluation.changeMode + "")) set_data_dev(t1, t1_value);
 
-			if (dirty[0] & /*generateTableData, dimensionDescriptions, appConfig, generateChartData, images, $capabilityConverter*/ 429) {
-				each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[5]);
+			if (dirty[0] & /*generateTableData, dimensionDescriptions, appConfig, generateChartData, images, $capabilityConverter*/ 853) {
+				each_value_3 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
+				validate_each_argument(each_value_3);
+				let i;
+
+				for (i = 0; i < each_value_3.length; i += 1) {
+					const child_ctx = get_each_context_3$1(ctx, each_value_3, i);
+
+					if (each_blocks_3[i]) {
+						each_blocks_3[i].p(child_ctx, dirty);
+						transition_in(each_blocks_3[i], 1);
+					} else {
+						each_blocks_3[i] = create_each_block_3$1(child_ctx);
+						each_blocks_3[i].c();
+						transition_in(each_blocks_3[i], 1);
+						each_blocks_3[i].m(div0, t3);
+					}
+				}
+
+				group_outros();
+
+				for (i = each_value_3.length; i < each_blocks_3.length; i += 1) {
+					out(i);
+				}
+
+				check_outros();
+			}
+
+			if (dirty[0] & /*generateTableData, categoryDescriptions, appConfig, generateChartData, images, $topicConverter*/ 933) {
+				each_value_2 = Object.values(/*categoryDescriptions*/ ctx[7]);
+				validate_each_argument(each_value_2);
+				let i;
+
+				for (i = 0; i < each_value_2.length; i += 1) {
+					const child_ctx = get_each_context_2$1(ctx, each_value_2, i);
+
+					if (each_blocks_2[i]) {
+						each_blocks_2[i].p(child_ctx, dirty);
+						transition_in(each_blocks_2[i], 1);
+					} else {
+						each_blocks_2[i] = create_each_block_2$1(child_ctx);
+						each_blocks_2[i].c();
+						transition_in(each_blocks_2[i], 1);
+						each_blocks_2[i].m(div0, null);
+					}
+				}
+
+				group_outros();
+
+				for (i = each_value_2.length; i < each_blocks_2.length; i += 1) {
+					out_1(i);
+				}
+
+				check_outros();
+			}
+
+			if (dirty[0] & /*generateChartData, dimensionDescriptions, appConfig, generateSnapshotDatasets, images, $capabilityConverter*/ 1621) {
+				each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
 				validate_each_argument(each_value_1);
 				let i;
 
@@ -44571,21 +45125,21 @@ function create_fragment$6(ctx) {
 						each_blocks_1[i] = create_each_block_1$2(child_ctx);
 						each_blocks_1[i].c();
 						transition_in(each_blocks_1[i], 1);
-						each_blocks_1[i].m(div, t1);
+						each_blocks_1[i].m(div1, t5);
 					}
 				}
 
 				group_outros();
 
 				for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
-					out(i);
+					out_2(i);
 				}
 
 				check_outros();
 			}
 
-			if (dirty[0] & /*generateTableData, categoryDescriptions, appConfig, generateChartData, images, $topicConverter*/ 469) {
-				each_value = Object.values(/*categoryDescriptions*/ ctx[6]);
+			if (dirty[0] & /*generateChartData, categoryDescriptions, appConfig, generateSnapshotDatasets, images, $topicConverter*/ 1701) {
+				each_value = Object.values(/*categoryDescriptions*/ ctx[7]);
 				validate_each_argument(each_value);
 				let i;
 
@@ -44599,14 +45153,14 @@ function create_fragment$6(ctx) {
 						each_blocks[i] = create_each_block$4(child_ctx);
 						each_blocks[i].c();
 						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(div, t2);
+						each_blocks[i].m(div1, null);
 					}
 				}
 
 				group_outros();
 
 				for (i = each_value.length; i < each_blocks.length; i += 1) {
-					out_1(i);
+					out_3(i);
 				}
 
 				check_outros();
@@ -44622,6 +45176,14 @@ function create_fragment$6(ctx) {
 			if (current) return;
 			transition_in(exportbutton0.$$.fragment, local);
 
+			for (let i = 0; i < each_value_3.length; i += 1) {
+				transition_in(each_blocks_3[i]);
+			}
+
+			for (let i = 0; i < each_value_2.length; i += 1) {
+				transition_in(each_blocks_2[i]);
+			}
+
 			for (let i = 0; i < each_value_1.length; i += 1) {
 				transition_in(each_blocks_1[i]);
 			}
@@ -44635,6 +45197,18 @@ function create_fragment$6(ctx) {
 		},
 		o: function outro(local) {
 			transition_out(exportbutton0.$$.fragment, local);
+			each_blocks_3 = each_blocks_3.filter(Boolean);
+
+			for (let i = 0; i < each_blocks_3.length; i += 1) {
+				transition_out(each_blocks_3[i]);
+			}
+
+			each_blocks_2 = each_blocks_2.filter(Boolean);
+
+			for (let i = 0; i < each_blocks_2.length; i += 1) {
+				transition_out(each_blocks_2[i]);
+			}
+
 			each_blocks_1 = each_blocks_1.filter(Boolean);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -44651,11 +45225,15 @@ function create_fragment$6(ctx) {
 			current = false;
 		},
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(div);
+			if (detaching) detach_dev(div2);
 			destroy_component(exportbutton0);
+			destroy_each(each_blocks_3, detaching);
+			destroy_each(each_blocks_2, detaching);
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
 			destroy_component(exportbutton1);
+			mounted = false;
+			dispose();
 		}
 	};
 
@@ -44688,28 +45266,54 @@ function arrayIntersection$1(array1, array2) {
 	}
 }
 
+function toggleMode() {
+	let chartImages = document.getElementById("chartContainer");
+	let snapshotImages = document.getElementById("snapshotContainer");
+
+	if (chartImages.style.display == "none") {
+		chartImages.style.display = "block";
+		snapshotImages.style.display = "none";
+	} else {
+		chartImages.style.display = "none";
+		snapshotImages.style.display = "block";
+	}
+}
+
+function getRandomInt(max) {
+	return Math.floor(Math.random() * max);
+}
+
+function prepareSnapshotData(data) {
+	let newData = data;
+	newData.title = newData.title + " - Snapshot";
+	return newData;
+}
+
 function instance$6($$self, $$props, $$invalidate) {
 	let $emptyUserInfo;
 	let $emptyUserData;
 	let $capabilityList;
 	let $categories;
 	let $dimensionDesc;
+	let $ui;
 	let $capabilityConverter;
 	let $topicConverter;
 	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(16, $emptyUserInfo = $$value));
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(21, $emptyUserInfo = $$value));
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(17, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(22, $emptyUserData = $$value));
 	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(18, $capabilityList = $$value));
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(23, $capabilityList = $$value));
 	validate_store(categories, 'categories');
-	component_subscribe($$self, categories, $$value => $$invalidate(19, $categories = $$value));
+	component_subscribe($$self, categories, $$value => $$invalidate(24, $categories = $$value));
 	validate_store(dimensionDesc, 'dimensionDesc');
-	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(20, $dimensionDesc = $$value));
+	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(25, $dimensionDesc = $$value));
+	validate_store(ui, 'ui');
+	component_subscribe($$self, ui, $$value => $$invalidate(3, $ui = $$value));
 	validate_store(capabilityConverter, 'capabilityConverter');
-	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(3, $capabilityConverter = $$value));
+	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(4, $capabilityConverter = $$value));
 	validate_store(topicConverter, 'topicConverter');
-	component_subscribe($$self, topicConverter, $$value => $$invalidate(4, $topicConverter = $$value));
+	component_subscribe($$self, topicConverter, $$value => $$invalidate(5, $topicConverter = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('Evalutation', slots, []);
 	let { appConfig } = $$props;
@@ -44723,12 +45327,20 @@ function instance$6($$self, $$props, $$invalidate) {
 	let dimensionDescriptions = $dimensionDesc[appConfig.language];
 	let categoryDescriptions = $categories[appConfig.language];
 	let capabilities = $capabilityList[appConfig.language];
+	let snapshots;
+
+	try {
+		snapshots = dataManager.loadFromLocalStorage("dataUserSnapshots");
+	} catch(error) {
+		console.log(error);
+		snapshots = {};
+	}
 
 	try {
 		userInput = dataManager.loadFromLocalStorage("dataUserInput");
 	} catch(error) {
 		console.log(error);
-		userInfo = $emptyUserData;
+		userInput = $emptyUserData;
 	}
 
 	try {
@@ -44854,16 +45466,60 @@ function instance$6($$self, $$props, $$invalidate) {
 		return chartData;
 	}
 
+	function generateSnapshotDatasets(input) {
+		let snapshotDatasets = [];
+
+		for (const [snapName, snapValues] of Object.entries(snapshots)) {
+			let snapshotData = {};
+			let r = getRandomInt(255);
+			let g = getRandomInt(255);
+			let b = getRandomInt(255);
+
+			// snapshotData.labels = getLabels(input)
+			snapshotData.label = snapName;
+
+			snapshotData.data = getIsValuesSnapshots(input, snapshots[snapName]);
+			snapshotData.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.2)`;
+			snapshotData.borderColor = `rgba(${r}, ${g}, ${b}, 0.6)`;
+			snapshotDatasets.push(snapshotData);
+		}
+
+		console.log(snapshotDatasets);
+		return snapshotDatasets;
+	}
+
+	function getIsValuesSnapshots(input, data) {
+		// TODO: Clean up
+		let array = [];
+
+		if (dimensionDescriptions.hasOwnProperty(input)) {
+			for (const [id, capabilityData] of Object.entries(capabilities)) {
+				if (capabilityData.dimension == input) {
+					array.push(Number(data[id].isValue));
+				}
+			}
+		} else {
+			for (const [id, capabilityData] of Object.entries(capabilities)) {
+				if (capabilityData.category == input) {
+					array.push(Number(data[id].isValue));
+				}
+			}
+		}
+
+		// apply filter
+		return array;
+	}
+
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$3.warn("<Evalutation> was created without expected prop 'appConfig'");
+			console_1$2.warn("<Evalutation> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object_1$2.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$3.warn(`<Evalutation> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<Evalutation> was created with unknown prop '${key}'`);
 	});
 
 	function evaluationchart_images_binding(value) {
@@ -44872,6 +45528,16 @@ function instance$6($$self, $$props, $$invalidate) {
 	}
 
 	function evaluationchart_images_binding_1(value) {
+		images = value;
+		$$invalidate(2, images);
+	}
+
+	function evaluationchart_images_binding_2(value) {
+		images = value;
+		$$invalidate(2, images);
+	}
+
+	function evaluationchart_images_binding_3(value) {
 		images = value;
 		$$invalidate(2, images);
 	}
@@ -44890,6 +45556,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		defaultFilters,
 		capabilityConverter,
 		topicConverter,
+		ui,
 		EvaluationChart,
 		EvaluationDataTable,
 		ExportButton,
@@ -44905,6 +45572,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		dimensionDescriptions,
 		categoryDescriptions,
 		capabilities,
+		snapshots,
 		round,
 		getAverages,
 		getLabels,
@@ -44913,11 +45581,17 @@ function instance$6($$self, $$props, $$invalidate) {
 		generateTableData,
 		generateChartData,
 		arrayIntersection: arrayIntersection$1,
+		toggleMode,
+		getRandomInt,
+		generateSnapshotDatasets,
+		getIsValuesSnapshots,
+		prepareSnapshotData,
 		$emptyUserInfo,
 		$emptyUserData,
 		$capabilityList,
 		$categories,
 		$dimensionDesc,
+		$ui,
 		$capabilityConverter,
 		$topicConverter
 	});
@@ -44931,9 +45605,10 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('average' in $$props) average = $$props.average;
 		if ('averages' in $$props) averages = $$props.averages;
 		if ('images' in $$props) $$invalidate(2, images = $$props.images);
-		if ('dimensionDescriptions' in $$props) $$invalidate(5, dimensionDescriptions = $$props.dimensionDescriptions);
-		if ('categoryDescriptions' in $$props) $$invalidate(6, categoryDescriptions = $$props.categoryDescriptions);
+		if ('dimensionDescriptions' in $$props) $$invalidate(6, dimensionDescriptions = $$props.dimensionDescriptions);
+		if ('categoryDescriptions' in $$props) $$invalidate(7, categoryDescriptions = $$props.categoryDescriptions);
 		if ('capabilities' in $$props) capabilities = $$props.capabilities;
+		if ('snapshots' in $$props) snapshots = $$props.snapshots;
 	};
 
 	if ($$props && "$$inject" in $$props) {
@@ -44944,14 +45619,18 @@ function instance$6($$self, $$props, $$invalidate) {
 		appConfig,
 		userInput,
 		images,
+		$ui,
 		$capabilityConverter,
 		$topicConverter,
 		dimensionDescriptions,
 		categoryDescriptions,
 		generateTableData,
 		generateChartData,
+		generateSnapshotDatasets,
 		evaluationchart_images_binding,
-		evaluationchart_images_binding_1
+		evaluationchart_images_binding_1,
+		evaluationchart_images_binding_2,
+		evaluationchart_images_binding_3
 	];
 }
 
@@ -45632,64 +46311,113 @@ class CapabilityTableRow extends SvelteComponentDev {
 
 /* src\CapabilityTable.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1$1, console: console_1$2 } = globals;
+const { Object: Object_1$1, console: console_1$1 } = globals;
 const file$3 = "src\\CapabilityTable.svelte";
 
 function get_each_context$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[37] = list[i][0];
-	child_ctx[38] = list[i][1];
+	child_ctx[46] = list[i][0];
+	child_ctx[47] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[41] = list[i][0];
-	child_ctx[42] = list[i][1];
-	child_ctx[43] = list;
-	child_ctx[44] = i;
+	child_ctx[50] = list[i][0];
+	child_ctx[51] = list[i][1];
+	child_ctx[52] = list;
+	child_ctx[53] = i;
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[41] = list[i][0];
-	child_ctx[42] = list[i][1];
-	child_ctx[45] = list;
-	child_ctx[46] = i;
+	child_ctx[50] = list[i][0];
+	child_ctx[51] = list[i][1];
+	child_ctx[54] = list;
+	child_ctx[55] = i;
 	return child_ctx;
 }
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[47] = list[i][0];
-	child_ctx[48] = list[i][1];
+	child_ctx[56] = list[i][0];
+	child_ctx[57] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_4(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[51] = list[i][0];
-	child_ctx[52] = list[i][1];
+	child_ctx[60] = list[i][0];
+	child_ctx[61] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_5(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[55] = list[i];
-	child_ctx[57] = i;
+	child_ctx[64] = list[i];
+	child_ctx[66] = i;
 	return child_ctx;
 }
 
-// (166:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}
+function get_each_context_6(ctx, list, i) {
+	const child_ctx = ctx.slice();
+	child_ctx[67] = list[i];
+	return child_ctx;
+}
+
+// (249:3) {#each Object.keys(snapshots) as snapshotName}
+function create_each_block_6(ctx) {
+	let option;
+	let t_value = /*snapshotName*/ ctx[67] + "";
+	let t;
+	let option_value_value;
+
+	const block = {
+		c: function create() {
+			option = element("option");
+			t = text(t_value);
+			option.__value = option_value_value = /*snapshotName*/ ctx[67];
+			option.value = option.__value;
+			add_location(option, file$3, 249, 3, 5343);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, option, anchor);
+			append_dev(option, t);
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*snapshots*/ 256 && t_value !== (t_value = /*snapshotName*/ ctx[67] + "")) set_data_dev(t, t_value);
+
+			if (dirty[0] & /*snapshots*/ 256 && option_value_value !== (option_value_value = /*snapshotName*/ ctx[67])) {
+				prop_dev(option, "__value", option_value_value);
+				option.value = option.__value;
+			}
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(option);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_6.name,
+		type: "each",
+		source: "(249:3) {#each Object.keys(snapshots) as snapshotName}",
+		ctx
+	});
+
+	return block;
+}
+
+// (278:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}
 function create_if_block_2(ctx) {
 	let div0;
 	let details;
 	let summary;
-	let t0_value = /*dimension*/ ctx[47] + "";
+	let t0_value = /*dimension*/ ctx[56] + "";
 	let t0;
 	let t1;
-	let t2_value = /*description*/ ctx[48] + "";
+	let t2_value = /*description*/ ctx[57] + "";
 	let t2;
 	let t3;
 	let div2;
@@ -45697,10 +46425,12 @@ function create_if_block_2(ctx) {
 	let t4;
 	let t5;
 	let span;
+	let t6_value = /*text*/ ctx[3].explanation + "";
+	let t6;
 	let t7;
 	let div3;
 	let current;
-	let each_value_5 = Array(/*numLevels*/ ctx[8]);
+	let each_value_5 = Array(/*numLevels*/ ctx[11]);
 	validate_each_argument(each_value_5);
 	let each_blocks_1 = [];
 
@@ -45708,7 +46438,7 @@ function create_if_block_2(ctx) {
 		each_blocks_1[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
 	}
 
-	let each_value_4 = Object.entries(/*capabilities*/ ctx[11]);
+	let each_value_4 = Object.entries(/*capabilities*/ ctx[14]);
 	validate_each_argument(each_value_4);
 	let each_blocks = [];
 
@@ -45739,7 +46469,7 @@ function create_if_block_2(ctx) {
 
 			t5 = space();
 			span = element("span");
-			span.textContent = `${/*text*/ ctx[7].explanation}`;
+			t6 = text(t6_value);
 			t7 = space();
 			div3 = element("div");
 
@@ -45747,21 +46477,21 @@ function create_if_block_2(ctx) {
 				each_blocks[i].c();
 			}
 
-			attr_dev(summary, "class", "summary-level svelte-1n7fdro");
-			add_location(summary, file$3, 168, 3, 4028);
-			attr_dev(details, "class", "col dimensionDescription svelte-1n7fdro");
-			add_location(details, file$3, 167, 2, 3981);
+			attr_dev(summary, "class", "summary-level svelte-qvznef");
+			add_location(summary, file$3, 280, 3, 6119);
+			attr_dev(details, "class", "col dimensionDescription svelte-qvznef");
+			add_location(details, file$3, 279, 2, 6072);
 			attr_dev(div0, "class", "titlebar");
-			add_location(div0, file$3, 166, 1, 3955);
-			attr_dev(div1, "class", "empty col svelte-1n7fdro");
-			add_location(div1, file$3, 173, 2, 4152);
-			attr_dev(span, "class", "col explanation svelte-1n7fdro");
+			add_location(div0, file$3, 278, 1, 6046);
+			attr_dev(div1, "class", "empty col svelte-qvznef");
+			add_location(div1, file$3, 285, 2, 6243);
+			attr_dev(span, "class", "col explanation svelte-qvznef");
 			attr_dev(span, "id", "explanation");
-			add_location(span, file$3, 181, 2, 4451);
-			attr_dev(div2, "class", "row titles svelte-1n7fdro");
-			add_location(div2, file$3, 172, 1, 4124);
-			attr_dev(div3, "class", "capabilities svelte-1n7fdro");
-			add_location(div3, file$3, 183, 1, 4535);
+			add_location(span, file$3, 292, 2, 6463);
+			attr_dev(div2, "class", "row titles svelte-qvznef");
+			add_location(div2, file$3, 284, 1, 6215);
+			attr_dev(div3, "class", "capabilities svelte-qvznef");
+			add_location(div3, file$3, 294, 1, 6547);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div0, anchor);
@@ -45781,6 +46511,7 @@ function create_if_block_2(ctx) {
 
 			append_dev(div2, t5);
 			append_dev(div2, span);
+			append_dev(span, t6);
 			insert_dev(target, t7, anchor);
 			insert_dev(target, div3, anchor);
 
@@ -45791,8 +46522,8 @@ function create_if_block_2(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*levelDescriptions*/ 512) {
-				each_value_5 = Array(/*numLevels*/ ctx[8]);
+			if (dirty[0] & /*levelDescriptions*/ 4096) {
+				each_value_5 = Array(/*numLevels*/ ctx[11]);
 				validate_each_argument(each_value_5);
 				let i;
 
@@ -45815,8 +46546,10 @@ function create_if_block_2(ctx) {
 				each_blocks_1.length = each_value_5.length;
 			}
 
-			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions*/ 3075) {
-				each_value_4 = Object.entries(/*capabilities*/ ctx[11]);
+			if ((!current || dirty[0] & /*text*/ 8) && t6_value !== (t6_value = /*text*/ ctx[3].explanation + "")) set_data_dev(t6, t6_value);
+
+			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions*/ 24579) {
+				each_value_4 = Object.entries(/*capabilities*/ ctx[14]);
 				validate_each_argument(each_value_4);
 				let i;
 
@@ -45876,24 +46609,23 @@ function create_if_block_2(ctx) {
 		block,
 		id: create_if_block_2.name,
 		type: "if",
-		source: "(166:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}",
+		source: "(278:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}",
 		ctx
 	});
 
 	return block;
 }
 
-// (175:2) {#each Array(numLevels) as _, i}
+// (287:2) {#each Array(numLevels) as _, i}
 function create_each_block_5(ctx) {
 	let details;
 	let summary;
 	let t0;
-	let t1_value = /*i*/ ctx[57] + 1 + "";
+	let t1_value = /*i*/ ctx[66] + 1 + "";
 	let t1;
 	let t2;
-	let t3_value = /*levelDescriptions*/ ctx[9][/*i*/ ctx[57]] + "";
+	let t3_value = /*levelDescriptions*/ ctx[12][/*i*/ ctx[66]] + "";
 	let t3;
-	let t4;
 
 	const block = {
 		c: function create() {
@@ -45903,11 +46635,10 @@ function create_each_block_5(ctx) {
 			t1 = text(t1_value);
 			t2 = space();
 			t3 = text(t3_value);
-			t4 = space();
-			attr_dev(summary, "class", "summary-level svelte-1n7fdro");
-			add_location(summary, file$3, 176, 4, 4260);
-			attr_dev(details, "class", "col level-item svelte-1n7fdro");
-			add_location(details, file$3, 175, 3, 4222);
+			attr_dev(summary, "class", "summary-level svelte-qvznef");
+			add_location(summary, file$3, 288, 4, 6351);
+			attr_dev(details, "class", "col level-item svelte-qvznef");
+			add_location(details, file$3, 287, 3, 6313);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, details, anchor);
@@ -45916,7 +46647,6 @@ function create_each_block_5(ctx) {
 			append_dev(summary, t1);
 			append_dev(details, t2);
 			append_dev(details, t3);
-			append_dev(details, t4);
 		},
 		p: noop,
 		d: function destroy(detaching) {
@@ -45928,25 +46658,25 @@ function create_each_block_5(ctx) {
 		block,
 		id: create_each_block_5.name,
 		type: "each",
-		source: "(175:2) {#each Array(numLevels) as _, i}",
+		source: "(287:2) {#each Array(numLevels) as _, i}",
 		ctx
 	});
 
 	return block;
 }
 
-// (186:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}
+// (297:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}
 function create_if_block_3(ctx) {
 	let tablerow;
 	let updating_appConfig;
 	let current;
 
 	function tablerow_appConfig_binding(value) {
-		/*tablerow_appConfig_binding*/ ctx[18](value);
+		/*tablerow_appConfig_binding*/ ctx[27](value);
 	}
 
 	let tablerow_props = {
-		capabilityID: /*id*/ ctx[51],
+		capabilityID: /*id*/ ctx[60],
 		userInput: /*userInput*/ ctx[1]
 	};
 
@@ -45995,16 +46725,16 @@ function create_if_block_3(ctx) {
 		block,
 		id: create_if_block_3.name,
 		type: "if",
-		source: "(186:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}",
+		source: "(297:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}",
 		ctx
 	});
 
 	return block;
 }
 
-// (185:2) {#each Object.entries(capabilities) as [id, capability]}
+// (296:2) {#each Object.entries(capabilities) as [id, capability]}
 function create_each_block_4(ctx) {
-	let show_if = /*capability*/ ctx[52].dimension == /*dimension*/ ctx[47] && !(/*userInput*/ ctx[1][/*id*/ ctx[51]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[51]);
+	let show_if = /*capability*/ ctx[61].dimension == /*dimension*/ ctx[56] && !(/*userInput*/ ctx[1][/*id*/ ctx[60]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[60]);
 	let if_block_anchor;
 	let current;
 	let if_block = show_if && create_if_block_3(ctx);
@@ -46020,7 +46750,7 @@ function create_each_block_4(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*userInput, appConfig*/ 3) show_if = /*capability*/ ctx[52].dimension == /*dimension*/ ctx[47] && !(/*userInput*/ ctx[1][/*id*/ ctx[51]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[51]);
+			if (dirty[0] & /*userInput, appConfig*/ 3) show_if = /*capability*/ ctx[61].dimension == /*dimension*/ ctx[56] && !(/*userInput*/ ctx[1][/*id*/ ctx[60]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[60]);
 
 			if (show_if) {
 				if (if_block) {
@@ -46064,17 +46794,17 @@ function create_each_block_4(ctx) {
 		block,
 		id: create_each_block_4.name,
 		type: "each",
-		source: "(185:2) {#each Object.entries(capabilities) as [id, capability]}",
+		source: "(296:2) {#each Object.entries(capabilities) as [id, capability]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (163:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}
+// (275:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}
 function create_each_block_3(ctx) {
 	let div;
-	let show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[4][/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[47]]]);
+	let show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[7][/*$capabilityConverter*/ ctx[9][/*dimension*/ ctx[56]]]);
 	let current;
 	let if_block = show_if && create_if_block_2(ctx);
 
@@ -46083,7 +46813,7 @@ function create_each_block_3(ctx) {
 			div = element("div");
 			if (if_block) if_block.c();
 			attr_dev(div, "class", "capability_container");
-			add_location(div, file$3, 164, 0, 3825);
+			add_location(div, file$3, 276, 0, 5916);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -46091,13 +46821,13 @@ function create_each_block_3(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 49) show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[4][/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[47]]]);
+			if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 641) show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[7][/*$capabilityConverter*/ ctx[9][/*dimension*/ ctx[56]]]);
 
 			if (show_if) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 49) {
+					if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 641) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -46135,21 +46865,21 @@ function create_each_block_3(ctx) {
 		block,
 		id: create_each_block_3.name,
 		type: "each",
-		source: "(163:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}",
+		source: "(275:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (205:5) {#if !(name in categoryNames)}
+// (316:5) {#if !(name in categoryNames)}
 function create_if_block_1$1(ctx) {
 	let div;
 	let input;
 	let input_id_value;
 	let t0;
 	let span;
-	let t1_value = /*name*/ ctx[41] + "";
+	let t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "";
 	let t1;
 	let t2;
 	let br;
@@ -46157,7 +46887,7 @@ function create_if_block_1$1(ctx) {
 	let dispose;
 
 	function input_change_handler() {
-		/*input_change_handler*/ ctx[19].call(input, /*name*/ ctx[41]);
+		/*input_change_handler*/ ctx[28].call(input, /*name*/ ctx[50]);
 	}
 
 	const block = {
@@ -46171,18 +46901,18 @@ function create_if_block_1$1(ctx) {
 			br = element("br");
 			attr_dev(input, "type", "checkbox");
 			attr_dev(input, "name", "filter");
-			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[41]);
-			attr_dev(input, "class", "svelte-1n7fdro");
-			add_location(input, file$3, 206, 7, 5203);
-			add_location(span, file$3, 207, 7, 5314);
-			attr_dev(div, "class", "filterRow svelte-1n7fdro");
-			add_location(div, file$3, 205, 6, 5171);
-			add_location(br, file$3, 209, 6, 5355);
+			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[50]);
+			attr_dev(input, "class", "svelte-qvznef");
+			add_location(input, file$3, 317, 7, 7227);
+			add_location(span, file$3, 318, 7, 7338);
+			attr_dev(div, "class", "filterRow svelte-qvznef");
+			add_location(div, file$3, 316, 6, 7195);
+			add_location(br, file$3, 320, 6, 7415);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
 			append_dev(div, input);
-			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
 			append_dev(div, t0);
 			append_dev(div, span);
 			append_dev(span, t1);
@@ -46197,15 +46927,15 @@ function create_if_block_1$1(ctx) {
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
 
-			if (dirty[0] & /*filters*/ 16 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[41])) {
+			if (dirty[0] & /*filters*/ 128 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[50])) {
 				attr_dev(input, "id", input_id_value);
 			}
 
-			if (dirty[0] & /*appConfig, filters*/ 17) {
-				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			if (dirty[0] & /*appConfig, filters*/ 129) {
+				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
 			}
 
-			if (dirty[0] & /*filters*/ 16 && t1_value !== (t1_value = /*name*/ ctx[41] + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*$ui, appConfig, filters*/ 133 && t1_value !== (t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "")) set_data_dev(t1, t1_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div);
@@ -46220,17 +46950,17 @@ function create_if_block_1$1(ctx) {
 		block,
 		id: create_if_block_1$1.name,
 		type: "if",
-		source: "(205:5) {#if !(name in categoryNames)}",
+		source: "(316:5) {#if !(name in categoryNames)}",
 		ctx
 	});
 
 	return block;
 }
 
-// (204:4) {#each Object.entries(filters) as [name, idArray]}
+// (315:4) {#each Object.entries(filters) as [name, idArray]}
 function create_each_block_2(ctx) {
 	let if_block_anchor;
-	let if_block = !(/*name*/ ctx[41] in /*categoryNames*/ ctx[6]) && create_if_block_1$1(ctx);
+	let if_block = !(/*name*/ ctx[50] in /*categoryNames*/ ctx[10]) && create_if_block_1$1(ctx);
 
 	const block = {
 		c: function create() {
@@ -46242,7 +46972,7 @@ function create_each_block_2(ctx) {
 			insert_dev(target, if_block_anchor, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (!(/*name*/ ctx[41] in /*categoryNames*/ ctx[6])) {
+			if (!(/*name*/ ctx[50] in /*categoryNames*/ ctx[10])) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -46265,21 +46995,21 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(204:4) {#each Object.entries(filters) as [name, idArray]}",
+		source: "(315:4) {#each Object.entries(filters) as [name, idArray]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (217:5) {#if name in categoryNames}
+// (328:5) {#if name in categoryNames}
 function create_if_block$1(ctx) {
 	let div;
 	let input;
 	let input_id_value;
 	let t0;
 	let span;
-	let t1_value = /*name*/ ctx[41] + "";
+	let t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "";
 	let t1;
 	let t2;
 	let br;
@@ -46287,7 +47017,7 @@ function create_if_block$1(ctx) {
 	let dispose;
 
 	function input_change_handler_1() {
-		/*input_change_handler_1*/ ctx[20].call(input, /*name*/ ctx[41]);
+		/*input_change_handler_1*/ ctx[29].call(input, /*name*/ ctx[50]);
 	}
 
 	const block = {
@@ -46301,18 +47031,18 @@ function create_if_block$1(ctx) {
 			br = element("br");
 			attr_dev(input, "type", "checkbox");
 			attr_dev(input, "name", "filter");
-			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[41]);
-			attr_dev(input, "class", "filterCheckbox svelte-1n7fdro");
-			add_location(input, file$3, 218, 7, 5581);
-			add_location(span, file$3, 219, 7, 5715);
-			attr_dev(div, "class", "filterRow svelte-1n7fdro");
-			add_location(div, file$3, 217, 6, 5549);
-			add_location(br, file$3, 221, 6, 5756);
+			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[50]);
+			attr_dev(input, "class", "filterCheckbox svelte-qvznef");
+			add_location(input, file$3, 329, 7, 7648);
+			add_location(span, file$3, 330, 7, 7782);
+			attr_dev(div, "class", "filterRow svelte-qvznef");
+			add_location(div, file$3, 328, 6, 7616);
+			add_location(br, file$3, 332, 6, 7859);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
 			append_dev(div, input);
-			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
 			append_dev(div, t0);
 			append_dev(div, span);
 			append_dev(span, t1);
@@ -46327,15 +47057,15 @@ function create_if_block$1(ctx) {
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
 
-			if (dirty[0] & /*filters*/ 16 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[41])) {
+			if (dirty[0] & /*filters*/ 128 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[50])) {
 				attr_dev(input, "id", input_id_value);
 			}
 
-			if (dirty[0] & /*appConfig, filters*/ 17) {
-				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[41]];
+			if (dirty[0] & /*appConfig, filters*/ 129) {
+				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
 			}
 
-			if (dirty[0] & /*filters*/ 16 && t1_value !== (t1_value = /*name*/ ctx[41] + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*$ui, appConfig, filters*/ 133 && t1_value !== (t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "")) set_data_dev(t1, t1_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div);
@@ -46350,17 +47080,17 @@ function create_if_block$1(ctx) {
 		block,
 		id: create_if_block$1.name,
 		type: "if",
-		source: "(217:5) {#if name in categoryNames}",
+		source: "(328:5) {#if name in categoryNames}",
 		ctx
 	});
 
 	return block;
 }
 
-// (216:4) {#each Object.entries(filters) as [name, idArray]}
+// (327:4) {#each Object.entries(filters) as [name, idArray]}
 function create_each_block_1(ctx) {
 	let if_block_anchor;
-	let if_block = /*name*/ ctx[41] in /*categoryNames*/ ctx[6] && create_if_block$1(ctx);
+	let if_block = /*name*/ ctx[50] in /*categoryNames*/ ctx[10] && create_if_block$1(ctx);
 
 	const block = {
 		c: function create() {
@@ -46372,7 +47102,7 @@ function create_each_block_1(ctx) {
 			insert_dev(target, if_block_anchor, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (/*name*/ ctx[41] in /*categoryNames*/ ctx[6]) {
+			if (/*name*/ ctx[50] in /*categoryNames*/ ctx[10]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -46395,14 +47125,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(216:4) {#each Object.entries(filters) as [name, idArray]}",
+		source: "(327:4) {#each Object.entries(filters) as [name, idArray]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (228:4) {#each Object.entries(presets) as [title, filterNames]}
+// (339:4) {#each Object.entries(presets) as [title, filterNames]}
 function create_each_block$2(ctx) {
 	let div;
 	let input;
@@ -46410,10 +47140,11 @@ function create_each_block$2(ctx) {
 	let input_value_value;
 	let t0;
 	let span;
-	let t1_value = /*title*/ ctx[37] + "";
+	let t1_value = /*getPresetTitle*/ ctx[24](/*title*/ ctx[46]) + "";
 	let t1;
 	let t2;
 	let button;
+	let t3_value = /*text*/ ctx[3].edit + "";
 	let t3;
 	let button_id_value;
 	let button_value_value;
@@ -46432,31 +47163,31 @@ function create_each_block$2(ctx) {
 			t1 = text(t1_value);
 			t2 = space();
 			button = element("button");
-			t3 = text("bearbeiten");
+			t3 = text(t3_value);
 			t4 = space();
 			br = element("br");
 			t5 = space();
 			attr_dev(input, "type", "radio");
 			attr_dev(input, "name", "selectedPreset");
-			attr_dev(input, "id", input_id_value = /*title*/ ctx[37]);
-			input.__value = input_value_value = /*title*/ ctx[37];
+			attr_dev(input, "id", input_id_value = /*title*/ ctx[46]);
+			input.__value = input_value_value = /*title*/ ctx[46];
 			input.value = input.__value;
-			attr_dev(input, "class", "svelte-1n7fdro");
-			/*$$binding_groups*/ ctx[22][0].push(input);
-			add_location(input, file$3, 229, 5, 5947);
-			add_location(span, file$3, 230, 5, 6079);
-			attr_dev(button, "id", button_id_value = "btn_" + /*title*/ ctx[37]);
-			button.value = button_value_value = /*title*/ ctx[37];
-			attr_dev(button, "class", "svelte-1n7fdro");
-			add_location(button, file$3, 231, 5, 6107);
-			add_location(br, file$3, 232, 5, 6200);
-			attr_dev(div, "class", "preset svelte-1n7fdro");
-			add_location(div, file$3, 228, 4, 5920);
+			attr_dev(input, "class", "svelte-qvznef");
+			/*$$binding_groups*/ ctx[31][0].push(input);
+			add_location(input, file$3, 340, 5, 8050);
+			add_location(span, file$3, 341, 5, 8182);
+			attr_dev(button, "id", button_id_value = "btn_" + /*title*/ ctx[46]);
+			button.value = button_value_value = /*title*/ ctx[46];
+			attr_dev(button, "class", "svelte-qvznef");
+			add_location(button, file$3, 342, 5, 8226);
+			add_location(br, file$3, 343, 5, 8320);
+			attr_dev(div, "class", "preset svelte-qvznef");
+			add_location(div, file$3, 339, 4, 8023);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
 			append_dev(div, input);
-			input.checked = input.__value === /*selectedPreset*/ ctx[2];
+			input.checked = input.__value === /*selectedPreset*/ ctx[5];
 			append_dev(div, t0);
 			append_dev(div, span);
 			append_dev(span, t1);
@@ -46469,41 +47200,42 @@ function create_each_block$2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen_dev(input, "change", /*input_change_handler_2*/ ctx[21]),
-					listen_dev(input, "change", /*updateFilters*/ ctx[14], false, false, false),
-					listen_dev(button, "click", /*toggleEditMode*/ ctx[15], false, false, false)
+					listen_dev(input, "change", /*input_change_handler_2*/ ctx[30]),
+					listen_dev(input, "change", /*updateFilters*/ ctx[17], false, false, false),
+					listen_dev(button, "click", /*toggleEditMode*/ ctx[18], false, false, false)
 				];
 
 				mounted = true;
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*presets*/ 8 && input_id_value !== (input_id_value = /*title*/ ctx[37])) {
+			if (dirty[0] & /*presets*/ 64 && input_id_value !== (input_id_value = /*title*/ ctx[46])) {
 				attr_dev(input, "id", input_id_value);
 			}
 
-			if (dirty[0] & /*presets*/ 8 && input_value_value !== (input_value_value = /*title*/ ctx[37])) {
+			if (dirty[0] & /*presets*/ 64 && input_value_value !== (input_value_value = /*title*/ ctx[46])) {
 				prop_dev(input, "__value", input_value_value);
 				input.value = input.__value;
 			}
 
-			if (dirty[0] & /*selectedPreset*/ 4) {
-				input.checked = input.__value === /*selectedPreset*/ ctx[2];
+			if (dirty[0] & /*selectedPreset*/ 32) {
+				input.checked = input.__value === /*selectedPreset*/ ctx[5];
 			}
 
-			if (dirty[0] & /*presets*/ 8 && t1_value !== (t1_value = /*title*/ ctx[37] + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*presets*/ 64 && t1_value !== (t1_value = /*getPresetTitle*/ ctx[24](/*title*/ ctx[46]) + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*text*/ 8 && t3_value !== (t3_value = /*text*/ ctx[3].edit + "")) set_data_dev(t3, t3_value);
 
-			if (dirty[0] & /*presets*/ 8 && button_id_value !== (button_id_value = "btn_" + /*title*/ ctx[37])) {
+			if (dirty[0] & /*presets*/ 64 && button_id_value !== (button_id_value = "btn_" + /*title*/ ctx[46])) {
 				attr_dev(button, "id", button_id_value);
 			}
 
-			if (dirty[0] & /*presets*/ 8 && button_value_value !== (button_value_value = /*title*/ ctx[37])) {
+			if (dirty[0] & /*presets*/ 64 && button_value_value !== (button_value_value = /*title*/ ctx[46])) {
 				prop_dev(button, "value", button_value_value);
 			}
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div);
-			/*$$binding_groups*/ ctx[22][0].splice(/*$$binding_groups*/ ctx[22][0].indexOf(input), 1);
+			/*$$binding_groups*/ ctx[31][0].splice(/*$$binding_groups*/ ctx[31][0].indexOf(input), 1);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -46513,7 +47245,7 @@ function create_each_block$2(ctx) {
 		block,
 		id: create_each_block$2.name,
 		type: "each",
-		source: "(228:4) {#each Object.entries(presets) as [title, filterNames]}",
+		source: "(339:4) {#each Object.entries(presets) as [title, filterNames]}",
 		ctx
 	});
 
@@ -46521,43 +47253,111 @@ function create_each_block$2(ctx) {
 }
 
 function create_fragment$4(ctx) {
-	let button0;
-	let t1;
-	let br;
+	let div4;
+	let div0;
+	let t0;
+	let div1;
+	let h30;
 	let t2;
 	let span0;
+	let t3_value = /*text*/ ctx[3].filterPreset + "";
+	let t3;
+	let t4_value = /*getCurrentPreset*/ ctx[25](/*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].presets[/*selectedPreset*/ ctx[5]]) + "";
 	let t4;
-	let span1;
+	let t5;
+	let br0;
 	let t6;
+	let button0;
+	let t7_value = /*text*/ ctx[3].applyFilter + "";
 	let t7;
-	let div5;
-	let div4;
-	let h2;
-	let t9;
-	let div3;
-	let div0;
-	let h30;
-	let t11;
-	let t12;
-	let div1;
-	let h31;
-	let t14;
-	let t15;
+	let t8;
 	let div2;
-	let h32;
-	let t17;
-	let t18;
+	let h31;
+	let t10;
+	let select;
+	let t11;
+	let br1;
+	let t12;
 	let button1;
-	let t20;
+	let t13_value = /*text*/ ctx[3].loadSnapshot + "";
+	let t13;
+	let t14;
 	let button2;
-	let t22;
+	let t15_value = /*text*/ ctx[3].deleteSnapshot + "";
+	let t15;
+	let t16;
+	let br2;
+	let t17;
 	let button3;
+	let t18_value = /*text*/ ctx[3].createSnapshot + "";
+	let t18;
+	let t19;
+	let div3;
+	let t20;
+	let br3;
+	let t21;
+	let h32;
+	let t23;
+	let span1;
+	let t24_value = /*text*/ ctx[3].is + "";
 	let t24;
+	let t25;
+	let span2;
+	let t26_value = /*text*/ ctx[3].should + "";
+	let t26;
+	let t27;
+	let t28;
+	let div11;
+	let div10;
+	let h2;
+	let t29_value = /*text*/ ctx[3].filterCapabilites + "";
+	let t29;
+	let t30;
+	let div8;
+	let div5;
+	let h33;
+	let t31_value = /*text*/ ctx[3].categories + "";
+	let t31;
+	let t32;
+	let t33;
+	let div6;
+	let h34;
+	let t34_value = /*text*/ ctx[3].topics + "";
+	let t34;
+	let t35;
+	let t36;
+	let div7;
+	let h35;
+	let t38;
+	let t39;
+	let div9;
 	let button4;
+	let t40_value = /*text*/ ctx[3].filterClose + "";
+	let t40;
+	let t41;
+	let button5;
+	let t42_value = /*text*/ ctx[3].filterRemove + "";
+	let t42;
+	let t43;
+	let button6;
+	let t44_value = /*text*/ ctx[3].filterAddPreset + "";
+	let t44;
+	let t45;
+	let button7;
+	let t46_value = /*text*/ ctx[3].filterResetPresets + "";
+	let t46;
 	let current;
 	let mounted;
 	let dispose;
-	let each_value_3 = Object.entries(/*dimensionDescriptions*/ ctx[10]);
+	let each_value_6 = Object.keys(/*snapshots*/ ctx[8]);
+	validate_each_argument(each_value_6);
+	let each_blocks_4 = [];
+
+	for (let i = 0; i < each_value_6.length; i += 1) {
+		each_blocks_4[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
+	}
+
+	let each_value_3 = Object.entries(/*dimensionDescriptions*/ ctx[13]);
 	validate_each_argument(each_value_3);
 	let each_blocks_3 = [];
 
@@ -46569,7 +47369,7 @@ function create_fragment$4(ctx) {
 		each_blocks_3[i] = null;
 	});
 
-	let each_value_2 = Object.entries(/*filters*/ ctx[4]);
+	let each_value_2 = Object.entries(/*filters*/ ctx[7]);
 	validate_each_argument(each_value_2);
 	let each_blocks_2 = [];
 
@@ -46577,7 +47377,7 @@ function create_fragment$4(ctx) {
 		each_blocks_2[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
 	}
 
-	let each_value_1 = Object.entries(/*filters*/ ctx[4]);
+	let each_value_1 = Object.entries(/*filters*/ ctx[7]);
 	validate_each_argument(each_value_1);
 	let each_blocks_1 = [];
 
@@ -46585,7 +47385,7 @@ function create_fragment$4(ctx) {
 		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
 	}
 
-	let each_value = Object.entries(/*presets*/ ctx[3]);
+	let each_value = Object.entries(/*presets*/ ctx[6]);
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
@@ -46595,173 +47395,337 @@ function create_fragment$4(ctx) {
 
 	const block = {
 		c: function create() {
-			button0 = element("button");
-			button0.textContent = "Filter Anwenden";
-			t1 = space();
-			br = element("br");
+			div4 = element("div");
+			div0 = element("div");
+			t0 = space();
+			div1 = element("div");
+			h30 = element("h3");
+			h30.textContent = "Filter";
 			t2 = space();
 			span0 = element("span");
-			span0.textContent = `${/*text*/ ctx[7].is}`;
-			t4 = text(" | ");
-			span1 = element("span");
-			span1.textContent = `${/*text*/ ctx[7].should}`;
+			t3 = text(t3_value);
+			t4 = text(t4_value);
+			t5 = space();
+			br0 = element("br");
 			t6 = space();
+			button0 = element("button");
+			t7 = text(t7_value);
+			t8 = space();
+			div2 = element("div");
+			h31 = element("h3");
+			h31.textContent = "Snapshots";
+			t10 = space();
+			select = element("select");
+
+			for (let i = 0; i < each_blocks_4.length; i += 1) {
+				each_blocks_4[i].c();
+			}
+
+			t11 = space();
+			br1 = element("br");
+			t12 = space();
+			button1 = element("button");
+			t13 = text(t13_value);
+			t14 = space();
+			button2 = element("button");
+			t15 = text(t15_value);
+			t16 = space();
+			br2 = element("br");
+			t17 = space();
+			button3 = element("button");
+			t18 = text(t18_value);
+			t19 = space();
+			div3 = element("div");
+			t20 = space();
+			br3 = element("br");
+			t21 = space();
+			h32 = element("h3");
+			h32.textContent = "Capabilities";
+			t23 = space();
+			span1 = element("span");
+			t24 = text(t24_value);
+			t25 = text(" | ");
+			span2 = element("span");
+			t26 = text(t26_value);
+			t27 = space();
 
 			for (let i = 0; i < each_blocks_3.length; i += 1) {
 				each_blocks_3[i].c();
 			}
 
-			t7 = space();
-			div5 = element("div");
-			div4 = element("div");
+			t28 = space();
+			div11 = element("div");
+			div10 = element("div");
 			h2 = element("h2");
-			h2.textContent = "Capabilites filtern";
-			t9 = space();
-			div3 = element("div");
-			div0 = element("div");
-			h30 = element("h3");
-			h30.textContent = "Kategorien";
-			t11 = space();
+			t29 = text(t29_value);
+			t30 = space();
+			div8 = element("div");
+			div5 = element("div");
+			h33 = element("h3");
+			t31 = text(t31_value);
+			t32 = space();
 
 			for (let i = 0; i < each_blocks_2.length; i += 1) {
 				each_blocks_2[i].c();
 			}
 
-			t12 = space();
-			div1 = element("div");
-			h31 = element("h3");
-			h31.textContent = "Themen";
-			t14 = space();
+			t33 = space();
+			div6 = element("div");
+			h34 = element("h3");
+			t34 = text(t34_value);
+			t35 = space();
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].c();
 			}
 
-			t15 = space();
-			div2 = element("div");
-			h32 = element("h3");
-			h32.textContent = "Presets";
-			t17 = space();
+			t36 = space();
+			div7 = element("div");
+			h35 = element("h3");
+			h35.textContent = "Presets";
+			t38 = space();
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			t18 = space();
-			button1 = element("button");
-			button1.textContent = "Schliessen";
-			t20 = space();
-			button2 = element("button");
-			button2.textContent = "Alle Filter entfernen";
-			t22 = space();
-			button3 = element("button");
-			button3.textContent = "Presets zurücksetzen";
-			t24 = space();
+			t39 = space();
+			div9 = element("div");
 			button4 = element("button");
-			button4.textContent = "Preset hinzufügen";
-			add_location(button0, file$3, 157, 0, 3585);
-			add_location(br, file$3, 159, 0, 3648);
-			set_style(span0, "color", "red");
-			add_location(span0, file$3, 161, 0, 3656);
-			set_style(span1, "color", "blue");
-			add_location(span1, file$3, 161, 44, 3700);
-			add_location(h2, file$3, 198, 2, 4944);
-			add_location(h30, file$3, 202, 4, 5051);
-			attr_dev(div0, "class", "filterContainer svelte-1n7fdro");
-			add_location(div0, file$3, 201, 3, 5016);
-			add_location(h31, file$3, 214, 4, 5436);
-			attr_dev(div1, "class", "filterContainer svelte-1n7fdro");
-			add_location(div1, file$3, 213, 3, 5401);
-			add_location(h32, file$3, 226, 4, 5837);
-			attr_dev(div2, "class", "filterContainer svelte-1n7fdro");
-			add_location(div2, file$3, 225, 3, 5802);
-			attr_dev(div3, "class", "filterwindowContent svelte-1n7fdro");
-			add_location(div3, file$3, 200, 2, 4978);
-			add_location(button1, file$3, 238, 2, 6256);
-			add_location(button2, file$3, 240, 2, 6317);
-			add_location(button3, file$3, 242, 2, 6384);
-			add_location(button4, file$3, 244, 2, 6451);
-			attr_dev(div4, "id", "filterwindow");
-			attr_dev(div4, "class", "svelte-1n7fdro");
-			add_location(div4, file$3, 197, 1, 4917);
-			attr_dev(div5, "id", "overlay");
-			attr_dev(div5, "class", "svelte-1n7fdro");
-			add_location(div5, file$3, 196, 0, 4896);
+			t40 = text(t40_value);
+			t41 = space();
+			button5 = element("button");
+			t42 = text(t42_value);
+			t43 = space();
+			button6 = element("button");
+			t44 = text(t44_value);
+			t45 = space();
+			button7 = element("button");
+			t46 = text(t46_value);
+			attr_dev(div0, "class", "padding svelte-qvznef");
+			add_location(div0, file$3, 229, 1, 4842);
+			add_location(h30, file$3, 233, 2, 4910);
+			add_location(span0, file$3, 235, 2, 4932);
+			add_location(br0, file$3, 237, 2, 5039);
+			set_style(button0, "margin-top", "1em");
+			add_location(button0, file$3, 239, 2, 5051);
+			attr_dev(div1, "class", "headerContainer svelte-qvznef");
+			add_location(div1, file$3, 231, 1, 4875);
+			add_location(h31, file$3, 245, 2, 5192);
+			attr_dev(select, "name", "snapshots");
+			attr_dev(select, "id", "snapshots");
+			if (/*selectedSnapshot*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[26].call(select));
+			add_location(select, file$3, 247, 2, 5217);
+			add_location(br1, file$3, 253, 2, 5428);
+			add_location(button1, file$3, 255, 2, 5440);
+			add_location(button2, file$3, 256, 2, 5504);
+			add_location(br2, file$3, 258, 2, 5576);
+			add_location(button3, file$3, 260, 2, 5588);
+			attr_dev(div2, "class", "headerContainer svelte-qvznef");
+			add_location(div2, file$3, 243, 1, 5156);
+			attr_dev(div3, "class", "padding svelte-qvznef");
+			add_location(div3, file$3, 263, 1, 5668);
+			attr_dev(div4, "class", "capabilityHeader svelte-qvznef");
+			add_location(div4, file$3, 228, 0, 4809);
+			add_location(br3, file$3, 269, 0, 5714);
+			add_location(h32, file$3, 271, 0, 5722);
+			set_style(span1, "color", "red");
+			add_location(span1, file$3, 273, 0, 5747);
+			set_style(span2, "color", "blue");
+			add_location(span2, file$3, 273, 44, 5791);
+			add_location(h2, file$3, 309, 2, 6956);
+			add_location(h33, file$3, 313, 4, 7068);
+			attr_dev(div5, "class", "filterContainer svelte-qvznef");
+			add_location(div5, file$3, 312, 3, 7033);
+			add_location(h34, file$3, 325, 4, 7496);
+			attr_dev(div6, "class", "filterContainer svelte-qvznef");
+			add_location(div6, file$3, 324, 3, 7461);
+			add_location(h35, file$3, 337, 4, 7940);
+			attr_dev(div7, "class", "filterContainer svelte-qvznef");
+			add_location(div7, file$3, 336, 3, 7905);
+			attr_dev(div8, "class", "filterwindowContent svelte-qvznef");
+			add_location(div8, file$3, 311, 2, 6995);
+			add_location(button4, file$3, 350, 3, 8404);
+			add_location(button5, file$3, 352, 3, 8474);
+			add_location(button6, file$3, 354, 3, 8541);
+			set_style(button7, "color", "red");
+			add_location(button7, file$3, 356, 3, 8608);
+			attr_dev(div9, "class", "buttonRow");
+			add_location(div9, file$3, 349, 2, 8376);
+			attr_dev(div10, "id", "filterwindow");
+			attr_dev(div10, "class", "svelte-qvznef");
+			add_location(div10, file$3, 308, 1, 6929);
+			attr_dev(div11, "id", "overlay");
+			attr_dev(div11, "class", "svelte-qvznef");
+			add_location(div11, file$3, 307, 0, 6908);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, button0, anchor);
-			insert_dev(target, t1, anchor);
-			insert_dev(target, br, anchor);
-			insert_dev(target, t2, anchor);
-			insert_dev(target, span0, anchor);
-			insert_dev(target, t4, anchor);
+			insert_dev(target, div4, anchor);
+			append_dev(div4, div0);
+			append_dev(div4, t0);
+			append_dev(div4, div1);
+			append_dev(div1, h30);
+			append_dev(div1, t2);
+			append_dev(div1, span0);
+			append_dev(span0, t3);
+			append_dev(span0, t4);
+			append_dev(div1, t5);
+			append_dev(div1, br0);
+			append_dev(div1, t6);
+			append_dev(div1, button0);
+			append_dev(button0, t7);
+			append_dev(div4, t8);
+			append_dev(div4, div2);
+			append_dev(div2, h31);
+			append_dev(div2, t10);
+			append_dev(div2, select);
+
+			for (let i = 0; i < each_blocks_4.length; i += 1) {
+				each_blocks_4[i].m(select, null);
+			}
+
+			select_option(select, /*selectedSnapshot*/ ctx[4]);
+			append_dev(div2, t11);
+			append_dev(div2, br1);
+			append_dev(div2, t12);
+			append_dev(div2, button1);
+			append_dev(button1, t13);
+			append_dev(div2, t14);
+			append_dev(div2, button2);
+			append_dev(button2, t15);
+			append_dev(div2, t16);
+			append_dev(div2, br2);
+			append_dev(div2, t17);
+			append_dev(div2, button3);
+			append_dev(button3, t18);
+			append_dev(div4, t19);
+			append_dev(div4, div3);
+			insert_dev(target, t20, anchor);
+			insert_dev(target, br3, anchor);
+			insert_dev(target, t21, anchor);
+			insert_dev(target, h32, anchor);
+			insert_dev(target, t23, anchor);
 			insert_dev(target, span1, anchor);
-			insert_dev(target, t6, anchor);
+			append_dev(span1, t24);
+			insert_dev(target, t25, anchor);
+			insert_dev(target, span2, anchor);
+			append_dev(span2, t26);
+			insert_dev(target, t27, anchor);
 
 			for (let i = 0; i < each_blocks_3.length; i += 1) {
 				each_blocks_3[i].m(target, anchor);
 			}
 
-			insert_dev(target, t7, anchor);
-			insert_dev(target, div5, anchor);
-			append_dev(div5, div4);
-			append_dev(div4, h2);
-			append_dev(div4, t9);
-			append_dev(div4, div3);
-			append_dev(div3, div0);
-			append_dev(div0, h30);
-			append_dev(div0, t11);
+			insert_dev(target, t28, anchor);
+			insert_dev(target, div11, anchor);
+			append_dev(div11, div10);
+			append_dev(div10, h2);
+			append_dev(h2, t29);
+			append_dev(div10, t30);
+			append_dev(div10, div8);
+			append_dev(div8, div5);
+			append_dev(div5, h33);
+			append_dev(h33, t31);
+			append_dev(div5, t32);
 
 			for (let i = 0; i < each_blocks_2.length; i += 1) {
-				each_blocks_2[i].m(div0, null);
+				each_blocks_2[i].m(div5, null);
 			}
 
-			append_dev(div3, t12);
-			append_dev(div3, div1);
-			append_dev(div1, h31);
-			append_dev(div1, t14);
+			append_dev(div8, t33);
+			append_dev(div8, div6);
+			append_dev(div6, h34);
+			append_dev(h34, t34);
+			append_dev(div6, t35);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].m(div1, null);
+				each_blocks_1[i].m(div6, null);
 			}
 
-			append_dev(div3, t15);
-			append_dev(div3, div2);
-			append_dev(div2, h32);
-			append_dev(div2, t17);
+			append_dev(div8, t36);
+			append_dev(div8, div7);
+			append_dev(div7, h35);
+			append_dev(div7, t38);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div2, null);
+				each_blocks[i].m(div7, null);
 			}
 
-			append_dev(div4, t18);
-			append_dev(div4, button1);
-			append_dev(div4, t20);
-			append_dev(div4, button2);
-			append_dev(div4, t22);
-			append_dev(div4, button3);
-			append_dev(div4, t24);
-			append_dev(div4, button4);
+			append_dev(div10, t39);
+			append_dev(div10, div9);
+			append_dev(div9, button4);
+			append_dev(button4, t40);
+			append_dev(div9, t41);
+			append_dev(div9, button5);
+			append_dev(button5, t42);
+			append_dev(div9, t43);
+			append_dev(div9, button6);
+			append_dev(button6, t44);
+			append_dev(div9, t45);
+			append_dev(div9, button7);
+			append_dev(button7, t46);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
 					listen_dev(button0, "click", openFilterPopUp, false, false, false),
-					listen_dev(button1, "click", /*closeFilterPopUp*/ ctx[12], false, false, false),
-					listen_dev(button2, "click", /*resetFilter*/ ctx[13], false, false, false),
-					listen_dev(button3, "click", /*resetPresets*/ ctx[16], false, false, false),
-					listen_dev(button4, "click", /*addPreset*/ ctx[17], false, false, false)
+					listen_dev(select, "change", /*select_change_handler*/ ctx[26]),
+					listen_dev(button1, "click", /*loadSnapshot*/ ctx[22], false, false, false),
+					listen_dev(button2, "click", /*deleteSnapshot*/ ctx[23], false, false, false),
+					listen_dev(button3, "click", /*createSnapshot*/ ctx[21], false, false, false),
+					listen_dev(button4, "click", /*closeFilterPopUp*/ ctx[15], false, false, false),
+					listen_dev(button5, "click", /*resetFilter*/ ctx[16], false, false, false),
+					listen_dev(button6, "click", /*addPreset*/ ctx[20], false, false, false),
+					listen_dev(button7, "click", /*resetPresets*/ ctx[19], false, false, false)
 				];
 
 				mounted = true;
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions, text, numLevels, levelDescriptions, filters, $capabilityConverter*/ 4019) {
-				each_value_3 = Object.entries(/*dimensionDescriptions*/ ctx[10]);
+			if ((!current || dirty[0] & /*text*/ 8) && t3_value !== (t3_value = /*text*/ ctx[3].filterPreset + "")) set_data_dev(t3, t3_value);
+			if ((!current || dirty[0] & /*$ui, appConfig, selectedPreset*/ 37) && t4_value !== (t4_value = /*getCurrentPreset*/ ctx[25](/*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].presets[/*selectedPreset*/ ctx[5]]) + "")) set_data_dev(t4, t4_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t7_value !== (t7_value = /*text*/ ctx[3].applyFilter + "")) set_data_dev(t7, t7_value);
+
+			if (dirty[0] & /*snapshots*/ 256) {
+				each_value_6 = Object.keys(/*snapshots*/ ctx[8]);
+				validate_each_argument(each_value_6);
+				let i;
+
+				for (i = 0; i < each_value_6.length; i += 1) {
+					const child_ctx = get_each_context_6(ctx, each_value_6, i);
+
+					if (each_blocks_4[i]) {
+						each_blocks_4[i].p(child_ctx, dirty);
+					} else {
+						each_blocks_4[i] = create_each_block_6(child_ctx);
+						each_blocks_4[i].c();
+						each_blocks_4[i].m(select, null);
+					}
+				}
+
+				for (; i < each_blocks_4.length; i += 1) {
+					each_blocks_4[i].d(1);
+				}
+
+				each_blocks_4.length = each_value_6.length;
+			}
+
+			if (dirty[0] & /*selectedSnapshot, snapshots*/ 272) {
+				select_option(select, /*selectedSnapshot*/ ctx[4]);
+			}
+
+			if ((!current || dirty[0] & /*text*/ 8) && t13_value !== (t13_value = /*text*/ ctx[3].loadSnapshot + "")) set_data_dev(t13, t13_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t15_value !== (t15_value = /*text*/ ctx[3].deleteSnapshot + "")) set_data_dev(t15, t15_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t18_value !== (t18_value = /*text*/ ctx[3].createSnapshot + "")) set_data_dev(t18, t18_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t24_value !== (t24_value = /*text*/ ctx[3].is + "")) set_data_dev(t24, t24_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t26_value !== (t26_value = /*text*/ ctx[3].should + "")) set_data_dev(t26, t26_value);
+
+			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions, text, numLevels, levelDescriptions, filters, $capabilityConverter*/ 31371) {
+				each_value_3 = Object.entries(/*dimensionDescriptions*/ ctx[13]);
 				validate_each_argument(each_value_3);
 				let i;
 
@@ -46775,7 +47739,7 @@ function create_fragment$4(ctx) {
 						each_blocks_3[i] = create_each_block_3(child_ctx);
 						each_blocks_3[i].c();
 						transition_in(each_blocks_3[i], 1);
-						each_blocks_3[i].m(t7.parentNode, t7);
+						each_blocks_3[i].m(t28.parentNode, t28);
 					}
 				}
 
@@ -46788,8 +47752,11 @@ function create_fragment$4(ctx) {
 				check_outros();
 			}
 
-			if (dirty[0] & /*filters, appConfig, categoryNames*/ 81) {
-				each_value_2 = Object.entries(/*filters*/ ctx[4]);
+			if ((!current || dirty[0] & /*text*/ 8) && t29_value !== (t29_value = /*text*/ ctx[3].filterCapabilites + "")) set_data_dev(t29, t29_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t31_value !== (t31_value = /*text*/ ctx[3].categories + "")) set_data_dev(t31, t31_value);
+
+			if (dirty[0] & /*$ui, appConfig, filters, categoryNames*/ 1157) {
+				each_value_2 = Object.entries(/*filters*/ ctx[7]);
 				validate_each_argument(each_value_2);
 				let i;
 
@@ -46801,7 +47768,7 @@ function create_fragment$4(ctx) {
 					} else {
 						each_blocks_2[i] = create_each_block_2(child_ctx);
 						each_blocks_2[i].c();
-						each_blocks_2[i].m(div0, null);
+						each_blocks_2[i].m(div5, null);
 					}
 				}
 
@@ -46812,8 +47779,10 @@ function create_fragment$4(ctx) {
 				each_blocks_2.length = each_value_2.length;
 			}
 
-			if (dirty[0] & /*filters, appConfig, categoryNames*/ 81) {
-				each_value_1 = Object.entries(/*filters*/ ctx[4]);
+			if ((!current || dirty[0] & /*text*/ 8) && t34_value !== (t34_value = /*text*/ ctx[3].topics + "")) set_data_dev(t34, t34_value);
+
+			if (dirty[0] & /*$ui, appConfig, filters, categoryNames*/ 1157) {
+				each_value_1 = Object.entries(/*filters*/ ctx[7]);
 				validate_each_argument(each_value_1);
 				let i;
 
@@ -46825,7 +47794,7 @@ function create_fragment$4(ctx) {
 					} else {
 						each_blocks_1[i] = create_each_block_1(child_ctx);
 						each_blocks_1[i].c();
-						each_blocks_1[i].m(div1, null);
+						each_blocks_1[i].m(div6, null);
 					}
 				}
 
@@ -46836,8 +47805,8 @@ function create_fragment$4(ctx) {
 				each_blocks_1.length = each_value_1.length;
 			}
 
-			if (dirty[0] & /*presets, toggleEditMode, selectedPreset, updateFilters*/ 49164) {
-				each_value = Object.entries(/*presets*/ ctx[3]);
+			if (dirty[0] & /*presets, toggleEditMode, text, getPresetTitle, selectedPreset, updateFilters*/ 17170536) {
+				each_value = Object.entries(/*presets*/ ctx[6]);
 				validate_each_argument(each_value);
 				let i;
 
@@ -46849,7 +47818,7 @@ function create_fragment$4(ctx) {
 					} else {
 						each_blocks[i] = create_each_block$2(child_ctx);
 						each_blocks[i].c();
-						each_blocks[i].m(div2, null);
+						each_blocks[i].m(div7, null);
 					}
 				}
 
@@ -46859,6 +47828,11 @@ function create_fragment$4(ctx) {
 
 				each_blocks.length = each_value.length;
 			}
+
+			if ((!current || dirty[0] & /*text*/ 8) && t40_value !== (t40_value = /*text*/ ctx[3].filterClose + "")) set_data_dev(t40, t40_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t42_value !== (t42_value = /*text*/ ctx[3].filterRemove + "")) set_data_dev(t42, t42_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t44_value !== (t44_value = /*text*/ ctx[3].filterAddPreset + "")) set_data_dev(t44, t44_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t46_value !== (t46_value = /*text*/ ctx[3].filterResetPresets + "")) set_data_dev(t46, t46_value);
 		},
 		i: function intro(local) {
 			if (current) return;
@@ -46879,17 +47853,20 @@ function create_fragment$4(ctx) {
 			current = false;
 		},
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(button0);
-			if (detaching) detach_dev(t1);
-			if (detaching) detach_dev(br);
-			if (detaching) detach_dev(t2);
-			if (detaching) detach_dev(span0);
-			if (detaching) detach_dev(t4);
+			if (detaching) detach_dev(div4);
+			destroy_each(each_blocks_4, detaching);
+			if (detaching) detach_dev(t20);
+			if (detaching) detach_dev(br3);
+			if (detaching) detach_dev(t21);
+			if (detaching) detach_dev(h32);
+			if (detaching) detach_dev(t23);
 			if (detaching) detach_dev(span1);
-			if (detaching) detach_dev(t6);
+			if (detaching) detach_dev(t25);
+			if (detaching) detach_dev(span2);
+			if (detaching) detach_dev(t27);
 			destroy_each(each_blocks_3, detaching);
-			if (detaching) detach_dev(t7);
-			if (detaching) detach_dev(div5);
+			if (detaching) detach_dev(t28);
+			if (detaching) detach_dev(div11);
 			destroy_each(each_blocks_2, detaching);
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
@@ -46925,6 +47902,7 @@ function arrayIntersection(array1, array2) {
 }
 
 function instance$4($$self, $$props, $$invalidate) {
+	let $ui;
 	let $defaultPresets;
 	let $defaultFilters;
 	let $emptyUserInfo;
@@ -46933,44 +47911,45 @@ function instance$4($$self, $$props, $$invalidate) {
 	let $dimensionDesc;
 	let $levelDesc;
 	let $levelAmount;
-	let $ui;
 	let $categories;
 	let $capabilityConverter;
-	validate_store(defaultPresets, 'defaultPresets');
-	component_subscribe($$self, defaultPresets, $$value => $$invalidate(25, $defaultPresets = $$value));
-	validate_store(defaultFilters, 'defaultFilters');
-	component_subscribe($$self, defaultFilters, $$value => $$invalidate(26, $defaultFilters = $$value));
-	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(27, $emptyUserInfo = $$value));
-	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(28, $emptyUserData = $$value));
-	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(29, $capabilityList = $$value));
-	validate_store(dimensionDesc, 'dimensionDesc');
-	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(30, $dimensionDesc = $$value));
-	validate_store(levelDesc, 'levelDesc');
-	component_subscribe($$self, levelDesc, $$value => $$invalidate(31, $levelDesc = $$value));
-	validate_store(levelAmount, 'levelAmount');
-	component_subscribe($$self, levelAmount, $$value => $$invalidate(32, $levelAmount = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(33, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(2, $ui = $$value));
+	validate_store(defaultPresets, 'defaultPresets');
+	component_subscribe($$self, defaultPresets, $$value => $$invalidate(34, $defaultPresets = $$value));
+	validate_store(defaultFilters, 'defaultFilters');
+	component_subscribe($$self, defaultFilters, $$value => $$invalidate(35, $defaultFilters = $$value));
+	validate_store(emptyUserInfo, 'emptyUserInfo');
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(36, $emptyUserInfo = $$value));
+	validate_store(emptyUserData, 'emptyUserData');
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(37, $emptyUserData = $$value));
+	validate_store(capabilityList, 'capabilityList');
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(38, $capabilityList = $$value));
+	validate_store(dimensionDesc, 'dimensionDesc');
+	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(39, $dimensionDesc = $$value));
+	validate_store(levelDesc, 'levelDesc');
+	component_subscribe($$self, levelDesc, $$value => $$invalidate(40, $levelDesc = $$value));
+	validate_store(levelAmount, 'levelAmount');
+	component_subscribe($$self, levelAmount, $$value => $$invalidate(41, $levelAmount = $$value));
 	validate_store(categories, 'categories');
-	component_subscribe($$self, categories, $$value => $$invalidate(34, $categories = $$value));
+	component_subscribe($$self, categories, $$value => $$invalidate(42, $categories = $$value));
 	validate_store(capabilityConverter, 'capabilityConverter');
-	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(5, $capabilityConverter = $$value));
+	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(9, $capabilityConverter = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('CapabilityTable', slots, []);
 	let { appConfig } = $$props;
 	let categoryNames = $categories.en;
-	let text = $ui[appConfig.language].capabilityTable;
+	let text;
 	let numLevels = $levelAmount;
 	let levelDescriptions = $levelDesc[appConfig.language];
 	let dimensionDescriptions = $dimensionDesc[appConfig.language];
 	let capabilities = $capabilityList[appConfig.language];
 	let reload = {};
 	let editMode = false;
+	let selectedSnapshot;
+	let selectedPreset = "other";
+	let emptyPreset = "other";
 	let userInput;
-	let selectedPreset = "alles";
 
 	try {
 		userInput = dataManager.loadFromLocalStorage("dataUserInput");
@@ -47006,6 +47985,15 @@ function instance$4($$self, $$props, $$invalidate) {
 		filters = $defaultFilters;
 	}
 
+	let snapshots;
+
+	try {
+		snapshots = dataManager.loadFromLocalStorage("dataUserSnapshots");
+	} catch(error) {
+		console.log(error);
+		snapshots = {};
+	}
+
 	function closeFilterPopUp() {
 		initFilter();
 		document.getElementById("overlay").style.display = "none";
@@ -47034,7 +48022,7 @@ function instance$4($$self, $$props, $$invalidate) {
 			$$invalidate(0, appConfig.checkedFilters[filter] = false, appConfig);
 		}
 
-		$$invalidate(2, selectedPreset = "");
+		$$invalidate(5, selectedPreset = "");
 	}
 
 	function updateFilters() {
@@ -47042,53 +48030,115 @@ function instance$4($$self, $$props, $$invalidate) {
 	}
 
 	function toggleEditMode(event) {
-		if (editMode) {
-			document.getElementById(event.srcElement.id).textContent = "bearbeiten";
+		if (editMode && event.target.textContent == "speichern") {
+			event.target.textContent = "bearbeiten";
 			let newFilter = appConfig.checkedFilters;
-			console.log(newFilter);
-			console.log();
-			$$invalidate(3, presets[event.srcElement.value] = newFilter, presets);
+			$$invalidate(6, presets[event.srcElement.value] = newFilter, presets);
 			dataManager.saveToLocalStorage("dataUserPresets", presets);
-		} else // for (box in checkboxes) {
-		// 	console.log(box.style)
-		// }
-		{
-			document.getElementById(event.srcElement.id).textContent = "speichern"; // let checkboxes = document.collection = document.getElementsByClassName("filterCheckbox")
-		} // let checkboxes = document.collection = document.getElementsByClassName("filterCheckbox")
-		// for (box in checkboxes) {
-
-		// box.style.accentColor = 'red';
-		// }
-		editMode = !editMode;
+			editMode = !editMode;
+		} else if (!editMode && event.target.textContent == "bearbeiten") {
+			event.target.textContent = "speichern";
+			$$invalidate(5, selectedPreset = event.srcElement.value);
+			updateFilters();
+			initFilter();
+			editMode = !editMode;
+		}
 	}
 
 	function resetPresets() {
-		$$invalidate(3, presets = $defaultPresets);
+		$$invalidate(6, presets = $defaultPresets);
 		dataManager.saveToLocalStorage("dataUserPresets", presets);
+		alert("Presets zurückgesetzt");
 	}
 
 	function addPreset() {
-		let name = prompt();
-		$$invalidate(3, presets[name] = $defaultPresets['anderes (alle Capabilites anzeigen)'], presets);
+		let name = prompt("Preset name");
+
+		if (!name) {
+			return;
+		}
+
+		$$invalidate(6, presets[name] = $defaultPresets['other'], presets);
+		dataManager.saveToLocalStorage("dataUserPresets", presets);
 	}
 
-	selectedPreset = userInfo.function;
+	if (userInfo.function) {
+		selectedPreset = userInfo.function;
+	} else {
+		selectedPreset = emptyPreset;
+	}
+
+	function createSnapshot() {
+		let name = prompt("Insert snapshot name (ex. 2023-06-15)");
+
+		if (!name) {
+			return;
+		}
+
+		$$invalidate(4, selectedSnapshot = name);
+		$$invalidate(8, snapshots[selectedSnapshot] = userInput, snapshots);
+		console.log(snapshots);
+		dataManager.saveToLocalStorage("dataUserSnapshots", snapshots);
+		location.reload();
+	}
+
+	function loadSnapshot() {
+		try {
+			$$invalidate(8, snapshots = dataManager.loadFromLocalStorage("dataUserSnapshots"));
+		} catch(error) {
+			console.log(error);
+			$$invalidate(8, snapshots = {});
+		}
+
+		$$invalidate(1, userInput = snapshots[selectedSnapshot]);
+		dataManager.saveToLocalStorage("dataUserInput", userInput);
+	}
+
+	function deleteSnapshot() {
+		delete snapshots[selectedSnapshot];
+		dataManager.saveToLocalStorage("dataUserSnapshots", snapshots);
+	}
+
+	function getPresetTitle(title) {
+		let displayTitle = $ui[appConfig.language].presets[title];
+
+		if (displayTitle) {
+			return displayTitle;
+		}
+
+		return title;
+	}
+
+	function getCurrentPreset(input) {
+		if (input) {
+			return input;
+		}
+
+		return text.currentPreset;
+	}
+
 	updateFilters();
 	initFilter();
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$2.warn("<CapabilityTable> was created without expected prop 'appConfig'");
+			console_1$1.warn("<CapabilityTable> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object_1$1.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$2.warn(`<CapabilityTable> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<CapabilityTable> was created with unknown prop '${key}'`);
 	});
 
 	const $$binding_groups = [[]];
+
+	function select_change_handler() {
+		selectedSnapshot = select_value(this);
+		$$invalidate(4, selectedSnapshot);
+		$$invalidate(8, snapshots);
+	}
 
 	function tablerow_appConfig_binding(value) {
 		appConfig = value;
@@ -47107,7 +48157,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	function input_change_handler_2() {
 		selectedPreset = this.__value;
-		$$invalidate(2, selectedPreset);
+		$$invalidate(5, selectedPreset);
 	}
 
 	$$self.$$set = $$props => {
@@ -47138,12 +48188,15 @@ function instance$4($$self, $$props, $$invalidate) {
 		capabilities,
 		reload,
 		editMode,
-		userInput,
+		selectedSnapshot,
 		selectedPreset,
+		emptyPreset,
+		userInput,
 		userInfo,
-		openFilterPopUp,
 		presets,
 		filters,
+		snapshots,
+		openFilterPopUp,
 		closeFilterPopUp,
 		initFilter,
 		resetFilter,
@@ -47152,6 +48205,12 @@ function instance$4($$self, $$props, $$invalidate) {
 		toggleEditMode,
 		resetPresets,
 		addPreset,
+		createSnapshot,
+		loadSnapshot,
+		deleteSnapshot,
+		getPresetTitle,
+		getCurrentPreset,
+		$ui,
 		$defaultPresets,
 		$defaultFilters,
 		$emptyUserInfo,
@@ -47160,41 +48219,54 @@ function instance$4($$self, $$props, $$invalidate) {
 		$dimensionDesc,
 		$levelDesc,
 		$levelAmount,
-		$ui,
 		$categories,
 		$capabilityConverter
 	});
 
 	$$self.$inject_state = $$props => {
 		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
-		if ('categoryNames' in $$props) $$invalidate(6, categoryNames = $$props.categoryNames);
-		if ('text' in $$props) $$invalidate(7, text = $$props.text);
-		if ('numLevels' in $$props) $$invalidate(8, numLevels = $$props.numLevels);
-		if ('levelDescriptions' in $$props) $$invalidate(9, levelDescriptions = $$props.levelDescriptions);
-		if ('dimensionDescriptions' in $$props) $$invalidate(10, dimensionDescriptions = $$props.dimensionDescriptions);
-		if ('capabilities' in $$props) $$invalidate(11, capabilities = $$props.capabilities);
+		if ('categoryNames' in $$props) $$invalidate(10, categoryNames = $$props.categoryNames);
+		if ('text' in $$props) $$invalidate(3, text = $$props.text);
+		if ('numLevels' in $$props) $$invalidate(11, numLevels = $$props.numLevels);
+		if ('levelDescriptions' in $$props) $$invalidate(12, levelDescriptions = $$props.levelDescriptions);
+		if ('dimensionDescriptions' in $$props) $$invalidate(13, dimensionDescriptions = $$props.dimensionDescriptions);
+		if ('capabilities' in $$props) $$invalidate(14, capabilities = $$props.capabilities);
 		if ('reload' in $$props) reload = $$props.reload;
 		if ('editMode' in $$props) editMode = $$props.editMode;
+		if ('selectedSnapshot' in $$props) $$invalidate(4, selectedSnapshot = $$props.selectedSnapshot);
+		if ('selectedPreset' in $$props) $$invalidate(5, selectedPreset = $$props.selectedPreset);
+		if ('emptyPreset' in $$props) emptyPreset = $$props.emptyPreset;
 		if ('userInput' in $$props) $$invalidate(1, userInput = $$props.userInput);
-		if ('selectedPreset' in $$props) $$invalidate(2, selectedPreset = $$props.selectedPreset);
 		if ('userInfo' in $$props) userInfo = $$props.userInfo;
-		if ('presets' in $$props) $$invalidate(3, presets = $$props.presets);
-		if ('filters' in $$props) $$invalidate(4, filters = $$props.filters);
+		if ('presets' in $$props) $$invalidate(6, presets = $$props.presets);
+		if ('filters' in $$props) $$invalidate(7, filters = $$props.filters);
+		if ('snapshots' in $$props) $$invalidate(8, snapshots = $$props.snapshots);
 	};
 
 	if ($$props && "$$inject" in $$props) {
 		$$self.$inject_state($$props.$$inject);
 	}
 
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty[0] & /*$ui, appConfig*/ 5) {
+			$$invalidate(3, text = $ui[appConfig.language].capabilityTable);
+		}
+
+		if ($$self.$$.dirty[0] & /*userInput*/ 2) ;
+	};
+
 	return [
 		appConfig,
 		userInput,
+		$ui,
+		text,
+		selectedSnapshot,
 		selectedPreset,
 		presets,
 		filters,
+		snapshots,
 		$capabilityConverter,
 		categoryNames,
-		text,
 		numLevels,
 		levelDescriptions,
 		dimensionDescriptions,
@@ -47205,6 +48277,12 @@ function instance$4($$self, $$props, $$invalidate) {
 		toggleEditMode,
 		resetPresets,
 		addPreset,
+		createSnapshot,
+		loadSnapshot,
+		deleteSnapshot,
+		getPresetTitle,
+		getCurrentPreset,
+		select_change_handler,
 		tablerow_appConfig_binding,
 		input_change_handler,
 		input_change_handler_1,
@@ -47216,7 +48294,7 @@ function instance$4($$self, $$props, $$invalidate) {
 class CapabilityTable extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance$4, create_fragment$4, safe_not_equal, { appConfig: 0 }, null, [-1, -1]);
+		init(this, options, instance$4, create_fragment$4, safe_not_equal, { appConfig: 0 }, null, [-1, -1, -1]);
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -47345,7 +48423,7 @@ class UserInput extends SvelteComponentDev {
 
 /* src\UserInfo.svelte generated by Svelte v3.52.0 */
 
-const { Object: Object_1, console: console_1$1 } = globals;
+const { Object: Object_1, console: console_1 } = globals;
 const file$2 = "src\\UserInfo.svelte";
 
 function get_each_context$1(ctx, list, i) {
@@ -47357,7 +48435,7 @@ function get_each_context$1(ctx, list, i) {
 // (49:2) {#each Object.keys(presets) as name}
 function create_each_block$1(ctx) {
 	let option;
-	let t_value = /*name*/ ctx[13] + "";
+	let t_value = /*$ui*/ ctx[3][/*appConfig*/ ctx[0].language].presets[/*name*/ ctx[13]] + "";
 	let t;
 	let option_value_value;
 
@@ -47374,9 +48452,9 @@ function create_each_block$1(ctx) {
 			append_dev(option, t);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*presets*/ 1 && t_value !== (t_value = /*name*/ ctx[13] + "")) set_data_dev(t, t_value);
+			if (dirty & /*$ui, appConfig, presets*/ 11 && t_value !== (t_value = /*$ui*/ ctx[3][/*appConfig*/ ctx[0].language].presets[/*name*/ ctx[13]] + "")) set_data_dev(t, t_value);
 
-			if (dirty & /*presets*/ 1 && option_value_value !== (option_value_value = /*name*/ ctx[13])) {
+			if (dirty & /*presets*/ 2 && option_value_value !== (option_value_value = /*name*/ ctx[13])) {
 				prop_dev(option, "__value", option_value_value);
 				option.value = option.__value;
 			}
@@ -47420,7 +48498,7 @@ function create_fragment$2(ctx) {
 	let select;
 	let mounted;
 	let dispose;
-	let each_value = Object.keys(/*presets*/ ctx[0]);
+	let each_value = Object.keys(/*presets*/ ctx[1]);
 	validate_each_argument(each_value);
 	let each_blocks = [];
 
@@ -47432,27 +48510,27 @@ function create_fragment$2(ctx) {
 		c: function create() {
 			form = element("form");
 			label0 = element("label");
-			label0.textContent = `${/*text*/ ctx[2].company}`;
+			label0.textContent = `${/*text*/ ctx[4].company}`;
 			t1 = space();
 			input0 = element("input");
 			t2 = space();
 			label1 = element("label");
-			label1.textContent = `${/*text*/ ctx[2].organisation}`;
+			label1.textContent = `${/*text*/ ctx[4].organisation}`;
 			t4 = space();
 			input1 = element("input");
 			t5 = space();
 			label2 = element("label");
-			label2.textContent = `${/*text*/ ctx[2].project}`;
+			label2.textContent = `${/*text*/ ctx[4].project}`;
 			t7 = space();
 			input2 = element("input");
 			t8 = space();
 			label3 = element("label");
-			label3.textContent = `${/*text*/ ctx[2].description}`;
+			label3.textContent = `${/*text*/ ctx[4].description}`;
 			t10 = space();
 			textarea = element("textarea");
 			t11 = space();
 			label4 = element("label");
-			label4.textContent = `${/*text*/ ctx[2].function}`;
+			label4.textContent = `${/*text*/ ctx[4].function}`;
 			t13 = space();
 			select = element("select");
 
@@ -47492,7 +48570,7 @@ function create_fragment$2(ctx) {
 			attr_dev(select, "id", "funktion");
 			attr_dev(select, "name", "funktion");
 			attr_dev(select, "class", "frontmatter svelte-18mh6e9");
-			if (/*userInfo*/ ctx[1].function === void 0) add_render_callback(() => /*select_change_handler*/ ctx[9].call(select));
+			if (/*userInfo*/ ctx[2].function === void 0) add_render_callback(() => /*select_change_handler*/ ctx[10].call(select));
 			add_location(select, file$2, 47, 1, 1459);
 			attr_dev(form, "id", "firmenInfo");
 			add_location(form, file$2, 32, 0, 646);
@@ -47505,22 +48583,22 @@ function create_fragment$2(ctx) {
 			append_dev(form, label0);
 			append_dev(form, t1);
 			append_dev(form, input0);
-			set_input_value(input0, /*userInfo*/ ctx[1].company);
+			set_input_value(input0, /*userInfo*/ ctx[2].company);
 			append_dev(form, t2);
 			append_dev(form, label1);
 			append_dev(form, t4);
 			append_dev(form, input1);
-			set_input_value(input1, /*userInfo*/ ctx[1].department);
+			set_input_value(input1, /*userInfo*/ ctx[2].department);
 			append_dev(form, t5);
 			append_dev(form, label2);
 			append_dev(form, t7);
 			append_dev(form, input2);
-			set_input_value(input2, /*userInfo*/ ctx[1].project);
+			set_input_value(input2, /*userInfo*/ ctx[2].project);
 			append_dev(form, t8);
 			append_dev(form, label3);
 			append_dev(form, t10);
 			append_dev(form, textarea);
-			set_input_value(textarea, /*userInfo*/ ctx[1].description);
+			set_input_value(textarea, /*userInfo*/ ctx[2].description);
 			append_dev(form, t11);
 			append_dev(form, label4);
 			append_dev(form, t13);
@@ -47530,44 +48608,44 @@ function create_fragment$2(ctx) {
 				each_blocks[i].m(select, null);
 			}
 
-			select_option(select, /*userInfo*/ ctx[1].function);
+			select_option(select, /*userInfo*/ ctx[2].function);
 
 			if (!mounted) {
 				dispose = [
-					listen_dev(input0, "input", /*input0_input_handler*/ ctx[5]),
-					listen_dev(input0, "change", /*saveUserInfo*/ ctx[3], false, false, false),
-					listen_dev(input1, "input", /*input1_input_handler*/ ctx[6]),
-					listen_dev(input1, "change", /*saveUserInfo*/ ctx[3], false, false, false),
-					listen_dev(input2, "input", /*input2_input_handler*/ ctx[7]),
-					listen_dev(input2, "change", /*saveUserInfo*/ ctx[3], false, false, false),
-					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[8]),
-					listen_dev(textarea, "change", /*saveUserInfo*/ ctx[3], false, false, false),
-					listen_dev(select, "change", /*select_change_handler*/ ctx[9]),
-					listen_dev(select, "change", /*saveUserInfo*/ ctx[3], false, false, false)
+					listen_dev(input0, "input", /*input0_input_handler*/ ctx[6]),
+					listen_dev(input0, "change", /*saveUserInfo*/ ctx[5], false, false, false),
+					listen_dev(input1, "input", /*input1_input_handler*/ ctx[7]),
+					listen_dev(input1, "change", /*saveUserInfo*/ ctx[5], false, false, false),
+					listen_dev(input2, "input", /*input2_input_handler*/ ctx[8]),
+					listen_dev(input2, "change", /*saveUserInfo*/ ctx[5], false, false, false),
+					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[9]),
+					listen_dev(textarea, "change", /*saveUserInfo*/ ctx[5], false, false, false),
+					listen_dev(select, "change", /*select_change_handler*/ ctx[10]),
+					listen_dev(select, "change", /*saveUserInfo*/ ctx[5], false, false, false)
 				];
 
 				mounted = true;
 			}
 		},
 		p: function update(ctx, [dirty]) {
-			if (dirty & /*userInfo, Object, presets*/ 3 && input0.value !== /*userInfo*/ ctx[1].company) {
-				set_input_value(input0, /*userInfo*/ ctx[1].company);
+			if (dirty & /*userInfo, Object, presets*/ 6 && input0.value !== /*userInfo*/ ctx[2].company) {
+				set_input_value(input0, /*userInfo*/ ctx[2].company);
 			}
 
-			if (dirty & /*userInfo, Object, presets*/ 3 && input1.value !== /*userInfo*/ ctx[1].department) {
-				set_input_value(input1, /*userInfo*/ ctx[1].department);
+			if (dirty & /*userInfo, Object, presets*/ 6 && input1.value !== /*userInfo*/ ctx[2].department) {
+				set_input_value(input1, /*userInfo*/ ctx[2].department);
 			}
 
-			if (dirty & /*userInfo, Object, presets*/ 3 && input2.value !== /*userInfo*/ ctx[1].project) {
-				set_input_value(input2, /*userInfo*/ ctx[1].project);
+			if (dirty & /*userInfo, Object, presets*/ 6 && input2.value !== /*userInfo*/ ctx[2].project) {
+				set_input_value(input2, /*userInfo*/ ctx[2].project);
 			}
 
-			if (dirty & /*userInfo, Object, presets*/ 3) {
-				set_input_value(textarea, /*userInfo*/ ctx[1].description);
+			if (dirty & /*userInfo, Object, presets*/ 6) {
+				set_input_value(textarea, /*userInfo*/ ctx[2].description);
 			}
 
-			if (dirty & /*Object, presets*/ 1) {
-				each_value = Object.keys(/*presets*/ ctx[0]);
+			if (dirty & /*Object, presets, $ui, appConfig*/ 11) {
+				each_value = Object.keys(/*presets*/ ctx[1]);
 				validate_each_argument(each_value);
 				let i;
 
@@ -47590,8 +48668,8 @@ function create_fragment$2(ctx) {
 				each_blocks.length = each_value.length;
 			}
 
-			if (dirty & /*userInfo, Object, presets*/ 3) {
-				select_option(select, /*userInfo*/ ctx[1].function);
+			if (dirty & /*userInfo, Object, presets*/ 6) {
+				select_option(select, /*userInfo*/ ctx[2].function);
 			}
 		},
 		i: noop,
@@ -47620,11 +48698,11 @@ function instance$2($$self, $$props, $$invalidate) {
 	let $defaultPresets;
 	let $ui;
 	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(10, $emptyUserInfo = $$value));
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(11, $emptyUserInfo = $$value));
 	validate_store(defaultPresets, 'defaultPresets');
-	component_subscribe($$self, defaultPresets, $$value => $$invalidate(11, $defaultPresets = $$value));
+	component_subscribe($$self, defaultPresets, $$value => $$invalidate(12, $defaultPresets = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(12, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(3, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('UserInfo', slots, []);
 	let { appConfig } = $$props;
@@ -47653,48 +48731,48 @@ function instance$2($$self, $$props, $$invalidate) {
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
-			console_1$1.warn("<UserInfo> was created without expected prop 'appConfig'");
+			console_1.warn("<UserInfo> was created without expected prop 'appConfig'");
 		}
 	});
 
 	const writable_props = ['appConfig'];
 
 	Object_1.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1$1.warn(`<UserInfo> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<UserInfo> was created with unknown prop '${key}'`);
 	});
 
 	function input0_input_handler() {
 		userInfo.company = this.value;
-		$$invalidate(1, userInfo);
-		$$invalidate(0, presets);
+		$$invalidate(2, userInfo);
+		$$invalidate(1, presets);
 	}
 
 	function input1_input_handler() {
 		userInfo.department = this.value;
-		$$invalidate(1, userInfo);
-		$$invalidate(0, presets);
+		$$invalidate(2, userInfo);
+		$$invalidate(1, presets);
 	}
 
 	function input2_input_handler() {
 		userInfo.project = this.value;
-		$$invalidate(1, userInfo);
-		$$invalidate(0, presets);
+		$$invalidate(2, userInfo);
+		$$invalidate(1, presets);
 	}
 
 	function textarea_input_handler() {
 		userInfo.description = this.value;
-		$$invalidate(1, userInfo);
-		$$invalidate(0, presets);
+		$$invalidate(2, userInfo);
+		$$invalidate(1, presets);
 	}
 
 	function select_change_handler() {
 		userInfo.function = select_value(this);
-		$$invalidate(1, userInfo);
-		$$invalidate(0, presets);
+		$$invalidate(2, userInfo);
+		$$invalidate(1, presets);
 	}
 
 	$$self.$$set = $$props => {
-		if ('appConfig' in $$props) $$invalidate(4, appConfig = $$props.appConfig);
+		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
 	};
 
 	$$self.$capture_state = () => ({
@@ -47713,10 +48791,10 @@ function instance$2($$self, $$props, $$invalidate) {
 	});
 
 	$$self.$inject_state = $$props => {
-		if ('appConfig' in $$props) $$invalidate(4, appConfig = $$props.appConfig);
-		if ('text' in $$props) $$invalidate(2, text = $$props.text);
-		if ('presets' in $$props) $$invalidate(0, presets = $$props.presets);
-		if ('userInfo' in $$props) $$invalidate(1, userInfo = $$props.userInfo);
+		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
+		if ('text' in $$props) $$invalidate(4, text = $$props.text);
+		if ('presets' in $$props) $$invalidate(1, presets = $$props.presets);
+		if ('userInfo' in $$props) $$invalidate(2, userInfo = $$props.userInfo);
 	};
 
 	if ($$props && "$$inject" in $$props) {
@@ -47724,11 +48802,12 @@ function instance$2($$self, $$props, $$invalidate) {
 	}
 
 	return [
+		appConfig,
 		presets,
 		userInfo,
+		$ui,
 		text,
 		saveUserInfo,
-		appConfig,
 		input0_input_handler,
 		input1_input_handler,
 		input2_input_handler,
@@ -47740,7 +48819,7 @@ function instance$2($$self, $$props, $$invalidate) {
 class UserInfo extends SvelteComponentDev {
 	constructor(options) {
 		super(options);
-		init(this, options, instance$2, create_fragment$2, safe_not_equal, { appConfig: 4 });
+		init(this, options, instance$2, create_fragment$2, safe_not_equal, { appConfig: 0 });
 
 		dispatch_dev("SvelteRegisterComponent", {
 			component: this,
@@ -47814,24 +48893,24 @@ function create_fragment$1(ctx) {
 			b = element("b");
 			b.textContent = `${/*text*/ ctx[2].deleteButton}`;
 			attr_dev(p0, "class", "svelte-9yq3rd");
-			add_location(p0, file$1, 89, 8, 2859);
+			add_location(p0, file$1, 100, 8, 3345);
 			attr_dev(input, "type", "file");
 			attr_dev(input, "id", "file-selector");
 			attr_dev(input, "accept", ".csv, .xlsx");
-			add_location(input, file$1, 90, 8, 2889);
+			add_location(input, file$1, 101, 8, 3375);
 			attr_dev(button0, "type", "submit");
-			add_location(button0, file$1, 91, 8, 2969);
+			add_location(button0, file$1, 102, 8, 3455);
 			attr_dev(div0, "class", "import svelte-9yq3rd");
-			add_location(div0, file$1, 88, 4, 2829);
-			add_location(form, file$1, 86, 0, 2771);
+			add_location(div0, file$1, 99, 4, 3315);
+			add_location(form, file$1, 97, 0, 3257);
 			attr_dev(p1, "class", "svelte-9yq3rd");
-			add_location(p1, file$1, 98, 0, 3070);
+			add_location(p1, file$1, 109, 0, 3556);
 			attr_dev(p2, "class", "svelte-9yq3rd");
-			add_location(p2, file$1, 101, 4, 3125);
-			add_location(b, file$1, 102, 42, 3199);
-			add_location(button1, file$1, 102, 4, 3161);
+			add_location(p2, file$1, 112, 4, 3611);
+			add_location(b, file$1, 113, 42, 3685);
+			add_location(button1, file$1, 113, 4, 3647);
 			attr_dev(div1, "class", "delete svelte-9yq3rd");
-			add_location(div1, file$1, 100, 0, 3099);
+			add_location(div1, file$1, 111, 0, 3585);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -47955,8 +49034,10 @@ function instance$1($$self, $$props, $$invalidate) {
 
 	function importXLSX(data) {
 		let newUserInput = $emptyUserData;
+		let newUserInfo = $emptyUserInfo;
 		let workbook = readSync(data, { type: "binary" });
 		const inputData = utils.sheet_to_json(workbook.Sheets[sheetNames[0]]);
+		const infoData = utils.sheet_to_json(workbook.Sheets[sheetNames[1]]);
 
 		for (const capability of inputData) {
 			let id = capability.ID;
@@ -47967,6 +49048,12 @@ function instance$1($$self, $$props, $$invalidate) {
 		}
 
 		dataManager.saveToLocalStorage("dataUserInput", newUserInput);
+		newUserInfo.company = infoData[0].company;
+		newUserInfo.function = infoData[0].function;
+		newUserInfo.department = infoData[0].department;
+		newUserInfo.project = infoData[0].project;
+		newUserInfo.description = infoData[0].description;
+		dataManager.saveToLocalStorage("dataUserInfo", newUserInfo);
 		location.reload();
 	}
 
@@ -48088,22 +49175,20 @@ const navOptions = [
 ];
 
 /* src\App.svelte generated by Svelte v3.52.0 */
-
-const { console: console_1 } = globals;
 const file = "src\\App.svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[14] = list[i];
-	child_ctx[16] = i;
+	child_ctx[12] = list[i];
+	child_ctx[14] = i;
 	return child_ctx;
 }
 
-// (93:3) {#each navOptions as option, componentId}
+// (83:3) {#each navOptions as option, componentId}
 function create_each_block(ctx) {
 	let li;
 	let button;
-	let t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[14].page] + "";
+	let t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[12].page] + "";
 	let t0;
 	let t1;
 	let mounted;
@@ -48115,12 +49200,12 @@ function create_each_block(ctx) {
 			button = element("button");
 			t0 = text(t0_value);
 			t1 = space();
-			attr_dev(button, "id", String(/*componentId*/ ctx[16]));
+			attr_dev(button, "id", String(/*componentId*/ ctx[14]));
 			attr_dev(button, "role", "tab");
 			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 94, 4, 2222);
+			add_location(button, file, 84, 4, 1980);
 			attr_dev(li, "class", "svelte-11jq1um");
-			add_location(li, file, 93, 3, 2212);
+			add_location(li, file, 83, 3, 1970);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, li, anchor);
@@ -48134,7 +49219,7 @@ function create_each_block(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*text*/ 2 && t0_value !== (t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[14].page] + "")) set_data_dev(t0, t0_value);
+			if (dirty & /*text*/ 2 && t0_value !== (t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[12].page] + "")) set_data_dev(t0, t0_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(li);
@@ -48147,14 +49232,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(93:3) {#each navOptions as option, componentId}",
+		source: "(83:3) {#each navOptions as option, componentId}",
 		ctx
 	});
 
 	return block;
 }
 
-// (100:2) {#if currentNav != 0}
+// (90:2) {#if currentNav != 0}
 function create_if_block_1(ctx) {
 	const block = { c: noop, m: noop, d: noop };
 
@@ -48162,14 +49247,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(100:2) {#if currentNav != 0}",
+		source: "(90:2) {#if currentNav != 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (109:2) {#if !buttonHidden}
+// (99:2) {#if !buttonHidden}
 function create_if_block(ctx) {
 	let button;
 	let t_value = /*text*/ ctx[1].next + "";
@@ -48184,7 +49269,7 @@ function create_if_block(ctx) {
 			t = text(t_value);
 			attr_dev(button, "id", button_id_value = /*currentNav*/ ctx[3] + 1);
 			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 109, 2, 2644);
+			add_location(button, file, 99, 2, 2402);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, button, anchor);
@@ -48213,14 +49298,14 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(109:2) {#if !buttonHidden}",
+		source: "(99:2) {#if !buttonHidden}",
 		ctx
 	});
 
 	return block;
 }
 
-// (91:2) {#key unique}
+// (81:2) {#key unique}
 function create_key_block(ctx) {
 	let ul;
 	let t0;
@@ -48290,10 +49375,10 @@ function create_key_block(ctx) {
 			t4 = space();
 			if (if_block1) if_block1.c();
 			if_block1_anchor = empty();
-			add_location(ul, file, 91, 2, 2157);
-			add_location(h2, file, 104, 3, 2504);
+			add_location(ul, file, 81, 2, 1915);
+			add_location(h2, file, 94, 3, 2262);
 			attr_dev(div, "class", "page");
-			add_location(div, file, 103, 2, 2481);
+			add_location(div, file, 93, 2, 2239);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, ul, anchor);
@@ -48425,7 +49510,7 @@ function create_key_block(ctx) {
 		block,
 		id: create_key_block.name,
 		type: "key",
-		source: "(91:2) {#key unique}",
+		source: "(81:2) {#key unique}",
 		ctx
 	});
 
@@ -48474,24 +49559,24 @@ function create_fragment(ctx) {
 			t7 = space();
 			key_block.c();
 			attr_dev(h1, "class", "svelte-11jq1um");
-			add_location(h1, file, 79, 1, 1849);
+			add_location(h1, file, 69, 1, 1607);
 			attr_dev(span0, "class", "lang svelte-11jq1um");
-			add_location(span0, file, 82, 3, 1926);
+			add_location(span0, file, 72, 3, 1684);
 			attr_dev(input, "type", "checkbox");
 			attr_dev(input, "class", "svelte-11jq1um");
-			add_location(input, file, 84, 4, 2014);
+			add_location(input, file, 74, 4, 1772);
 			attr_dev(span1, "class", "slider round svelte-11jq1um");
-			add_location(span1, file, 85, 4, 2043);
+			add_location(span1, file, 75, 4, 1801);
 			attr_dev(label, "class", "switch svelte-11jq1um");
-			add_location(label, file, 83, 3, 1959);
+			add_location(label, file, 73, 3, 1717);
 			attr_dev(span2, "class", "lang svelte-11jq1um");
-			add_location(span2, file, 87, 3, 2095);
+			add_location(span2, file, 77, 3, 1853);
 			attr_dev(div0, "id", "languageSwitch");
 			attr_dev(div0, "class", "svelte-11jq1um");
-			add_location(div0, file, 81, 2, 1896);
-			add_location(div1, file, 80, 1, 1887);
+			add_location(div0, file, 71, 2, 1654);
+			add_location(div1, file, 70, 1, 1645);
 			attr_dev(main, "class", "svelte-11jq1um");
-			add_location(main, file, 78, 0, 1840);
+			add_location(main, file, 68, 0, 1598);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -48561,10 +49646,7 @@ function create_fragment(ctx) {
 }
 
 function instance($$self, $$props, $$invalidate) {
-	let $emptyUserData;
 	let $ui;
-	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(12, $emptyUserData = $$value));
 	validate_store(ui, 'ui');
 	component_subscribe($$self, ui, $$value => $$invalidate(8, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
@@ -48596,20 +49678,10 @@ function instance($$self, $$props, $$invalidate) {
 
 	let text;
 	let buttonText;
-	let userInput = $emptyUserData;
 	let selected = navOptions[0];
 	let currentNav = 0;
 	let buttonHidden = false;
 	let unique = {};
-
-	onMount(async () => {
-		try {
-			userInput = dataManager.loadFromLocalStorage("dataUserInput");
-		} catch(error) {
-			console.log(error);
-			userInput = $emptyUserData;
-		}
-	});
 
 	function changeComponent(event) {
 		let index = Number(event.target.id);
@@ -48646,7 +49718,7 @@ function instance($$self, $$props, $$invalidate) {
 	const writable_props = [];
 
 	Object.keys($$props).forEach(key => {
-		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
+		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
 	});
 
 	function switch_instance_appConfig_binding(value) {
@@ -48657,13 +49729,11 @@ function instance($$self, $$props, $$invalidate) {
 	$$self.$capture_state = () => ({
 		onMount,
 		navOptions,
-		emptyUserData,
 		ui,
 		dataManager,
 		appConfig,
 		text,
 		buttonText,
-		userInput,
 		selected,
 		currentNav,
 		buttonHidden,
@@ -48671,7 +49741,6 @@ function instance($$self, $$props, $$invalidate) {
 		changeComponent,
 		toggleHidden,
 		changeLanguage,
-		$emptyUserData,
 		$ui
 	});
 
@@ -48679,7 +49748,6 @@ function instance($$self, $$props, $$invalidate) {
 		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
 		if ('text' in $$props) $$invalidate(1, text = $$props.text);
 		if ('buttonText' in $$props) buttonText = $$props.buttonText;
-		if ('userInput' in $$props) userInput = $$props.userInput;
 		if ('selected' in $$props) $$invalidate(2, selected = $$props.selected);
 		if ('currentNav' in $$props) $$invalidate(3, currentNav = $$props.currentNav);
 		if ('buttonHidden' in $$props) $$invalidate(4, buttonHidden = $$props.buttonHidden);
