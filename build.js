@@ -140,6 +140,34 @@ function get_current_component() {
 function onMount(fn) {
     get_current_component().$$.on_mount.push(fn);
 }
+/**
+ * Creates an event dispatcher that can be used to dispatch [component events](/docs#template-syntax-component-directives-on-eventname).
+ * Event dispatchers are functions that can take two arguments: `name` and `detail`.
+ *
+ * Component events created with `createEventDispatcher` create a
+ * [CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
+ * These events do not [bubble](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#Event_bubbling_and_capture).
+ * The `detail` argument corresponds to the [CustomEvent.detail](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/detail)
+ * property and can contain any type of data.
+ *
+ * https://svelte.dev/docs#run-time-svelte-createeventdispatcher
+ */
+function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail, { cancelable = false } = {}) => {
+        const callbacks = component.$$.callbacks[type];
+        if (callbacks) {
+            // TODO are there situations where events could be dispatched
+            // in a server (non-DOM) environment?
+            const event = custom_event(type, detail, { cancelable });
+            callbacks.slice().forEach(fn => {
+                fn.call(component, event);
+            });
+            return !event.defaultPrevented;
+        }
+        return true;
+    };
+}
 
 const dirty_components = [];
 const binding_callbacks = [];
@@ -2278,945 +2306,1080 @@ const emptyUserData = readable({
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "1-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "1-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "1-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "1-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "1-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-19": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "1-20": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-21": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "1-22": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "2-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation", "innovation"],
   },
   "2-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "2-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "3-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "3-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "3-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "3-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "3-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "4-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it", "innovation"],
   },
   "4-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it", "organisation"],
   },
   "4-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "4-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "5-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "5-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "5-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "5-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "5-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "5-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-19": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "5-20": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "5-21": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-22": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-23": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "5-24": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "5-25": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "5-26": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "5-27": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "5-28": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "6-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "6-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "6-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "6-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["it"],
   },
   "6-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-01": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-02": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-03": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "7-04": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-05": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-06": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-07": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "7-08": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   },
   "7-09": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "7-10": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-11": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-12": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-13": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["innovation"],
   },
   "7-14": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-15": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-16": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-17": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-18": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-19": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-20": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-21": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-22": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": [],
   },
   "7-23": {
       "explanation": "",
       "isValue": 0,
       "shouldValue": 0,
-      "notRelevant": false,
+      "customFilter": false,
+      "inFilter": true,
       "tags": ["organisation"],
   }
 });
@@ -3267,7 +3430,11 @@ const ui = readable({
       loadSnapshot: "Load snapshot",
       deleteSnapshot: "Delete snapshot",
       createSnapshot: "Create snapshot",
-      currentPreset: "Custom"
+      currentPreset: "Custom",
+      editCustomFilter: "Edit custom filter",
+      saveCustomFilter: "Save custom filter",
+      customFilterColumn: "Custom filter",
+      save: "Save"
     },
     evaluationDataTable: {
       id: "ID",
@@ -3279,7 +3446,8 @@ const ui = readable({
       should: "Should-Value"
     },
     evaluation: {
-      changeMode: "Change mode"
+      changeMode: "Change mode",
+      errorMessage: "No snapshots saved, please save a snapshot before viewing this page."
     },
     exportButton: {
       button: "Export Results"
@@ -3301,6 +3469,7 @@ const ui = readable({
       "Innovation": "Innovation",
       "Knowledge Management": 'Knowledge Management',
       "Organizational and Management Structures": 'Organizational and Management Structures',
+      'Custom Filter': 'Custom Filter'
     },
     presets: {
       IT: "IT",
@@ -3354,7 +3523,11 @@ const ui = readable({
       loadSnapshot: "Snapshot laden",
       deleteSnapshot: "Snapshot löschen",
       createSnapshot: "Snapshot erstellen",
-      currentPreset: "Benutzerdefiniert"
+      currentPreset: "Benutzerdefiniert",
+      editCustomFilter: "Benutzerdefinierten Filter bearbeiten",
+      saveCustomFilter: "Benutzerdefinierten Filter speichern",
+      customFilterColumn: "Benutzerdef. Filter",
+      save: "speichern"
     },
     evaluationDataTable: {
       id: "ID",
@@ -3366,7 +3539,8 @@ const ui = readable({
       should: "Soll-Wert"
     },
     evaluation: {
-      changeMode: "Modus wechseln"
+      changeMode: "Modus wechseln",
+      errorMessage: "Keine Snapshots vorhanden. Bitte speichern Sie einen Snapshot ab, bevor Sie diese Ansicht öffnen."
     },
     exportButton: {
       button: "Resultate exportieren"
@@ -3388,6 +3562,7 @@ const ui = readable({
       "Innovation": "Innovation",
       "Knowledge Management": 'Wissensmanagement',
       "Organizational and Management Structures": 'Organisations- und Managementstrukturen',   
+      "Custom Filter": "Benutzerdefinierter Filter"
     },
     presets: {
       IT: "IT",
@@ -3414,7 +3589,8 @@ const defaultFilters = readable({
   Efficiency: ['3-05','3-06','3-12','3-13','3-14','3-17','4-01','4-03','5-01','5-18','7-22'],
   Innovation: ['1-08','1-09','2-12','3-01','3-04','3-15','4-02','5-02','5-03','5-10','5-11','5-24','7-09','7-13'],
   'Knowledge Management': ['1-06','1-18','1-20','1-21','2-10','2-11','3-07','3-08','3-09','3-10','3-16','4-09','4-11','5-04','6-07','7-12','7-20'],
-  'Organizational and Management Structures': ['1-16','1-17','1-19','2-01','2-02','2-03','2-04','2-05','2-06','2-07','3-11','4-05','5-19','5-20','5-23','5-26','5-27','6-08','7-03','7-07','7-08','7-23']
+  'Organizational and Management Structures': ['1-16','1-17','1-19','2-01','2-02','2-03','2-04','2-05','2-06','2-07','3-11','4-05','5-19','5-20','5-23','5-26','5-27','6-08','7-03','7-07','7-08','7-23'],
+  'Custom Filter': []
 });
 
 const defaultPresets = readable({
@@ -17103,7 +17279,7 @@ function get_each_context$5(ctx, list, i) {
 }
 
 // (28:4) {:else}
-function create_else_block$1(ctx) {
+function create_else_block$2(ctx) {
 	let tr;
 	let td0;
 	let t0_value = /*capability_id*/ ctx[6] + "";
@@ -17138,14 +17314,14 @@ function create_else_block$1(ctx) {
 			t6 = text(t6_value);
 			t7 = space();
 			attr_dev(td0, "class", "middle svelte-1ljxjtz");
-			add_location(td0, file$7, 29, 8, 637);
+			add_location(td0, file$7, 29, 8, 635);
 			attr_dev(td1, "class", "left svelte-1ljxjtz");
-			add_location(td1, file$7, 32, 8, 710);
+			add_location(td1, file$7, 32, 8, 708);
 			attr_dev(td2, "class", "middle svelte-1ljxjtz");
-			add_location(td2, file$7, 35, 8, 814);
+			add_location(td2, file$7, 35, 8, 812);
 			attr_dev(td3, "class", "right svelte-1ljxjtz");
-			add_location(td3, file$7, 38, 8, 886);
-			add_location(tr, file$7, 28, 4, 623);
+			add_location(td3, file$7, 38, 8, 884);
+			add_location(tr, file$7, 28, 4, 621);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, tr, anchor);
@@ -17175,7 +17351,7 @@ function create_else_block$1(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_else_block$1.name,
+		id: create_else_block$2.name,
 		type: "else",
 		source: "(28:4) {:else}",
 		ctx
@@ -17184,7 +17360,7 @@ function create_else_block$1(ctx) {
 	return block;
 }
 
-// (26:4) {#if data.notRelevant && isHidden}
+// (26:4) {#if !data.inFilter && isHidden}
 function create_if_block$4(ctx) {
 	const block = { c: noop, m: noop, p: noop, d: noop };
 
@@ -17192,7 +17368,7 @@ function create_if_block$4(ctx) {
 		block,
 		id: create_if_block$4.name,
 		type: "if",
-		source: "(26:4) {#if data.notRelevant && isHidden}",
+		source: "(26:4) {#if !data.inFilter && isHidden}",
 		ctx
 	});
 
@@ -17204,8 +17380,8 @@ function create_each_block$5(ctx) {
 	let if_block_anchor;
 
 	function select_block_type(ctx, dirty) {
-		if (/*data*/ ctx[7].notRelevant && /*isHidden*/ ctx[1]) return create_if_block$4;
-		return create_else_block$1;
+		if (!/*data*/ ctx[7].inFilter && /*isHidden*/ ctx[1]) return create_if_block$4;
+		return create_else_block$2;
 	}
 
 	let current_block_type = select_block_type(ctx);
@@ -43986,7 +44162,7 @@ function create_fragment$7(ctx) {
 		c: function create() {
 			button = element("button");
 			t = text(t_value);
-			add_location(button, file$6, 113, 0, 3268);
+			add_location(button, file$6, 113, 0, 3262);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -44117,7 +44293,7 @@ Expected format by SheetJS:
 					Description: `${capabilityInfo[id].description}`,
 					"Should Value": `${capabilityData.shouldValue}`,
 					"Is Value": `${capabilityData.isValue}`,
-					"Not Relevant": `${capabilityData.notRelevant}`,
+					"In Filter": `${capabilityData.inFilter}`,
 					Comments: `${capabilityData.explanation}`
 				};
 			} catch(error) {
@@ -44251,30 +44427,30 @@ const file$5 = "src\\Evalutation.svelte";
 
 function get_each_context$4(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[32] = list[i];
+	child_ctx[36] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i];
+	child_ctx[39] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_2$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[32] = list[i];
+	child_ctx[36] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_3$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[35] = list[i];
+	child_ctx[39] = list[i];
 	return child_ctx;
 }
 
-// (265:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
-function create_if_block_3$1(ctx) {
+// (280:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
+function create_if_block_4$1(ctx) {
 	let evaluationchart;
 	let updating_images;
 	let t;
@@ -44282,11 +44458,11 @@ function create_if_block_3$1(ctx) {
 	let current;
 
 	function evaluationchart_images_binding(value) {
-		/*evaluationchart_images_binding*/ ctx[11](value);
+		/*evaluationchart_images_binding*/ ctx[13](value);
 	}
 
 	let evaluationchart_props = {
-		chartData: /*generateChartData*/ ctx[9](/*dimension*/ ctx[35]),
+		chartData: /*generateChartData*/ ctx[10](/*dimension*/ ctx[39]),
 		language: /*appConfig*/ ctx[0].language
 	};
 
@@ -44303,8 +44479,8 @@ function create_if_block_3$1(ctx) {
 
 	evaluationdatatable = new EvaluationDataTable({
 			props: {
-				tableData: /*generateTableData*/ ctx[8](/*dimension*/ ctx[35]),
-				isHidden: /*appConfig*/ ctx[0].hideIrrelevant,
+				tableData: /*generateTableData*/ ctx[9](/*dimension*/ ctx[39]),
+				isHidden: /*appConfig*/ ctx[0].inFilter,
 				language: /*appConfig*/ ctx[0].language
 			},
 			$$inline: true
@@ -44334,7 +44510,167 @@ function create_if_block_3$1(ctx) {
 
 			evaluationchart.$set(evaluationchart_changes);
 			const evaluationdatatable_changes = {};
-			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].inFilter;
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
+			evaluationdatatable.$set(evaluationdatatable_changes);
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(evaluationchart.$$.fragment, local);
+			transition_in(evaluationdatatable.$$.fragment, local);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(evaluationchart.$$.fragment, local);
+			transition_out(evaluationdatatable.$$.fragment, local);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			destroy_component(evaluationchart, detaching);
+			if (detaching) detach_dev(t);
+			destroy_component(evaluationdatatable, detaching);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_4$1.name,
+		type: "if",
+		source: "(280:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
+		ctx
+	});
+
+	return block;
+}
+
+// (278:2) {#each Object.keys(dimensionDescriptions) as dimension}
+function create_each_block_3$1(ctx) {
+	let if_block_anchor;
+	let current;
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[39]]] && create_if_block_4$1(ctx);
+
+	const block = {
+		c: function create() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m: function mount(target, anchor) {
+			if (if_block) if_block.m(target, anchor);
+			insert_dev(target, if_block_anchor, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[39]]]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
+
+					if (dirty[0] & /*appConfig, $capabilityConverter*/ 33) {
+						transition_in(if_block, 1);
+					}
+				} else {
+					if_block = create_if_block_4$1(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			} else if (if_block) {
+				group_outros();
+
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
+
+				check_outros();
+			}
+		},
+		i: function intro(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o: function outro(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d: function destroy(detaching) {
+			if (if_block) if_block.d(detaching);
+			if (detaching) detach_dev(if_block_anchor);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_each_block_3$1.name,
+		type: "each",
+		source: "(278:2) {#each Object.keys(dimensionDescriptions) as dimension}",
+		ctx
+	});
+
+	return block;
+}
+
+// (291:2) {#if appConfig.checkedFilters[$topicConverter[category]]}
+function create_if_block_3$1(ctx) {
+	let evaluationchart;
+	let updating_images;
+	let t;
+	let evaluationdatatable;
+	let current;
+
+	function evaluationchart_images_binding_1(value) {
+		/*evaluationchart_images_binding_1*/ ctx[14](value);
+	}
+
+	let evaluationchart_props = {
+		chartData: /*generateChartData*/ ctx[10](/*category*/ ctx[36]),
+		language: /*appConfig*/ ctx[0].language
+	};
+
+	if (/*images*/ ctx[2] !== void 0) {
+		evaluationchart_props.images = /*images*/ ctx[2];
+	}
+
+	evaluationchart = new EvaluationChart({
+			props: evaluationchart_props,
+			$$inline: true
+		});
+
+	binding_callbacks.push(() => bind(evaluationchart, 'images', evaluationchart_images_binding_1));
+
+	evaluationdatatable = new EvaluationDataTable({
+			props: {
+				tableData: /*generateTableData*/ ctx[9](/*category*/ ctx[36]),
+				isHidden: /*appConfig*/ ctx[0].inFilter,
+				language: /*appConfig*/ ctx[0].language
+			},
+			$$inline: true
+		});
+
+	const block = {
+		c: function create() {
+			create_component(evaluationchart.$$.fragment);
+			t = space();
+			create_component(evaluationdatatable.$$.fragment);
+		},
+		m: function mount(target, anchor) {
+			mount_component(evaluationchart, target, anchor);
+			insert_dev(target, t, anchor);
+			mount_component(evaluationdatatable, target, anchor);
+			current = true;
+		},
+		p: function update(ctx, dirty) {
+			const evaluationchart_changes = {};
+			if (dirty[0] & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
+
+			if (!updating_images && dirty[0] & /*images*/ 4) {
+				updating_images = true;
+				evaluationchart_changes.images = /*images*/ ctx[2];
+				add_flush_callback(() => updating_images = false);
+			}
+
+			evaluationchart.$set(evaluationchart_changes);
+			const evaluationdatatable_changes = {};
+			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].inFilter;
 			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
 			evaluationdatatable.$set(evaluationdatatable_changes);
 		},
@@ -44360,18 +44696,18 @@ function create_if_block_3$1(ctx) {
 		block,
 		id: create_if_block_3$1.name,
 		type: "if",
-		source: "(265:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
+		source: "(291:2) {#if appConfig.checkedFilters[$topicConverter[category]]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (263:2) {#each Object.keys(dimensionDescriptions) as dimension}
-function create_each_block_3$1(ctx) {
+// (289:2) {#each Object.values(categoryDescriptions) as category}
+function create_each_block_2$1(ctx) {
 	let if_block_anchor;
 	let current;
-	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]] && create_if_block_3$1(ctx);
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[6][/*category*/ ctx[36]]] && create_if_block_3$1(ctx);
 
 	const block = {
 		c: function create() {
@@ -44384,11 +44720,11 @@ function create_each_block_3$1(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]]) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[6][/*category*/ ctx[36]]]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*appConfig, $capabilityConverter*/ 17) {
+					if (dirty[0] & /*appConfig, $topicConverter*/ 65) {
 						transition_in(if_block, 1);
 					}
 				} else {
@@ -44424,189 +44760,190 @@ function create_each_block_3$1(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block_3$1.name,
+		id: create_each_block_2$1.name,
 		type: "each",
-		source: "(263:2) {#each Object.keys(dimensionDescriptions) as dimension}",
+		source: "(289:2) {#each Object.values(categoryDescriptions) as category}",
 		ctx
 	});
 
 	return block;
 }
 
-// (276:2) {#if appConfig.checkedFilters[$topicConverter[category]]}
-function create_if_block_2$1(ctx) {
-	let evaluationchart;
-	let updating_images;
+// (303:2) {#if displaySnapshots}
+function create_if_block$3(ctx) {
 	let t;
-	let evaluationdatatable;
+	let each1_anchor;
 	let current;
+	let each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[7]);
+	validate_each_argument(each_value_1);
+	let each_blocks_1 = [];
 
-	function evaluationchart_images_binding_1(value) {
-		/*evaluationchart_images_binding_1*/ ctx[12](value);
+	for (let i = 0; i < each_value_1.length; i += 1) {
+		each_blocks_1[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
 	}
 
-	let evaluationchart_props = {
-		chartData: /*generateChartData*/ ctx[9](/*category*/ ctx[32]),
-		language: /*appConfig*/ ctx[0].language
-	};
+	const out = i => transition_out(each_blocks_1[i], 1, 1, () => {
+		each_blocks_1[i] = null;
+	});
 
-	if (/*images*/ ctx[2] !== void 0) {
-		evaluationchart_props.images = /*images*/ ctx[2];
+	let each_value = Object.values(/*categoryDescriptions*/ ctx[8]);
+	validate_each_argument(each_value);
+	let each_blocks = [];
+
+	for (let i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
 	}
 
-	evaluationchart = new EvaluationChart({
-			props: evaluationchart_props,
-			$$inline: true
-		});
-
-	binding_callbacks.push(() => bind(evaluationchart, 'images', evaluationchart_images_binding_1));
-
-	evaluationdatatable = new EvaluationDataTable({
-			props: {
-				tableData: /*generateTableData*/ ctx[8](/*category*/ ctx[32]),
-				isHidden: /*appConfig*/ ctx[0].hideIrrelevant,
-				language: /*appConfig*/ ctx[0].language
-			},
-			$$inline: true
-		});
+	const out_1 = i => transition_out(each_blocks[i], 1, 1, () => {
+		each_blocks[i] = null;
+	});
 
 	const block = {
 		c: function create() {
-			create_component(evaluationchart.$$.fragment);
-			t = space();
-			create_component(evaluationdatatable.$$.fragment);
-		},
-		m: function mount(target, anchor) {
-			mount_component(evaluationchart, target, anchor);
-			insert_dev(target, t, anchor);
-			mount_component(evaluationdatatable, target, anchor);
-			current = true;
-		},
-		p: function update(ctx, dirty) {
-			const evaluationchart_changes = {};
-			if (dirty[0] & /*appConfig*/ 1) evaluationchart_changes.language = /*appConfig*/ ctx[0].language;
-
-			if (!updating_images && dirty[0] & /*images*/ 4) {
-				updating_images = true;
-				evaluationchart_changes.images = /*images*/ ctx[2];
-				add_flush_callback(() => updating_images = false);
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].c();
 			}
 
-			evaluationchart.$set(evaluationchart_changes);
-			const evaluationdatatable_changes = {};
-			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.isHidden = /*appConfig*/ ctx[0].hideIrrelevant;
-			if (dirty[0] & /*appConfig*/ 1) evaluationdatatable_changes.language = /*appConfig*/ ctx[0].language;
-			evaluationdatatable.$set(evaluationdatatable_changes);
-		},
-		i: function intro(local) {
-			if (current) return;
-			transition_in(evaluationchart.$$.fragment, local);
-			transition_in(evaluationdatatable.$$.fragment, local);
-			current = true;
-		},
-		o: function outro(local) {
-			transition_out(evaluationchart.$$.fragment, local);
-			transition_out(evaluationdatatable.$$.fragment, local);
-			current = false;
-		},
-		d: function destroy(detaching) {
-			destroy_component(evaluationchart, detaching);
-			if (detaching) detach_dev(t);
-			destroy_component(evaluationdatatable, detaching);
-		}
-	};
+			t = space();
 
-	dispatch_dev("SvelteRegisterBlock", {
-		block,
-		id: create_if_block_2$1.name,
-		type: "if",
-		source: "(276:2) {#if appConfig.checkedFilters[$topicConverter[category]]}",
-		ctx
-	});
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
 
-	return block;
-}
-
-// (274:2) {#each Object.values(categoryDescriptions) as category}
-function create_each_block_2$1(ctx) {
-	let if_block_anchor;
-	let current;
-	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]] && create_if_block_2$1(ctx);
-
-	const block = {
-		c: function create() {
-			if (if_block) if_block.c();
-			if_block_anchor = empty();
+			each1_anchor = empty();
 		},
 		m: function mount(target, anchor) {
-			if (if_block) if_block.m(target, anchor);
-			insert_dev(target, if_block_anchor, anchor);
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].m(target, anchor);
+			}
+
+			insert_dev(target, t, anchor);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(target, anchor);
+			}
+
+			insert_dev(target, each1_anchor, anchor);
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]]) {
-				if (if_block) {
-					if_block.p(ctx, dirty);
+			if (dirty[0] & /*generateChartData, dimensionDescriptions, appConfig, generateSnapshotDatasets, images, $capabilityConverter*/ 5285) {
+				each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[7]);
+				validate_each_argument(each_value_1);
+				let i;
 
-					if (dirty[0] & /*appConfig, $topicConverter*/ 33) {
-						transition_in(if_block, 1);
+				for (i = 0; i < each_value_1.length; i += 1) {
+					const child_ctx = get_each_context_1$2(ctx, each_value_1, i);
+
+					if (each_blocks_1[i]) {
+						each_blocks_1[i].p(child_ctx, dirty);
+						transition_in(each_blocks_1[i], 1);
+					} else {
+						each_blocks_1[i] = create_each_block_1$2(child_ctx);
+						each_blocks_1[i].c();
+						transition_in(each_blocks_1[i], 1);
+						each_blocks_1[i].m(t.parentNode, t);
 					}
-				} else {
-					if_block = create_if_block_2$1(ctx);
-					if_block.c();
-					transition_in(if_block, 1);
-					if_block.m(if_block_anchor.parentNode, if_block_anchor);
 				}
-			} else if (if_block) {
+
 				group_outros();
 
-				transition_out(if_block, 1, 1, () => {
-					if_block = null;
-				});
+				for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
+					out(i);
+				}
+
+				check_outros();
+			}
+
+			if (dirty[0] & /*generateChartData, categoryDescriptions, appConfig, generateSnapshotDatasets, images, $topicConverter*/ 5445) {
+				each_value = Object.values(/*categoryDescriptions*/ ctx[8]);
+				validate_each_argument(each_value);
+				let i;
+
+				for (i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context$4(ctx, each_value, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+						transition_in(each_blocks[i], 1);
+					} else {
+						each_blocks[i] = create_each_block$4(child_ctx);
+						each_blocks[i].c();
+						transition_in(each_blocks[i], 1);
+						each_blocks[i].m(each1_anchor.parentNode, each1_anchor);
+					}
+				}
+
+				group_outros();
+
+				for (i = each_value.length; i < each_blocks.length; i += 1) {
+					out_1(i);
+				}
 
 				check_outros();
 			}
 		},
 		i: function intro(local) {
 			if (current) return;
-			transition_in(if_block);
+
+			for (let i = 0; i < each_value_1.length; i += 1) {
+				transition_in(each_blocks_1[i]);
+			}
+
+			for (let i = 0; i < each_value.length; i += 1) {
+				transition_in(each_blocks[i]);
+			}
+
 			current = true;
 		},
 		o: function outro(local) {
-			transition_out(if_block);
+			each_blocks_1 = each_blocks_1.filter(Boolean);
+
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				transition_out(each_blocks_1[i]);
+			}
+
+			each_blocks = each_blocks.filter(Boolean);
+
+			for (let i = 0; i < each_blocks.length; i += 1) {
+				transition_out(each_blocks[i]);
+			}
+
 			current = false;
 		},
 		d: function destroy(detaching) {
-			if (if_block) if_block.d(detaching);
-			if (detaching) detach_dev(if_block_anchor);
+			destroy_each(each_blocks_1, detaching);
+			if (detaching) detach_dev(t);
+			destroy_each(each_blocks, detaching);
+			if (detaching) detach_dev(each1_anchor);
 		}
 	};
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_each_block_2$1.name,
-		type: "each",
-		source: "(274:2) {#each Object.values(categoryDescriptions) as category}",
+		id: create_if_block$3.name,
+		type: "if",
+		source: "(303:2) {#if displaySnapshots}",
 		ctx
 	});
 
 	return block;
 }
 
-// (290:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
-function create_if_block_1$3(ctx) {
+// (308:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}
+function create_if_block_2$1(ctx) {
 	let evaluationchart;
 	let updating_images;
 	let current;
 
 	function evaluationchart_images_binding_2(value) {
-		/*evaluationchart_images_binding_2*/ ctx[13](value);
+		/*evaluationchart_images_binding_2*/ ctx[15](value);
 	}
 
 	let evaluationchart_props = {
-		chartData: prepareSnapshotData(/*generateChartData*/ ctx[9](/*dimension*/ ctx[35])),
+		chartData: prepareSnapshotData(/*generateChartData*/ ctx[10](/*dimension*/ ctx[39])),
 		language: /*appConfig*/ ctx[0].language,
-		snapConfig: /*generateSnapshotDatasets*/ ctx[10](/*dimension*/ ctx[35])
+		snapConfig: /*generateSnapshotDatasets*/ ctx[12](/*dimension*/ ctx[39])
 	};
 
 	if (/*images*/ ctx[2] !== void 0) {
@@ -44656,20 +44993,20 @@ function create_if_block_1$3(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_1$3.name,
+		id: create_if_block_2$1.name,
 		type: "if",
-		source: "(290:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
+		source: "(308:2) {#if appConfig.checkedFilters[$capabilityConverter[dimension]]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (288:2) {#each Object.keys(dimensionDescriptions) as dimension}
+// (306:2) {#each Object.keys(dimensionDescriptions) as dimension}
 function create_each_block_1$2(ctx) {
 	let if_block_anchor;
 	let current;
-	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]] && create_if_block_1$3(ctx);
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[39]]] && create_if_block_2$1(ctx);
 
 	const block = {
 		c: function create() {
@@ -44682,15 +45019,15 @@ function create_each_block_1$2(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[4][/*dimension*/ ctx[35]]]) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$capabilityConverter*/ ctx[5][/*dimension*/ ctx[39]]]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*appConfig, $capabilityConverter*/ 17) {
+					if (dirty[0] & /*appConfig, $capabilityConverter*/ 33) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block_1$3(ctx);
+					if_block = create_if_block_2$1(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -44724,28 +45061,28 @@ function create_each_block_1$2(ctx) {
 		block,
 		id: create_each_block_1$2.name,
 		type: "each",
-		source: "(288:2) {#each Object.keys(dimensionDescriptions) as dimension}",
+		source: "(306:2) {#each Object.keys(dimensionDescriptions) as dimension}",
 		ctx
 	});
 
 	return block;
 }
 
-// (301:2) {#if appConfig.checkedFilters[$topicConverter[category]]}
-function create_if_block$3(ctx) {
+// (319:2) {#if appConfig.checkedFilters[$topicConverter[category]]}
+function create_if_block_1$3(ctx) {
 	let evaluationchart;
 	let updating_images;
 	let t;
 	let current;
 
 	function evaluationchart_images_binding_3(value) {
-		/*evaluationchart_images_binding_3*/ ctx[14](value);
+		/*evaluationchart_images_binding_3*/ ctx[16](value);
 	}
 
 	let evaluationchart_props = {
-		chartData: prepareSnapshotData(/*generateChartData*/ ctx[9](/*category*/ ctx[32])),
+		chartData: prepareSnapshotData(/*generateChartData*/ ctx[10](/*category*/ ctx[36])),
 		language: /*appConfig*/ ctx[0].language,
-		snapConfig: /*generateSnapshotDatasets*/ ctx[10](/*category*/ ctx[32])
+		snapConfig: /*generateSnapshotDatasets*/ ctx[12](/*category*/ ctx[36])
 	};
 
 	if (/*images*/ ctx[2] !== void 0) {
@@ -44798,20 +45135,20 @@ function create_if_block$3(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block$3.name,
+		id: create_if_block_1$3.name,
 		type: "if",
-		source: "(301:2) {#if appConfig.checkedFilters[$topicConverter[category]]}",
+		source: "(319:2) {#if appConfig.checkedFilters[$topicConverter[category]]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (299:2) {#each Object.values(categoryDescriptions) as category}
+// (317:2) {#each Object.values(categoryDescriptions) as category}
 function create_each_block$4(ctx) {
 	let if_block_anchor;
 	let current;
-	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]] && create_if_block$3(ctx);
+	let if_block = /*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[6][/*category*/ ctx[36]]] && create_if_block_1$3(ctx);
 
 	const block = {
 		c: function create() {
@@ -44824,15 +45161,15 @@ function create_each_block$4(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[5][/*category*/ ctx[32]]]) {
+			if (/*appConfig*/ ctx[0].checkedFilters[/*$topicConverter*/ ctx[6][/*category*/ ctx[36]]]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
-					if (dirty[0] & /*appConfig, $topicConverter*/ 33) {
+					if (dirty[0] & /*appConfig, $topicConverter*/ 65) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block$3(ctx);
+					if_block = create_if_block_1$3(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -44866,7 +45203,7 @@ function create_each_block$4(ctx) {
 		block,
 		id: create_each_block$4.name,
 		type: "each",
-		source: "(299:2) {#each Object.values(categoryDescriptions) as category}",
+		source: "(317:2) {#each Object.values(categoryDescriptions) as category}",
 		ctx
 	});
 
@@ -44874,11 +45211,11 @@ function create_each_block$4(ctx) {
 }
 
 function create_fragment$6(ctx) {
-	let div2;
+	let div3;
 	let exportbutton0;
 	let t0;
 	let button;
-	let t1_value = /*$ui*/ ctx[3][/*appConfig*/ ctx[0].language].evaluation.changeMode + "";
+	let t1_value = /*$ui*/ ctx[4][/*appConfig*/ ctx[0].language].evaluation.changeMode + "";
 	let t1;
 	let t2;
 	let div0;
@@ -44886,7 +45223,11 @@ function create_fragment$6(ctx) {
 	let t4;
 	let div1;
 	let t5;
+	let div2;
+	let p;
+	let t6_value = /*$ui*/ ctx[4][/*appConfig*/ ctx[0].language].evaluation.errorMessage + "";
 	let t6;
+	let t7;
 	let exportbutton1;
 	let current;
 	let mounted;
@@ -44901,53 +45242,31 @@ function create_fragment$6(ctx) {
 			$$inline: true
 		});
 
-	let each_value_3 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
+	let each_value_3 = Object.keys(/*dimensionDescriptions*/ ctx[7]);
 	validate_each_argument(each_value_3);
-	let each_blocks_3 = [];
-
-	for (let i = 0; i < each_value_3.length; i += 1) {
-		each_blocks_3[i] = create_each_block_3$1(get_each_context_3$1(ctx, each_value_3, i));
-	}
-
-	const out = i => transition_out(each_blocks_3[i], 1, 1, () => {
-		each_blocks_3[i] = null;
-	});
-
-	let each_value_2 = Object.values(/*categoryDescriptions*/ ctx[7]);
-	validate_each_argument(each_value_2);
-	let each_blocks_2 = [];
-
-	for (let i = 0; i < each_value_2.length; i += 1) {
-		each_blocks_2[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
-	}
-
-	const out_1 = i => transition_out(each_blocks_2[i], 1, 1, () => {
-		each_blocks_2[i] = null;
-	});
-
-	let each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
-	validate_each_argument(each_value_1);
 	let each_blocks_1 = [];
 
-	for (let i = 0; i < each_value_1.length; i += 1) {
-		each_blocks_1[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
+	for (let i = 0; i < each_value_3.length; i += 1) {
+		each_blocks_1[i] = create_each_block_3$1(get_each_context_3$1(ctx, each_value_3, i));
 	}
 
-	const out_2 = i => transition_out(each_blocks_1[i], 1, 1, () => {
+	const out = i => transition_out(each_blocks_1[i], 1, 1, () => {
 		each_blocks_1[i] = null;
 	});
 
-	let each_value = Object.values(/*categoryDescriptions*/ ctx[7]);
-	validate_each_argument(each_value);
+	let each_value_2 = Object.values(/*categoryDescriptions*/ ctx[8]);
+	validate_each_argument(each_value_2);
 	let each_blocks = [];
 
-	for (let i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+	for (let i = 0; i < each_value_2.length; i += 1) {
+		each_blocks[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
 	}
 
-	const out_3 = i => transition_out(each_blocks[i], 1, 1, () => {
+	const out_1 = i => transition_out(each_blocks[i], 1, 1, () => {
 		each_blocks[i] = null;
 	});
+
+	let if_block = /*displaySnapshots*/ ctx[3] && create_if_block$3(ctx);
 
 	exportbutton1 = new ExportButton({
 			props: {
@@ -44960,7 +45279,7 @@ function create_fragment$6(ctx) {
 
 	const block = {
 		c: function create() {
-			div2 = element("div");
+			div3 = element("div");
 			create_component(exportbutton0.$$.fragment);
 			t0 = space();
 			button = element("button");
@@ -44968,81 +45287,73 @@ function create_fragment$6(ctx) {
 			t2 = space();
 			div0 = element("div");
 
-			for (let i = 0; i < each_blocks_3.length; i += 1) {
-				each_blocks_3[i].c();
-			}
-
-			t3 = space();
-
-			for (let i = 0; i < each_blocks_2.length; i += 1) {
-				each_blocks_2[i].c();
-			}
-
-			t4 = space();
-			div1 = element("div");
-
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].c();
 			}
 
-			t5 = space();
+			t3 = space();
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			t6 = space();
+			t4 = space();
+			div1 = element("div");
+			if (if_block) if_block.c();
+			t5 = space();
+			div2 = element("div");
+			p = element("p");
+			t6 = text(t6_value);
+			t7 = space();
 			create_component(exportbutton1.$$.fragment);
-			add_location(button, file$5, 259, 1, 6353);
+			add_location(button, file$5, 274, 1, 6995);
 			attr_dev(div0, "id", "chartContainer");
-			attr_dev(div0, "class", "svelte-1s3zkb5");
-			add_location(div0, file$5, 261, 1, 6444);
+			attr_dev(div0, "class", "svelte-1hq51jg");
+			add_location(div0, file$5, 276, 1, 7086);
 			attr_dev(div1, "id", "snapshotContainer");
-			add_location(div1, file$5, 286, 1, 7275);
-			attr_dev(div2, "id", "auswertung");
-			add_location(div2, file$5, 256, 0, 6254);
+			add_location(div1, file$5, 301, 1, 7907);
+			add_location(p, file$5, 332, 2, 8971);
+			attr_dev(div2, "id", "errorMessage");
+			attr_dev(div2, "class", "svelte-1hq51jg");
+			add_location(div2, file$5, 331, 1, 8944);
+			attr_dev(div3, "id", "auswertung");
+			add_location(div3, file$5, 271, 0, 6896);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, div2, anchor);
-			mount_component(exportbutton0, div2, null);
-			append_dev(div2, t0);
-			append_dev(div2, button);
+			insert_dev(target, div3, anchor);
+			mount_component(exportbutton0, div3, null);
+			append_dev(div3, t0);
+			append_dev(div3, button);
 			append_dev(button, t1);
-			append_dev(div2, t2);
-			append_dev(div2, div0);
+			append_dev(div3, t2);
+			append_dev(div3, div0);
 
-			for (let i = 0; i < each_blocks_3.length; i += 1) {
-				each_blocks_3[i].m(div0, null);
+			for (let i = 0; i < each_blocks_1.length; i += 1) {
+				each_blocks_1[i].m(div0, null);
 			}
 
 			append_dev(div0, t3);
 
-			for (let i = 0; i < each_blocks_2.length; i += 1) {
-				each_blocks_2[i].m(div0, null);
-			}
-
-			append_dev(div2, t4);
-			append_dev(div2, div1);
-
-			for (let i = 0; i < each_blocks_1.length; i += 1) {
-				each_blocks_1[i].m(div1, null);
-			}
-
-			append_dev(div1, t5);
-
 			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div1, null);
+				each_blocks[i].m(div0, null);
 			}
 
-			append_dev(div2, t6);
-			mount_component(exportbutton1, div2, null);
+			append_dev(div3, t4);
+			append_dev(div3, div1);
+			if (if_block) if_block.m(div1, null);
+			append_dev(div3, t5);
+			append_dev(div3, div2);
+			append_dev(div2, p);
+			append_dev(p, t6);
+			append_dev(div3, t7);
+			mount_component(exportbutton1, div3, null);
 			current = true;
 
 			if (!mounted) {
-				dispose = listen_dev(button, "click", toggleMode, false, false, false);
+				dispose = listen_dev(button, "click", /*toggleMode*/ ctx[11], false, false, false);
 				mounted = true;
 			}
 		},
@@ -45052,120 +45363,88 @@ function create_fragment$6(ctx) {
 			if (dirty[0] & /*images*/ 4) exportbutton0_changes.images = /*images*/ ctx[2];
 			if (dirty[0] & /*appConfig*/ 1) exportbutton0_changes.appConfig = /*appConfig*/ ctx[0];
 			exportbutton0.$set(exportbutton0_changes);
-			if ((!current || dirty[0] & /*$ui, appConfig*/ 9) && t1_value !== (t1_value = /*$ui*/ ctx[3][/*appConfig*/ ctx[0].language].evaluation.changeMode + "")) set_data_dev(t1, t1_value);
+			if ((!current || dirty[0] & /*$ui, appConfig*/ 17) && t1_value !== (t1_value = /*$ui*/ ctx[4][/*appConfig*/ ctx[0].language].evaluation.changeMode + "")) set_data_dev(t1, t1_value);
 
-			if (dirty[0] & /*generateTableData, dimensionDescriptions, appConfig, generateChartData, images, $capabilityConverter*/ 853) {
-				each_value_3 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
+			if (dirty[0] & /*generateTableData, dimensionDescriptions, appConfig, generateChartData, images, $capabilityConverter*/ 1701) {
+				each_value_3 = Object.keys(/*dimensionDescriptions*/ ctx[7]);
 				validate_each_argument(each_value_3);
 				let i;
 
 				for (i = 0; i < each_value_3.length; i += 1) {
 					const child_ctx = get_each_context_3$1(ctx, each_value_3, i);
 
-					if (each_blocks_3[i]) {
-						each_blocks_3[i].p(child_ctx, dirty);
-						transition_in(each_blocks_3[i], 1);
+					if (each_blocks_1[i]) {
+						each_blocks_1[i].p(child_ctx, dirty);
+						transition_in(each_blocks_1[i], 1);
 					} else {
-						each_blocks_3[i] = create_each_block_3$1(child_ctx);
-						each_blocks_3[i].c();
-						transition_in(each_blocks_3[i], 1);
-						each_blocks_3[i].m(div0, t3);
+						each_blocks_1[i] = create_each_block_3$1(child_ctx);
+						each_blocks_1[i].c();
+						transition_in(each_blocks_1[i], 1);
+						each_blocks_1[i].m(div0, t3);
 					}
 				}
 
 				group_outros();
 
-				for (i = each_value_3.length; i < each_blocks_3.length; i += 1) {
+				for (i = each_value_3.length; i < each_blocks_1.length; i += 1) {
 					out(i);
 				}
 
 				check_outros();
 			}
 
-			if (dirty[0] & /*generateTableData, categoryDescriptions, appConfig, generateChartData, images, $topicConverter*/ 933) {
-				each_value_2 = Object.values(/*categoryDescriptions*/ ctx[7]);
+			if (dirty[0] & /*generateTableData, categoryDescriptions, appConfig, generateChartData, images, $topicConverter*/ 1861) {
+				each_value_2 = Object.values(/*categoryDescriptions*/ ctx[8]);
 				validate_each_argument(each_value_2);
 				let i;
 
 				for (i = 0; i < each_value_2.length; i += 1) {
 					const child_ctx = get_each_context_2$1(ctx, each_value_2, i);
 
-					if (each_blocks_2[i]) {
-						each_blocks_2[i].p(child_ctx, dirty);
-						transition_in(each_blocks_2[i], 1);
+					if (each_blocks[i]) {
+						each_blocks[i].p(child_ctx, dirty);
+						transition_in(each_blocks[i], 1);
 					} else {
-						each_blocks_2[i] = create_each_block_2$1(child_ctx);
-						each_blocks_2[i].c();
-						transition_in(each_blocks_2[i], 1);
-						each_blocks_2[i].m(div0, null);
+						each_blocks[i] = create_each_block_2$1(child_ctx);
+						each_blocks[i].c();
+						transition_in(each_blocks[i], 1);
+						each_blocks[i].m(div0, null);
 					}
 				}
 
 				group_outros();
 
-				for (i = each_value_2.length; i < each_blocks_2.length; i += 1) {
+				for (i = each_value_2.length; i < each_blocks.length; i += 1) {
 					out_1(i);
 				}
 
 				check_outros();
 			}
 
-			if (dirty[0] & /*generateChartData, dimensionDescriptions, appConfig, generateSnapshotDatasets, images, $capabilityConverter*/ 1621) {
-				each_value_1 = Object.keys(/*dimensionDescriptions*/ ctx[6]);
-				validate_each_argument(each_value_1);
-				let i;
+			if (/*displaySnapshots*/ ctx[3]) {
+				if (if_block) {
+					if_block.p(ctx, dirty);
 
-				for (i = 0; i < each_value_1.length; i += 1) {
-					const child_ctx = get_each_context_1$2(ctx, each_value_1, i);
-
-					if (each_blocks_1[i]) {
-						each_blocks_1[i].p(child_ctx, dirty);
-						transition_in(each_blocks_1[i], 1);
-					} else {
-						each_blocks_1[i] = create_each_block_1$2(child_ctx);
-						each_blocks_1[i].c();
-						transition_in(each_blocks_1[i], 1);
-						each_blocks_1[i].m(div1, t5);
+					if (dirty[0] & /*displaySnapshots*/ 8) {
+						transition_in(if_block, 1);
 					}
+				} else {
+					if_block = create_if_block$3(ctx);
+					if_block.c();
+					transition_in(if_block, 1);
+					if_block.m(div1, null);
 				}
-
+			} else if (if_block) {
 				group_outros();
 
-				for (i = each_value_1.length; i < each_blocks_1.length; i += 1) {
-					out_2(i);
-				}
+				transition_out(if_block, 1, 1, () => {
+					if_block = null;
+				});
 
 				check_outros();
 			}
 
-			if (dirty[0] & /*generateChartData, categoryDescriptions, appConfig, generateSnapshotDatasets, images, $topicConverter*/ 1701) {
-				each_value = Object.values(/*categoryDescriptions*/ ctx[7]);
-				validate_each_argument(each_value);
-				let i;
-
-				for (i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context$4(ctx, each_value, i);
-
-					if (each_blocks[i]) {
-						each_blocks[i].p(child_ctx, dirty);
-						transition_in(each_blocks[i], 1);
-					} else {
-						each_blocks[i] = create_each_block$4(child_ctx);
-						each_blocks[i].c();
-						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(div1, null);
-					}
-				}
-
-				group_outros();
-
-				for (i = each_value.length; i < each_blocks.length; i += 1) {
-					out_3(i);
-				}
-
-				check_outros();
-			}
-
+			if ((!current || dirty[0] & /*$ui, appConfig*/ 17) && t6_value !== (t6_value = /*$ui*/ ctx[4][/*appConfig*/ ctx[0].language].evaluation.errorMessage + "")) set_data_dev(t6, t6_value);
 			const exportbutton1_changes = {};
 			if (dirty[0] & /*userInput*/ 2) exportbutton1_changes.data = /*userInput*/ ctx[1];
 			if (dirty[0] & /*images*/ 4) exportbutton1_changes.images = /*images*/ ctx[2];
@@ -45177,38 +45456,19 @@ function create_fragment$6(ctx) {
 			transition_in(exportbutton0.$$.fragment, local);
 
 			for (let i = 0; i < each_value_3.length; i += 1) {
-				transition_in(each_blocks_3[i]);
-			}
-
-			for (let i = 0; i < each_value_2.length; i += 1) {
-				transition_in(each_blocks_2[i]);
-			}
-
-			for (let i = 0; i < each_value_1.length; i += 1) {
 				transition_in(each_blocks_1[i]);
 			}
 
-			for (let i = 0; i < each_value.length; i += 1) {
+			for (let i = 0; i < each_value_2.length; i += 1) {
 				transition_in(each_blocks[i]);
 			}
 
+			transition_in(if_block);
 			transition_in(exportbutton1.$$.fragment, local);
 			current = true;
 		},
 		o: function outro(local) {
 			transition_out(exportbutton0.$$.fragment, local);
-			each_blocks_3 = each_blocks_3.filter(Boolean);
-
-			for (let i = 0; i < each_blocks_3.length; i += 1) {
-				transition_out(each_blocks_3[i]);
-			}
-
-			each_blocks_2 = each_blocks_2.filter(Boolean);
-
-			for (let i = 0; i < each_blocks_2.length; i += 1) {
-				transition_out(each_blocks_2[i]);
-			}
-
 			each_blocks_1 = each_blocks_1.filter(Boolean);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -45221,16 +45481,16 @@ function create_fragment$6(ctx) {
 				transition_out(each_blocks[i]);
 			}
 
+			transition_out(if_block);
 			transition_out(exportbutton1.$$.fragment, local);
 			current = false;
 		},
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(div2);
+			if (detaching) detach_dev(div3);
 			destroy_component(exportbutton0);
-			destroy_each(each_blocks_3, detaching);
-			destroy_each(each_blocks_2, detaching);
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
+			if (if_block) if_block.d();
 			destroy_component(exportbutton1);
 			mounted = false;
 			dispose();
@@ -45266,19 +45526,6 @@ function arrayIntersection$1(array1, array2) {
 	}
 }
 
-function toggleMode() {
-	let chartImages = document.getElementById("chartContainer");
-	let snapshotImages = document.getElementById("snapshotContainer");
-
-	if (chartImages.style.display == "none") {
-		chartImages.style.display = "block";
-		snapshotImages.style.display = "none";
-	} else {
-		chartImages.style.display = "none";
-		snapshotImages.style.display = "block";
-	}
-}
-
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }
@@ -45299,21 +45546,21 @@ function instance$6($$self, $$props, $$invalidate) {
 	let $capabilityConverter;
 	let $topicConverter;
 	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(21, $emptyUserInfo = $$value));
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(24, $emptyUserInfo = $$value));
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(22, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(25, $emptyUserData = $$value));
 	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(23, $capabilityList = $$value));
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(26, $capabilityList = $$value));
 	validate_store(categories, 'categories');
-	component_subscribe($$self, categories, $$value => $$invalidate(24, $categories = $$value));
+	component_subscribe($$self, categories, $$value => $$invalidate(27, $categories = $$value));
 	validate_store(dimensionDesc, 'dimensionDesc');
-	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(25, $dimensionDesc = $$value));
+	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(28, $dimensionDesc = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(3, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(4, $ui = $$value));
 	validate_store(capabilityConverter, 'capabilityConverter');
-	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(4, $capabilityConverter = $$value));
+	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(5, $capabilityConverter = $$value));
 	validate_store(topicConverter, 'topicConverter');
-	component_subscribe($$self, topicConverter, $$value => $$invalidate(5, $topicConverter = $$value));
+	component_subscribe($$self, topicConverter, $$value => $$invalidate(6, $topicConverter = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('Evalutation', slots, []);
 	let { appConfig } = $$props;
@@ -45328,6 +45575,8 @@ function instance$6($$self, $$props, $$invalidate) {
 	let categoryDescriptions = $categories[appConfig.language];
 	let capabilities = $capabilityList[appConfig.language];
 	let snapshots;
+	let displaySnapshots = false;
+	let snapColors = {};
 
 	try {
 		snapshots = dataManager.loadFromLocalStorage("dataUserSnapshots");
@@ -45466,25 +45715,41 @@ function instance$6($$self, $$props, $$invalidate) {
 		return chartData;
 	}
 
+	function toggleMode() {
+		let chartImages = document.getElementById("chartContainer");
+		let snapshotImages = document.getElementById("snapshotContainer");
+		let errorMessage = document.getElementById("errorMessage");
+
+		if (chartImages.style.display == "none") {
+			chartImages.style.display = "block";
+			snapshotImages.style.display = "none";
+			errorMessage.style.display = "none";
+			$$invalidate(3, displaySnapshots = false);
+		} else if (!(Object.keys(snapshots).length === 0)) {
+			chartImages.style.display = "none";
+			snapshotImages.style.display = "block";
+			errorMessage.style.display = "none";
+			$$invalidate(3, displaySnapshots = true);
+		} else {
+			chartImages.style.display = "none";
+			snapshotImages.style.display = "none";
+			errorMessage.style.display = "block";
+			$$invalidate(3, displaySnapshots = false);
+		}
+	}
+
 	function generateSnapshotDatasets(input) {
 		let snapshotDatasets = [];
 
 		for (const [snapName, snapValues] of Object.entries(snapshots)) {
 			let snapshotData = {};
-			let r = getRandomInt(255);
-			let g = getRandomInt(255);
-			let b = getRandomInt(255);
-
-			// snapshotData.labels = getLabels(input)
 			snapshotData.label = snapName;
-
 			snapshotData.data = getIsValuesSnapshots(input, snapshots[snapName]);
-			snapshotData.backgroundColor = `rgba(${r}, ${g}, ${b}, 0.2)`;
-			snapshotData.borderColor = `rgba(${r}, ${g}, ${b}, 0.6)`;
+			snapshotData.backgroundColor = snapColors[snapName].backgroundColor;
+			snapshotData.borderColor = snapColors[snapName].borderColor;
 			snapshotDatasets.push(snapshotData);
 		}
 
-		console.log(snapshotDatasets);
 		return snapshotDatasets;
 	}
 
@@ -45509,6 +45774,19 @@ function instance$6($$self, $$props, $$invalidate) {
 		// apply filter
 		return array;
 	}
+
+	function generateColors() {
+		for (snap of Object.keys(snapshots)) {
+			let r = getRandomInt(255);
+			let g = getRandomInt(255);
+			let b = getRandomInt(255);
+			snapColors[snap] = {};
+			snapColors[snap].backgroundColor = `rgba(${r}, ${g}, ${b}, 0.2)`;
+			snapColors[snap].borderColor = `rgba(${r}, ${g}, ${b}, 0.6)`;
+		}
+	}
+
+	generateColors();
 
 	$$self.$$.on_mount.push(function () {
 		if (appConfig === undefined && !('appConfig' in $$props || $$self.$$.bound[$$self.$$.props['appConfig']])) {
@@ -45573,6 +45851,8 @@ function instance$6($$self, $$props, $$invalidate) {
 		categoryDescriptions,
 		capabilities,
 		snapshots,
+		displaySnapshots,
+		snapColors,
 		round,
 		getAverages,
 		getLabels,
@@ -45586,6 +45866,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		generateSnapshotDatasets,
 		getIsValuesSnapshots,
 		prepareSnapshotData,
+		generateColors,
 		$emptyUserInfo,
 		$emptyUserData,
 		$capabilityList,
@@ -45605,10 +45886,12 @@ function instance$6($$self, $$props, $$invalidate) {
 		if ('average' in $$props) average = $$props.average;
 		if ('averages' in $$props) averages = $$props.averages;
 		if ('images' in $$props) $$invalidate(2, images = $$props.images);
-		if ('dimensionDescriptions' in $$props) $$invalidate(6, dimensionDescriptions = $$props.dimensionDescriptions);
-		if ('categoryDescriptions' in $$props) $$invalidate(7, categoryDescriptions = $$props.categoryDescriptions);
+		if ('dimensionDescriptions' in $$props) $$invalidate(7, dimensionDescriptions = $$props.dimensionDescriptions);
+		if ('categoryDescriptions' in $$props) $$invalidate(8, categoryDescriptions = $$props.categoryDescriptions);
 		if ('capabilities' in $$props) capabilities = $$props.capabilities;
 		if ('snapshots' in $$props) snapshots = $$props.snapshots;
+		if ('displaySnapshots' in $$props) $$invalidate(3, displaySnapshots = $$props.displaySnapshots);
+		if ('snapColors' in $$props) snapColors = $$props.snapColors;
 	};
 
 	if ($$props && "$$inject" in $$props) {
@@ -45619,6 +45902,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		appConfig,
 		userInput,
 		images,
+		displaySnapshots,
 		$ui,
 		$capabilityConverter,
 		$topicConverter,
@@ -45626,6 +45910,7 @@ function instance$6($$self, $$props, $$invalidate) {
 		categoryDescriptions,
 		generateTableData,
 		generateChartData,
+		toggleMode,
 		generateSnapshotDatasets,
 		evaluationchart_images_binding,
 		evaluationchart_images_binding_1,
@@ -45661,17 +45946,17 @@ const file$4 = "src\\CapabilityTableRow.svelte";
 
 function get_each_context$3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[11] = list[i];
+	child_ctx[14] = list[i];
 	return child_ctx;
 }
 
 function get_each_context_1$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[11] = list[i];
+	child_ctx[14] = list[i];
 	return child_ctx;
 }
 
-// (48:3) {:else}
+// (95:3) {:else}
 function create_else_block_1(ctx) {
 	let input;
 	let input_name_value;
@@ -45682,10 +45967,10 @@ function create_else_block_1(ctx) {
 		c: function create() {
 			input = element("input");
 			attr_dev(input, "type", "radio");
-			attr_dev(input, "class", "col is svelte-15rfiap");
+			attr_dev(input, "class", "col is svelte-25gfz3");
 			attr_dev(input, "name", input_name_value = "is" + /*capabilityID*/ ctx[1]);
-			input.value = /*i*/ ctx[11] + 1;
-			add_location(input, file$4, 48, 3, 1458);
+			input.value = /*i*/ ctx[14] + 1;
+			add_location(input, file$4, 95, 3, 2548);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, input, anchor);
@@ -45711,14 +45996,14 @@ function create_else_block_1(ctx) {
 		block,
 		id: create_else_block_1.name,
 		type: "else",
-		source: "(48:3) {:else}",
+		source: "(95:3) {:else}",
 		ctx
 	});
 
 	return block;
 }
 
-// (46:3) {#if i+1 == userInput[capabilityID].isValue}
+// (93:3) {#if i+1 == userInput[capabilityID].isValue}
 function create_if_block_1$2(ctx) {
 	let input;
 	let input_name_value;
@@ -45727,10 +46012,10 @@ function create_if_block_1$2(ctx) {
 		c: function create() {
 			input = element("input");
 			attr_dev(input, "type", "radio");
-			attr_dev(input, "class", "col is svelte-15rfiap");
+			attr_dev(input, "class", "col is svelte-25gfz3");
 			attr_dev(input, "name", input_name_value = "is" + /*capabilityID*/ ctx[1]);
 			input.checked = true;
-			add_location(input, file$4, 46, 3, 1367);
+			add_location(input, file$4, 93, 3, 2457);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, input, anchor);
@@ -45749,19 +46034,19 @@ function create_if_block_1$2(ctx) {
 		block,
 		id: create_if_block_1$2.name,
 		type: "if",
-		source: "(46:3) {#if i+1 == userInput[capabilityID].isValue}",
+		source: "(93:3) {#if i+1 == userInput[capabilityID].isValue}",
 		ctx
 	});
 
 	return block;
 }
 
-// (45:3) {#each levelArray as i}
+// (92:3) {#each levelArray as i}
 function create_each_block_1$1(ctx) {
 	let if_block_anchor;
 
 	function select_block_type(ctx, dirty) {
-		if (/*i*/ ctx[11] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].isValue) return create_if_block_1$2;
+		if (/*i*/ ctx[14] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].isValue) return create_if_block_1$2;
 		return create_else_block_1;
 	}
 
@@ -45800,15 +46085,15 @@ function create_each_block_1$1(ctx) {
 		block,
 		id: create_each_block_1$1.name,
 		type: "each",
-		source: "(45:3) {#each levelArray as i}",
+		source: "(92:3) {#each levelArray as i}",
 		ctx
 	});
 
 	return block;
 }
 
-// (58:3) {:else}
-function create_else_block(ctx) {
+// (105:3) {:else}
+function create_else_block$1(ctx) {
 	let input;
 	let input_name_value;
 	let mounted;
@@ -45818,10 +46103,10 @@ function create_else_block(ctx) {
 		c: function create() {
 			input = element("input");
 			attr_dev(input, "type", "radio");
-			attr_dev(input, "class", "col should svelte-15rfiap");
+			attr_dev(input, "class", "col should svelte-25gfz3");
 			attr_dev(input, "name", input_name_value = "should" + /*capabilityID*/ ctx[1]);
-			input.value = /*i*/ ctx[11] + 1;
-			add_location(input, file$4, 58, 3, 1805);
+			input.value = /*i*/ ctx[14] + 1;
+			add_location(input, file$4, 105, 3, 2895);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, input, anchor);
@@ -45845,16 +46130,16 @@ function create_else_block(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_else_block.name,
+		id: create_else_block$1.name,
 		type: "else",
-		source: "(58:3) {:else}",
+		source: "(105:3) {:else}",
 		ctx
 	});
 
 	return block;
 }
 
-// (56:3) {#if i+1 == userInput[capabilityID].shouldValue}
+// (103:3) {#if i+1 == userInput[capabilityID].shouldValue}
 function create_if_block$2(ctx) {
 	let input;
 	let input_name_value;
@@ -45863,10 +46148,10 @@ function create_if_block$2(ctx) {
 		c: function create() {
 			input = element("input");
 			attr_dev(input, "type", "radio");
-			attr_dev(input, "class", "col should svelte-15rfiap");
+			attr_dev(input, "class", "col should svelte-25gfz3");
 			attr_dev(input, "name", input_name_value = "should" + /*capabilityID*/ ctx[1]);
 			input.checked = true;
-			add_location(input, file$4, 56, 3, 1706);
+			add_location(input, file$4, 103, 3, 2796);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, input, anchor);
@@ -45885,20 +46170,20 @@ function create_if_block$2(ctx) {
 		block,
 		id: create_if_block$2.name,
 		type: "if",
-		source: "(56:3) {#if i+1 == userInput[capabilityID].shouldValue}",
+		source: "(103:3) {#if i+1 == userInput[capabilityID].shouldValue}",
 		ctx
 	});
 
 	return block;
 }
 
-// (55:3) {#each levelArray as i}
+// (102:3) {#each levelArray as i}
 function create_each_block$3(ctx) {
 	let if_block_anchor;
 
 	function select_block_type_1(ctx, dirty) {
-		if (/*i*/ ctx[11] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].shouldValue) return create_if_block$2;
-		return create_else_block;
+		if (/*i*/ ctx[14] + 1 == /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].shouldValue) return create_if_block$2;
+		return create_else_block$1;
 	}
 
 	let current_block_type = select_block_type_1(ctx);
@@ -45936,7 +46221,7 @@ function create_each_block$3(ctx) {
 		block,
 		id: create_each_block$3.name,
 		type: "each",
-		source: "(55:3) {#each levelArray as i}",
+		source: "(102:3) {#each levelArray as i}",
 		ctx
 	});
 
@@ -45944,7 +46229,7 @@ function create_each_block$3(ctx) {
 }
 
 function create_fragment$5(ctx) {
-	let div3;
+	let div4;
 	let details;
 	let summary;
 	let t0_value = /*capabilities*/ ctx[3][/*capabilityID*/ ctx[1]].title + "";
@@ -45961,6 +46246,9 @@ function create_fragment$5(ctx) {
 	let t7;
 	let div1;
 	let t8;
+	let div3;
+	let input;
+	let t9;
 	let textarea;
 	let mounted;
 	let dispose;
@@ -45982,7 +46270,7 @@ function create_fragment$5(ctx) {
 
 	const block = {
 		c: function create() {
-			div3 = element("div");
+			div4 = element("div");
 			details = element("details");
 			summary = element("summary");
 			t0 = text(t0_value);
@@ -46007,28 +46295,38 @@ function create_fragment$5(ctx) {
 			}
 
 			t8 = space();
+			div3 = element("div");
+			input = element("input");
+			t9 = space();
 			textarea = element("textarea");
-			attr_dev(summary, "class", "capability_title svelte-15rfiap");
-			add_location(summary, file$4, 38, 2, 1077);
-			attr_dev(details, "class", "col svelte-15rfiap");
-			add_location(details, file$4, 37, 1, 1052);
-			attr_dev(div0, "class", "isValues svelte-15rfiap");
-			add_location(div0, file$4, 43, 2, 1263);
-			attr_dev(div1, "class", "shouldValues svelte-15rfiap");
-			add_location(div1, file$4, 53, 2, 1594);
-			attr_dev(div2, "class", "radioGroups svelte-15rfiap");
-			add_location(div2, file$4, 42, 1, 1234);
-			attr_dev(textarea, "class", "col svelte-15rfiap");
-			add_location(textarea, file$4, 69, 1, 2113);
-			attr_dev(div3, "class", "row svelte-15rfiap");
-			add_location(div3, file$4, 36, 0, 1032);
+			attr_dev(summary, "class", "capability_title svelte-25gfz3");
+			add_location(summary, file$4, 85, 2, 2167);
+			attr_dev(details, "class", "col svelte-25gfz3");
+			add_location(details, file$4, 84, 1, 2142);
+			attr_dev(div0, "class", "isValues svelte-25gfz3");
+			add_location(div0, file$4, 90, 2, 2353);
+			attr_dev(div1, "class", "shouldValues svelte-25gfz3");
+			add_location(div1, file$4, 100, 2, 2684);
+			attr_dev(div2, "class", "radioGroups svelte-25gfz3");
+			add_location(div2, file$4, 89, 1, 2324);
+			attr_dev(input, "type", "checkbox");
+			input.__value = /*capabilityID*/ ctx[1];
+			input.value = input.__value;
+			attr_dev(input, "class", "svelte-25gfz3");
+			add_location(input, file$4, 112, 2, 3084);
+			attr_dev(div3, "class", "inFilterCheckbox svelte-25gfz3");
+			add_location(div3, file$4, 111, 1, 3050);
+			attr_dev(textarea, "class", "col svelte-25gfz3");
+			add_location(textarea, file$4, 115, 1, 3226);
+			attr_dev(div4, "class", "row svelte-25gfz3");
+			add_location(div4, file$4, 83, 0, 2122);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, div3, anchor);
-			append_dev(div3, details);
+			insert_dev(target, div4, anchor);
+			append_dev(div4, details);
 			append_dev(details, summary);
 			append_dev(summary, t0);
 			append_dev(summary, t1);
@@ -46036,8 +46334,8 @@ function create_fragment$5(ctx) {
 			append_dev(summary, t3);
 			append_dev(details, t4);
 			append_dev(details, t5);
-			append_dev(div3, t6);
-			append_dev(div3, div2);
+			append_dev(div4, t6);
+			append_dev(div4, div2);
 			append_dev(div2, div0);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -46051,13 +46349,19 @@ function create_fragment$5(ctx) {
 				each_blocks[i].m(div1, null);
 			}
 
-			append_dev(div3, t8);
-			append_dev(div3, textarea);
+			append_dev(div4, t8);
+			append_dev(div4, div3);
+			append_dev(div3, input);
+			input.checked = /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].hideCustomFilter;
+			append_dev(div4, t9);
+			append_dev(div4, textarea);
 			set_input_value(textarea, /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].explanation);
 
 			if (!mounted) {
 				dispose = [
-					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[7]),
+					listen_dev(input, "change", /*input_change_handler*/ ctx[8]),
+					listen_dev(input, "change", /*updateFilter*/ ctx[6], false, false, false),
+					listen_dev(textarea, "input", /*textarea_input_handler*/ ctx[9]),
 					listen_dev(
 						textarea,
 						"change",
@@ -46127,6 +46431,15 @@ function create_fragment$5(ctx) {
 				each_blocks.length = each_value.length;
 			}
 
+			if (dirty & /*capabilityID*/ 2) {
+				prop_dev(input, "__value", /*capabilityID*/ ctx[1]);
+				input.value = input.__value;
+			}
+
+			if (dirty & /*userInput, capabilityID*/ 3) {
+				input.checked = /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].hideCustomFilter;
+			}
+
 			if (dirty & /*userInput, capabilityID*/ 3) {
 				set_input_value(textarea, /*userInput*/ ctx[0][/*capabilityID*/ ctx[1]].explanation);
 			}
@@ -46134,7 +46447,7 @@ function create_fragment$5(ctx) {
 		i: noop,
 		o: noop,
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(div3);
+			if (detaching) detach_dev(div4);
 			destroy_each(each_blocks_1, detaching);
 			destroy_each(each_blocks, detaching);
 			mounted = false;
@@ -46153,15 +46466,48 @@ function create_fragment$5(ctx) {
 	return block;
 }
 
+function hideCustomCheckbox(bool) {
+	let checkboxTitles;
+	let checkboxDivs;
+
+	try {
+		checkboxDivs = document.getElementsByClassName("inFilterCheckbox");
+		checkboxTitles = document.getElementsByClassName("inFilter");
+	} catch(error) {
+		return;
+	}
+
+	if (bool) {
+		for (let i = 0; i < checkboxDivs.length; i++) {
+			checkboxDivs[i].style["display"] = "none";
+		}
+
+		for (let i = 0; i < checkboxTitles.length; i++) {
+			checkboxTitles[i].style["display"] = "none";
+		}
+	} else if (!checkboxDivs) {
+		return;
+	} else {
+		for (let i = 0; i < checkboxDivs.length; i++) {
+			checkboxDivs[i].style["display"] = "block";
+		}
+
+		for (let i = 0; i < checkboxTitles.length; i++) {
+			checkboxTitles[i].style["display"] = "block";
+		}
+	}
+}
+
 function instance$5($$self, $$props, $$invalidate) {
 	let $capabilityList;
 	let $levelAmount;
 	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(8, $capabilityList = $$value));
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(10, $capabilityList = $$value));
 	validate_store(levelAmount, 'levelAmount');
-	component_subscribe($$self, levelAmount, $$value => $$invalidate(9, $levelAmount = $$value));
+	component_subscribe($$self, levelAmount, $$value => $$invalidate(11, $levelAmount = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('CapabilityTableRow', slots, []);
+	const dispatch = createEventDispatcher();
 	let { capabilityID } = $$props;
 	let { userInput } = $$props;
 	let { appConfig } = $$props;
@@ -46192,7 +46538,16 @@ function instance$5($$self, $$props, $$invalidate) {
 
 	function reloadConfig() {
 		dataManager.saveToLocalStorage("dataUserInput", userInput);
-		$$invalidate(6, appConfig);
+		$$invalidate(7, appConfig);
+	}
+
+	function updateFilter(event) {
+		reloadConfig();
+
+		dispatch('updateFilter', {
+			id: event.target.value,
+			state: event.target.checked
+		});
 	}
 
 	$$self.$$.on_mount.push(function () {
@@ -46215,6 +46570,11 @@ function instance$5($$self, $$props, $$invalidate) {
 		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<CapabilityTableRow> was created with unknown prop '${key}'`);
 	});
 
+	function input_change_handler() {
+		userInput[capabilityID].hideCustomFilter = this.checked;
+		$$invalidate(0, userInput);
+	}
+
 	function textarea_input_handler() {
 		userInput[capabilityID].explanation = this.value;
 		$$invalidate(0, userInput);
@@ -46223,13 +46583,15 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$self.$$set = $$props => {
 		if ('capabilityID' in $$props) $$invalidate(1, capabilityID = $$props.capabilityID);
 		if ('userInput' in $$props) $$invalidate(0, userInput = $$props.userInput);
-		if ('appConfig' in $$props) $$invalidate(6, appConfig = $$props.appConfig);
+		if ('appConfig' in $$props) $$invalidate(7, appConfig = $$props.appConfig);
 	};
 
 	$$self.$capture_state = () => ({
 		dataManager,
 		levelAmount,
 		capabilityList,
+		createEventDispatcher,
+		dispatch,
 		capabilityID,
 		userInput,
 		appConfig,
@@ -46238,6 +46600,8 @@ function instance$5($$self, $$props, $$invalidate) {
 		updateIsValue,
 		updateShouldValue,
 		reloadConfig,
+		updateFilter,
+		hideCustomCheckbox,
 		$capabilityList,
 		$levelAmount
 	});
@@ -46245,7 +46609,7 @@ function instance$5($$self, $$props, $$invalidate) {
 	$$self.$inject_state = $$props => {
 		if ('capabilityID' in $$props) $$invalidate(1, capabilityID = $$props.capabilityID);
 		if ('userInput' in $$props) $$invalidate(0, userInput = $$props.userInput);
-		if ('appConfig' in $$props) $$invalidate(6, appConfig = $$props.appConfig);
+		if ('appConfig' in $$props) $$invalidate(7, appConfig = $$props.appConfig);
 		if ('levelArray' in $$props) $$invalidate(2, levelArray = $$props.levelArray);
 		if ('capabilities' in $$props) $$invalidate(3, capabilities = $$props.capabilities);
 	};
@@ -46254,6 +46618,12 @@ function instance$5($$self, $$props, $$invalidate) {
 		$$self.$inject_state($$props.$$inject);
 	}
 
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*appConfig*/ 128) {
+			hideCustomCheckbox(appConfig.hideCustomFilter);
+		}
+	};
+
 	return [
 		userInput,
 		capabilityID,
@@ -46261,7 +46631,9 @@ function instance$5($$self, $$props, $$invalidate) {
 		capabilities,
 		updateIsValue,
 		updateShouldValue,
+		updateFilter,
 		appConfig,
+		input_change_handler,
 		textarea_input_handler
 	];
 }
@@ -46273,7 +46645,7 @@ class CapabilityTableRow extends SvelteComponentDev {
 		init(this, options, instance$5, create_fragment$5, safe_not_equal, {
 			capabilityID: 1,
 			userInput: 0,
-			appConfig: 6
+			appConfig: 7
 		});
 
 		dispatch_dev("SvelteRegisterComponent", {
@@ -46316,60 +46688,60 @@ const file$3 = "src\\CapabilityTable.svelte";
 
 function get_each_context$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[46] = list[i][0];
-	child_ctx[47] = list[i][1];
+	child_ctx[52] = list[i][0];
+	child_ctx[53] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[50] = list[i][0];
-	child_ctx[51] = list[i][1];
-	child_ctx[52] = list;
-	child_ctx[53] = i;
+	child_ctx[56] = list[i][0];
+	child_ctx[57] = list[i][1];
+	child_ctx[58] = list;
+	child_ctx[59] = i;
 	return child_ctx;
 }
 
 function get_each_context_2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[50] = list[i][0];
-	child_ctx[51] = list[i][1];
-	child_ctx[54] = list;
-	child_ctx[55] = i;
+	child_ctx[56] = list[i][0];
+	child_ctx[57] = list[i][1];
+	child_ctx[60] = list;
+	child_ctx[61] = i;
 	return child_ctx;
 }
 
 function get_each_context_3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[56] = list[i][0];
-	child_ctx[57] = list[i][1];
+	child_ctx[62] = list[i][0];
+	child_ctx[63] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_4(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[60] = list[i][0];
-	child_ctx[61] = list[i][1];
+	child_ctx[66] = list[i][0];
+	child_ctx[67] = list[i][1];
 	return child_ctx;
 }
 
 function get_each_context_5(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[64] = list[i];
-	child_ctx[66] = i;
+	child_ctx[70] = list[i];
+	child_ctx[72] = i;
 	return child_ctx;
 }
 
 function get_each_context_6(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[67] = list[i];
+	child_ctx[73] = list[i];
 	return child_ctx;
 }
 
-// (249:3) {#each Object.keys(snapshots) as snapshotName}
+// (311:3) {#each Object.keys(snapshots) as snapshotName}
 function create_each_block_6(ctx) {
 	let option;
-	let t_value = /*snapshotName*/ ctx[67] + "";
+	let t_value = /*snapshotName*/ ctx[73] + "";
 	let t;
 	let option_value_value;
 
@@ -46377,18 +46749,18 @@ function create_each_block_6(ctx) {
 		c: function create() {
 			option = element("option");
 			t = text(t_value);
-			option.__value = option_value_value = /*snapshotName*/ ctx[67];
+			option.__value = option_value_value = /*snapshotName*/ ctx[73];
 			option.value = option.__value;
-			add_location(option, file$3, 249, 3, 5343);
+			add_location(option, file$3, 311, 3, 7081);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, option, anchor);
 			append_dev(option, t);
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*snapshots*/ 256 && t_value !== (t_value = /*snapshotName*/ ctx[67] + "")) set_data_dev(t, t_value);
+			if (dirty[0] & /*snapshots*/ 256 && t_value !== (t_value = /*snapshotName*/ ctx[73] + "")) set_data_dev(t, t_value);
 
-			if (dirty[0] & /*snapshots*/ 256 && option_value_value !== (option_value_value = /*snapshotName*/ ctx[67])) {
+			if (dirty[0] & /*snapshots*/ 256 && option_value_value !== (option_value_value = /*snapshotName*/ ctx[73])) {
 				prop_dev(option, "__value", option_value_value);
 				option.value = option.__value;
 			}
@@ -46402,32 +46774,36 @@ function create_each_block_6(ctx) {
 		block,
 		id: create_each_block_6.name,
 		type: "each",
-		source: "(249:3) {#each Object.keys(snapshots) as snapshotName}",
+		source: "(311:3) {#each Object.keys(snapshots) as snapshotName}",
 		ctx
 	});
 
 	return block;
 }
 
-// (278:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}
-function create_if_block_2(ctx) {
+// (335:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]]) || appConfig.displayHidden}
+function create_if_block_3(ctx) {
 	let div0;
 	let details;
 	let summary;
-	let t0_value = /*dimension*/ ctx[56] + "";
+	let t0_value = /*dimension*/ ctx[62] + "";
 	let t0;
 	let t1;
-	let t2_value = /*description*/ ctx[57] + "";
+	let t2_value = /*description*/ ctx[63] + "";
 	let t2;
 	let t3;
 	let div2;
 	let div1;
 	let t4;
 	let t5;
-	let span;
-	let t6_value = /*text*/ ctx[3].explanation + "";
+	let span0;
+	let t6_value = /*text*/ ctx[3].customFilterColumn + "";
 	let t6;
 	let t7;
+	let span1;
+	let t8_value = /*text*/ ctx[3].explanation + "";
+	let t8;
+	let t9;
 	let div3;
 	let current;
 	let each_value_5 = Array(/*numLevels*/ ctx[11]);
@@ -46468,30 +46844,35 @@ function create_if_block_2(ctx) {
 			}
 
 			t5 = space();
-			span = element("span");
+			span0 = element("span");
 			t6 = text(t6_value);
 			t7 = space();
+			span1 = element("span");
+			t8 = text(t8_value);
+			t9 = space();
 			div3 = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			attr_dev(summary, "class", "summary-level svelte-qvznef");
-			add_location(summary, file$3, 280, 3, 6119);
-			attr_dev(details, "class", "col dimensionDescription svelte-qvznef");
-			add_location(details, file$3, 279, 2, 6072);
+			attr_dev(summary, "class", "summary-level svelte-6uhchs");
+			add_location(summary, file$3, 337, 3, 7864);
+			attr_dev(details, "class", "col dimensionDescription svelte-6uhchs");
+			add_location(details, file$3, 336, 2, 7817);
 			attr_dev(div0, "class", "titlebar");
-			add_location(div0, file$3, 278, 1, 6046);
-			attr_dev(div1, "class", "empty col svelte-qvznef");
-			add_location(div1, file$3, 285, 2, 6243);
-			attr_dev(span, "class", "col explanation svelte-qvznef");
-			attr_dev(span, "id", "explanation");
-			add_location(span, file$3, 292, 2, 6463);
-			attr_dev(div2, "class", "row titles svelte-qvznef");
-			add_location(div2, file$3, 284, 1, 6215);
-			attr_dev(div3, "class", "capabilities svelte-qvznef");
-			add_location(div3, file$3, 294, 1, 6547);
+			add_location(div0, file$3, 335, 1, 7791);
+			attr_dev(div1, "class", "empty col svelte-6uhchs");
+			add_location(div1, file$3, 342, 2, 7988);
+			attr_dev(span0, "class", "col explanation inFilter svelte-6uhchs");
+			add_location(span0, file$3, 349, 2, 8208);
+			attr_dev(span1, "class", "col explanation svelte-6uhchs");
+			attr_dev(span1, "id", "explanation");
+			add_location(span1, file$3, 350, 2, 8283);
+			attr_dev(div2, "class", "row titles svelte-6uhchs");
+			add_location(div2, file$3, 341, 1, 7960);
+			attr_dev(div3, "class", "capabilities svelte-6uhchs");
+			add_location(div3, file$3, 352, 1, 8367);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div0, anchor);
@@ -46510,9 +46891,12 @@ function create_if_block_2(ctx) {
 			}
 
 			append_dev(div2, t5);
-			append_dev(div2, span);
-			append_dev(span, t6);
-			insert_dev(target, t7, anchor);
+			append_dev(div2, span0);
+			append_dev(span0, t6);
+			append_dev(div2, t7);
+			append_dev(div2, span1);
+			append_dev(span1, t8);
+			insert_dev(target, t9, anchor);
 			insert_dev(target, div3, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
@@ -46546,9 +46930,10 @@ function create_if_block_2(ctx) {
 				each_blocks_1.length = each_value_5.length;
 			}
 
-			if ((!current || dirty[0] & /*text*/ 8) && t6_value !== (t6_value = /*text*/ ctx[3].explanation + "")) set_data_dev(t6, t6_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t6_value !== (t6_value = /*text*/ ctx[3].customFilterColumn + "")) set_data_dev(t6, t6_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t8_value !== (t8_value = /*text*/ ctx[3].explanation + "")) set_data_dev(t8, t8_value);
 
-			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions*/ 24579) {
+			if (dirty[0] & /*capabilities, userInput, appConfig, updateCustomFilter, dimensionDescriptions*/ 134242307) {
 				each_value_4 = Object.entries(/*capabilities*/ ctx[14]);
 				validate_each_argument(each_value_4);
 				let i;
@@ -46599,7 +46984,7 @@ function create_if_block_2(ctx) {
 			if (detaching) detach_dev(t3);
 			if (detaching) detach_dev(div2);
 			destroy_each(each_blocks_1, detaching);
-			if (detaching) detach_dev(t7);
+			if (detaching) detach_dev(t9);
 			if (detaching) detach_dev(div3);
 			destroy_each(each_blocks, detaching);
 		}
@@ -46607,24 +46992,24 @@ function create_if_block_2(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_2.name,
+		id: create_if_block_3.name,
 		type: "if",
-		source: "(278:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]])}",
+		source: "(335:1) {#if arrayIntersection(appConfig.currentFilter, filters[$capabilityConverter[dimension]]) || appConfig.displayHidden}",
 		ctx
 	});
 
 	return block;
 }
 
-// (287:2) {#each Array(numLevels) as _, i}
+// (344:2) {#each Array(numLevels) as _, i}
 function create_each_block_5(ctx) {
 	let details;
 	let summary;
 	let t0;
-	let t1_value = /*i*/ ctx[66] + 1 + "";
+	let t1_value = /*i*/ ctx[72] + 1 + "";
 	let t1;
 	let t2;
-	let t3_value = /*levelDescriptions*/ ctx[12][/*i*/ ctx[66]] + "";
+	let t3_value = /*levelDescriptions*/ ctx[12][/*i*/ ctx[72]] + "";
 	let t3;
 
 	const block = {
@@ -46635,10 +47020,10 @@ function create_each_block_5(ctx) {
 			t1 = text(t1_value);
 			t2 = space();
 			t3 = text(t3_value);
-			attr_dev(summary, "class", "summary-level svelte-qvznef");
-			add_location(summary, file$3, 288, 4, 6351);
-			attr_dev(details, "class", "col level-item svelte-qvznef");
-			add_location(details, file$3, 287, 3, 6313);
+			attr_dev(summary, "class", "summary-level svelte-6uhchs");
+			add_location(summary, file$3, 345, 4, 8096);
+			attr_dev(details, "class", "col level-item svelte-6uhchs");
+			add_location(details, file$3, 344, 3, 8058);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, details, anchor);
@@ -46658,25 +47043,25 @@ function create_each_block_5(ctx) {
 		block,
 		id: create_each_block_5.name,
 		type: "each",
-		source: "(287:2) {#each Array(numLevels) as _, i}",
+		source: "(344:2) {#each Array(numLevels) as _, i}",
 		ctx
 	});
 
 	return block;
 }
 
-// (297:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}
-function create_if_block_3(ctx) {
+// (355:2) {#if capability.dimension == dimension && (userInput[id].inFilter || appConfig.displayHidden)}
+function create_if_block_4(ctx) {
 	let tablerow;
 	let updating_appConfig;
 	let current;
 
 	function tablerow_appConfig_binding(value) {
-		/*tablerow_appConfig_binding*/ ctx[27](value);
+		/*tablerow_appConfig_binding*/ ctx[30](value);
 	}
 
 	let tablerow_props = {
-		capabilityID: /*id*/ ctx[60],
+		capabilityID: /*id*/ ctx[66],
 		userInput: /*userInput*/ ctx[1]
 	};
 
@@ -46686,6 +47071,7 @@ function create_if_block_3(ctx) {
 
 	tablerow = new CapabilityTableRow({ props: tablerow_props, $$inline: true });
 	binding_callbacks.push(() => bind(tablerow, 'appConfig', tablerow_appConfig_binding));
+	tablerow.$on("updateFilter", /*updateCustomFilter*/ ctx[27]);
 
 	const block = {
 		c: function create() {
@@ -46723,21 +47109,20 @@ function create_if_block_3(ctx) {
 
 	dispatch_dev("SvelteRegisterBlock", {
 		block,
-		id: create_if_block_3.name,
+		id: create_if_block_4.name,
 		type: "if",
-		source: "(297:2) {#if capability.dimension == dimension && !(userInput[id].notRelevant && appConfig.hideIrrelevant) && appConfig.currentFilter.includes(id)}",
+		source: "(355:2) {#if capability.dimension == dimension && (userInput[id].inFilter || appConfig.displayHidden)}",
 		ctx
 	});
 
 	return block;
 }
 
-// (296:2) {#each Object.entries(capabilities) as [id, capability]}
+// (354:2) {#each Object.entries(capabilities) as [id, capability]}
 function create_each_block_4(ctx) {
-	let show_if = /*capability*/ ctx[61].dimension == /*dimension*/ ctx[56] && !(/*userInput*/ ctx[1][/*id*/ ctx[60]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[60]);
 	let if_block_anchor;
 	let current;
-	let if_block = show_if && create_if_block_3(ctx);
+	let if_block = /*capability*/ ctx[67].dimension == /*dimension*/ ctx[62] && (/*userInput*/ ctx[1][/*id*/ ctx[66]].inFilter || /*appConfig*/ ctx[0].displayHidden) && create_if_block_4(ctx);
 
 	const block = {
 		c: function create() {
@@ -46750,9 +47135,7 @@ function create_each_block_4(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*userInput, appConfig*/ 3) show_if = /*capability*/ ctx[61].dimension == /*dimension*/ ctx[56] && !(/*userInput*/ ctx[1][/*id*/ ctx[60]].notRelevant && /*appConfig*/ ctx[0].hideIrrelevant) && /*appConfig*/ ctx[0].currentFilter.includes(/*id*/ ctx[60]);
-
-			if (show_if) {
+			if (/*capability*/ ctx[67].dimension == /*dimension*/ ctx[62] && (/*userInput*/ ctx[1][/*id*/ ctx[66]].inFilter || /*appConfig*/ ctx[0].displayHidden)) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
@@ -46760,7 +47143,7 @@ function create_each_block_4(ctx) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block_3(ctx);
+					if_block = create_if_block_4(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -46794,26 +47177,26 @@ function create_each_block_4(ctx) {
 		block,
 		id: create_each_block_4.name,
 		type: "each",
-		source: "(296:2) {#each Object.entries(capabilities) as [id, capability]}",
+		source: "(354:2) {#each Object.entries(capabilities) as [id, capability]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (275:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}
+// (332:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}
 function create_each_block_3(ctx) {
 	let div;
-	let show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[7][/*$capabilityConverter*/ ctx[9][/*dimension*/ ctx[56]]]);
+	let show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[7][/*$capabilityConverter*/ ctx[9][/*dimension*/ ctx[62]]]) || /*appConfig*/ ctx[0].displayHidden;
 	let current;
-	let if_block = show_if && create_if_block_2(ctx);
+	let if_block = show_if && create_if_block_3(ctx);
 
 	const block = {
 		c: function create() {
 			div = element("div");
 			if (if_block) if_block.c();
 			attr_dev(div, "class", "capability_container");
-			add_location(div, file$3, 276, 0, 5916);
+			add_location(div, file$3, 333, 0, 7634);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -46821,7 +47204,7 @@ function create_each_block_3(ctx) {
 			current = true;
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 641) show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[7][/*$capabilityConverter*/ ctx[9][/*dimension*/ ctx[56]]]);
+			if (dirty[0] & /*appConfig, filters, $capabilityConverter*/ 641) show_if = arrayIntersection(/*appConfig*/ ctx[0].currentFilter, /*filters*/ ctx[7][/*$capabilityConverter*/ ctx[9][/*dimension*/ ctx[62]]]) || /*appConfig*/ ctx[0].displayHidden;
 
 			if (show_if) {
 				if (if_block) {
@@ -46831,7 +47214,7 @@ function create_each_block_3(ctx) {
 						transition_in(if_block, 1);
 					}
 				} else {
-					if_block = create_if_block_2(ctx);
+					if_block = create_if_block_3(ctx);
 					if_block.c();
 					transition_in(if_block, 1);
 					if_block.m(div, null);
@@ -46865,58 +47248,60 @@ function create_each_block_3(ctx) {
 		block,
 		id: create_each_block_3.name,
 		type: "each",
-		source: "(275:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}",
+		source: "(332:0) {#each Object.entries(dimensionDescriptions) as [dimension, description]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (316:5) {#if !(name in categoryNames)}
+// (374:5) {#if !(name in categoryNames)}
 function create_if_block_1$1(ctx) {
 	let div;
 	let input;
 	let input_id_value;
 	let t0;
-	let span;
-	let t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "";
 	let t1;
-	let t2;
 	let br;
 	let mounted;
 	let dispose;
 
 	function input_change_handler() {
-		/*input_change_handler*/ ctx[28].call(input, /*name*/ ctx[50]);
+		/*input_change_handler*/ ctx[31].call(input, /*name*/ ctx[56]);
 	}
+
+	function select_block_type(ctx, dirty) {
+		if (/*name*/ ctx[56] == "Custom Filter") return create_if_block_2;
+		return create_else_block;
+	}
+
+	let current_block_type = select_block_type(ctx);
+	let if_block = current_block_type(ctx);
 
 	const block = {
 		c: function create() {
 			div = element("div");
 			input = element("input");
 			t0 = space();
-			span = element("span");
-			t1 = text(t1_value);
-			t2 = space();
+			if_block.c();
+			t1 = space();
 			br = element("br");
 			attr_dev(input, "type", "checkbox");
 			attr_dev(input, "name", "filter");
-			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[50]);
-			attr_dev(input, "class", "svelte-qvznef");
-			add_location(input, file$3, 317, 7, 7227);
-			add_location(span, file$3, 318, 7, 7338);
-			attr_dev(div, "class", "filterRow svelte-qvznef");
-			add_location(div, file$3, 316, 6, 7195);
-			add_location(br, file$3, 320, 6, 7415);
+			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[56]);
+			attr_dev(input, "class", "svelte-6uhchs");
+			add_location(input, file$3, 375, 7, 9039);
+			attr_dev(div, "class", "filterRow svelte-6uhchs");
+			add_location(div, file$3, 374, 6, 9007);
+			add_location(br, file$3, 383, 6, 9419);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
 			append_dev(div, input);
-			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
+			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[56]];
 			append_dev(div, t0);
-			append_dev(div, span);
-			append_dev(span, t1);
-			insert_dev(target, t2, anchor);
+			if_block.m(div, null);
+			insert_dev(target, t1, anchor);
 			insert_dev(target, br, anchor);
 
 			if (!mounted) {
@@ -46927,19 +47312,30 @@ function create_if_block_1$1(ctx) {
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
 
-			if (dirty[0] & /*filters*/ 128 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[50])) {
+			if (dirty[0] & /*filters*/ 128 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[56])) {
 				attr_dev(input, "id", input_id_value);
 			}
 
 			if (dirty[0] & /*appConfig, filters*/ 129) {
-				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
+				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[56]];
 			}
 
-			if (dirty[0] & /*$ui, appConfig, filters*/ 133 && t1_value !== (t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "")) set_data_dev(t1, t1_value);
+			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+				if_block.p(ctx, dirty);
+			} else {
+				if_block.d(1);
+				if_block = current_block_type(ctx);
+
+				if (if_block) {
+					if_block.c();
+					if_block.m(div, null);
+				}
+			}
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div);
-			if (detaching) detach_dev(t2);
+			if_block.d();
+			if (detaching) detach_dev(t1);
 			if (detaching) detach_dev(br);
 			mounted = false;
 			dispose();
@@ -46950,17 +47346,106 @@ function create_if_block_1$1(ctx) {
 		block,
 		id: create_if_block_1$1.name,
 		type: "if",
-		source: "(316:5) {#if !(name in categoryNames)}",
+		source: "(374:5) {#if !(name in categoryNames)}",
 		ctx
 	});
 
 	return block;
 }
 
-// (315:4) {#each Object.entries(filters) as [name, idArray]}
+// (380:7) {:else}
+function create_else_block(ctx) {
+	let span;
+	let t_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[56]] + "";
+	let t;
+
+	const block = {
+		c: function create() {
+			span = element("span");
+			t = text(t_value);
+			add_location(span, file$3, 380, 7, 9328);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, span, anchor);
+			append_dev(span, t);
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*$ui, appConfig, filters*/ 133 && t_value !== (t_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[56]] + "")) set_data_dev(t, t_value);
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(span);
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_else_block.name,
+		type: "else",
+		source: "(380:7) {:else}",
+		ctx
+	});
+
+	return block;
+}
+
+// (377:7) {#if name == "Custom Filter"}
+function create_if_block_2(ctx) {
+	let span;
+	let t0_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[56]] + "";
+	let t0;
+	let t1;
+	let button;
+	let mounted;
+	let dispose;
+
+	const block = {
+		c: function create() {
+			span = element("span");
+			t0 = text(t0_value);
+			t1 = space();
+			button = element("button");
+			button.textContent = "Reset";
+			add_location(span, file$3, 377, 7, 9188);
+			add_location(button, file$3, 378, 7, 9252);
+		},
+		m: function mount(target, anchor) {
+			insert_dev(target, span, anchor);
+			append_dev(span, t0);
+			insert_dev(target, t1, anchor);
+			insert_dev(target, button, anchor);
+
+			if (!mounted) {
+				dispose = listen_dev(button, "click", /*resetCustomFilter*/ ctx[28], false, false, false);
+				mounted = true;
+			}
+		},
+		p: function update(ctx, dirty) {
+			if (dirty[0] & /*$ui, appConfig, filters*/ 133 && t0_value !== (t0_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[56]] + "")) set_data_dev(t0, t0_value);
+		},
+		d: function destroy(detaching) {
+			if (detaching) detach_dev(span);
+			if (detaching) detach_dev(t1);
+			if (detaching) detach_dev(button);
+			mounted = false;
+			dispose();
+		}
+	};
+
+	dispatch_dev("SvelteRegisterBlock", {
+		block,
+		id: create_if_block_2.name,
+		type: "if",
+		source: "(377:7) {#if name == \\\"Custom Filter\\\"}",
+		ctx
+	});
+
+	return block;
+}
+
+// (373:4) {#each Object.entries(filters) as [name, idArray]}
 function create_each_block_2(ctx) {
 	let if_block_anchor;
-	let if_block = !(/*name*/ ctx[50] in /*categoryNames*/ ctx[10]) && create_if_block_1$1(ctx);
+	let if_block = !(/*name*/ ctx[56] in /*categoryNames*/ ctx[10]) && create_if_block_1$1(ctx);
 
 	const block = {
 		c: function create() {
@@ -46972,7 +47457,7 @@ function create_each_block_2(ctx) {
 			insert_dev(target, if_block_anchor, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (!(/*name*/ ctx[50] in /*categoryNames*/ ctx[10])) {
+			if (!(/*name*/ ctx[56] in /*categoryNames*/ ctx[10])) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -46995,21 +47480,21 @@ function create_each_block_2(ctx) {
 		block,
 		id: create_each_block_2.name,
 		type: "each",
-		source: "(315:4) {#each Object.entries(filters) as [name, idArray]}",
+		source: "(373:4) {#each Object.entries(filters) as [name, idArray]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (328:5) {#if name in categoryNames}
+// (391:5) {#if name in categoryNames}
 function create_if_block$1(ctx) {
 	let div;
 	let input;
 	let input_id_value;
 	let t0;
 	let span;
-	let t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "";
+	let t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[56]] + "";
 	let t1;
 	let t2;
 	let br;
@@ -47017,7 +47502,7 @@ function create_if_block$1(ctx) {
 	let dispose;
 
 	function input_change_handler_1() {
-		/*input_change_handler_1*/ ctx[29].call(input, /*name*/ ctx[50]);
+		/*input_change_handler_1*/ ctx[32].call(input, /*name*/ ctx[56]);
 	}
 
 	const block = {
@@ -47031,18 +47516,18 @@ function create_if_block$1(ctx) {
 			br = element("br");
 			attr_dev(input, "type", "checkbox");
 			attr_dev(input, "name", "filter");
-			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[50]);
-			attr_dev(input, "class", "filterCheckbox svelte-qvznef");
-			add_location(input, file$3, 329, 7, 7648);
-			add_location(span, file$3, 330, 7, 7782);
-			attr_dev(div, "class", "filterRow svelte-qvznef");
-			add_location(div, file$3, 328, 6, 7616);
-			add_location(br, file$3, 332, 6, 7859);
+			attr_dev(input, "id", input_id_value = "filter_" + /*name*/ ctx[56]);
+			attr_dev(input, "class", "filterCheckbox svelte-6uhchs");
+			add_location(input, file$3, 392, 7, 9652);
+			add_location(span, file$3, 393, 7, 9786);
+			attr_dev(div, "class", "filterRow svelte-6uhchs");
+			add_location(div, file$3, 391, 6, 9620);
+			add_location(br, file$3, 395, 6, 9863);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
 			append_dev(div, input);
-			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
+			input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[56]];
 			append_dev(div, t0);
 			append_dev(div, span);
 			append_dev(span, t1);
@@ -47057,15 +47542,15 @@ function create_if_block$1(ctx) {
 		p: function update(new_ctx, dirty) {
 			ctx = new_ctx;
 
-			if (dirty[0] & /*filters*/ 128 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[50])) {
+			if (dirty[0] & /*filters*/ 128 && input_id_value !== (input_id_value = "filter_" + /*name*/ ctx[56])) {
 				attr_dev(input, "id", input_id_value);
 			}
 
 			if (dirty[0] & /*appConfig, filters*/ 129) {
-				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[50]];
+				input.checked = /*appConfig*/ ctx[0].checkedFilters[/*name*/ ctx[56]];
 			}
 
-			if (dirty[0] & /*$ui, appConfig, filters*/ 133 && t1_value !== (t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[50]] + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*$ui, appConfig, filters*/ 133 && t1_value !== (t1_value = /*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].categories[/*name*/ ctx[56]] + "")) set_data_dev(t1, t1_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div);
@@ -47080,17 +47565,17 @@ function create_if_block$1(ctx) {
 		block,
 		id: create_if_block$1.name,
 		type: "if",
-		source: "(328:5) {#if name in categoryNames}",
+		source: "(391:5) {#if name in categoryNames}",
 		ctx
 	});
 
 	return block;
 }
 
-// (327:4) {#each Object.entries(filters) as [name, idArray]}
+// (390:4) {#each Object.entries(filters) as [name, idArray]}
 function create_each_block_1(ctx) {
 	let if_block_anchor;
-	let if_block = /*name*/ ctx[50] in /*categoryNames*/ ctx[10] && create_if_block$1(ctx);
+	let if_block = /*name*/ ctx[56] in /*categoryNames*/ ctx[10] && create_if_block$1(ctx);
 
 	const block = {
 		c: function create() {
@@ -47102,7 +47587,7 @@ function create_each_block_1(ctx) {
 			insert_dev(target, if_block_anchor, anchor);
 		},
 		p: function update(ctx, dirty) {
-			if (/*name*/ ctx[50] in /*categoryNames*/ ctx[10]) {
+			if (/*name*/ ctx[56] in /*categoryNames*/ ctx[10]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 				} else {
@@ -47125,14 +47610,14 @@ function create_each_block_1(ctx) {
 		block,
 		id: create_each_block_1.name,
 		type: "each",
-		source: "(327:4) {#each Object.entries(filters) as [name, idArray]}",
+		source: "(390:4) {#each Object.entries(filters) as [name, idArray]}",
 		ctx
 	});
 
 	return block;
 }
 
-// (339:4) {#each Object.entries(presets) as [title, filterNames]}
+// (402:4) {#each Object.entries(presets) as [title, filterNames]}
 function create_each_block$2(ctx) {
 	let div;
 	let input;
@@ -47140,7 +47625,7 @@ function create_each_block$2(ctx) {
 	let input_value_value;
 	let t0;
 	let span;
-	let t1_value = /*getPresetTitle*/ ctx[24](/*title*/ ctx[46]) + "";
+	let t1_value = /*getPresetTitle*/ ctx[24](/*title*/ ctx[52]) + "";
 	let t1;
 	let t2;
 	let button;
@@ -47169,20 +47654,20 @@ function create_each_block$2(ctx) {
 			t5 = space();
 			attr_dev(input, "type", "radio");
 			attr_dev(input, "name", "selectedPreset");
-			attr_dev(input, "id", input_id_value = /*title*/ ctx[46]);
-			input.__value = input_value_value = /*title*/ ctx[46];
+			attr_dev(input, "id", input_id_value = /*title*/ ctx[52]);
+			input.__value = input_value_value = /*title*/ ctx[52];
 			input.value = input.__value;
-			attr_dev(input, "class", "svelte-qvznef");
-			/*$$binding_groups*/ ctx[31][0].push(input);
-			add_location(input, file$3, 340, 5, 8050);
-			add_location(span, file$3, 341, 5, 8182);
-			attr_dev(button, "id", button_id_value = "btn_" + /*title*/ ctx[46]);
-			button.value = button_value_value = /*title*/ ctx[46];
-			attr_dev(button, "class", "svelte-qvznef");
-			add_location(button, file$3, 342, 5, 8226);
-			add_location(br, file$3, 343, 5, 8320);
-			attr_dev(div, "class", "preset svelte-qvznef");
-			add_location(div, file$3, 339, 4, 8023);
+			attr_dev(input, "class", "svelte-6uhchs");
+			/*$$binding_groups*/ ctx[34][0].push(input);
+			add_location(input, file$3, 403, 5, 10062);
+			add_location(span, file$3, 404, 5, 10194);
+			attr_dev(button, "id", button_id_value = "btn_" + /*title*/ ctx[52]);
+			button.value = button_value_value = /*title*/ ctx[52];
+			attr_dev(button, "class", "svelte-6uhchs");
+			add_location(button, file$3, 405, 5, 10238);
+			add_location(br, file$3, 406, 5, 10332);
+			attr_dev(div, "class", "preset svelte-6uhchs");
+			add_location(div, file$3, 402, 4, 10035);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, div, anchor);
@@ -47200,7 +47685,7 @@ function create_each_block$2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen_dev(input, "change", /*input_change_handler_2*/ ctx[30]),
+					listen_dev(input, "change", /*input_change_handler_2*/ ctx[33]),
 					listen_dev(input, "change", /*updateFilters*/ ctx[17], false, false, false),
 					listen_dev(button, "click", /*toggleEditMode*/ ctx[18], false, false, false)
 				];
@@ -47209,11 +47694,11 @@ function create_each_block$2(ctx) {
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty[0] & /*presets*/ 64 && input_id_value !== (input_id_value = /*title*/ ctx[46])) {
+			if (dirty[0] & /*presets*/ 64 && input_id_value !== (input_id_value = /*title*/ ctx[52])) {
 				attr_dev(input, "id", input_id_value);
 			}
 
-			if (dirty[0] & /*presets*/ 64 && input_value_value !== (input_value_value = /*title*/ ctx[46])) {
+			if (dirty[0] & /*presets*/ 64 && input_value_value !== (input_value_value = /*title*/ ctx[52])) {
 				prop_dev(input, "__value", input_value_value);
 				input.value = input.__value;
 			}
@@ -47222,20 +47707,20 @@ function create_each_block$2(ctx) {
 				input.checked = input.__value === /*selectedPreset*/ ctx[5];
 			}
 
-			if (dirty[0] & /*presets*/ 64 && t1_value !== (t1_value = /*getPresetTitle*/ ctx[24](/*title*/ ctx[46]) + "")) set_data_dev(t1, t1_value);
+			if (dirty[0] & /*presets*/ 64 && t1_value !== (t1_value = /*getPresetTitle*/ ctx[24](/*title*/ ctx[52]) + "")) set_data_dev(t1, t1_value);
 			if (dirty[0] & /*text*/ 8 && t3_value !== (t3_value = /*text*/ ctx[3].edit + "")) set_data_dev(t3, t3_value);
 
-			if (dirty[0] & /*presets*/ 64 && button_id_value !== (button_id_value = "btn_" + /*title*/ ctx[46])) {
+			if (dirty[0] & /*presets*/ 64 && button_id_value !== (button_id_value = "btn_" + /*title*/ ctx[52])) {
 				attr_dev(button, "id", button_id_value);
 			}
 
-			if (dirty[0] & /*presets*/ 64 && button_value_value !== (button_value_value = /*title*/ ctx[46])) {
+			if (dirty[0] & /*presets*/ 64 && button_value_value !== (button_value_value = /*title*/ ctx[52])) {
 				prop_dev(button, "value", button_value_value);
 			}
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div);
-			/*$$binding_groups*/ ctx[31][0].splice(/*$$binding_groups*/ ctx[31][0].indexOf(input), 1);
+			/*$$binding_groups*/ ctx[34][0].splice(/*$$binding_groups*/ ctx[34][0].indexOf(input), 1);
 			mounted = false;
 			run_all(dispose);
 		}
@@ -47245,7 +47730,7 @@ function create_each_block$2(ctx) {
 		block,
 		id: create_each_block$2.name,
 		type: "each",
-		source: "(339:4) {#each Object.entries(presets) as [title, filterNames]}",
+		source: "(402:4) {#each Object.entries(presets) as [title, filterNames]}",
 		ctx
 	});
 
@@ -47271,81 +47756,83 @@ function create_fragment$4(ctx) {
 	let t7_value = /*text*/ ctx[3].applyFilter + "";
 	let t7;
 	let t8;
+	let button1;
+	let t9_value = /*text*/ ctx[3].editCustomFilter + "";
+	let t9;
+	let t10;
 	let div2;
 	let h31;
-	let t10;
-	let select;
-	let t11;
-	let br1;
 	let t12;
-	let button1;
-	let t13_value = /*text*/ ctx[3].loadSnapshot + "";
+	let select;
 	let t13;
+	let br1;
 	let t14;
 	let button2;
-	let t15_value = /*text*/ ctx[3].deleteSnapshot + "";
+	let t15_value = /*text*/ ctx[3].loadSnapshot + "";
 	let t15;
 	let t16;
-	let br2;
-	let t17;
 	let button3;
-	let t18_value = /*text*/ ctx[3].createSnapshot + "";
+	let t17_value = /*text*/ ctx[3].deleteSnapshot + "";
+	let t17;
 	let t18;
+	let button4;
+	let t19_value = /*text*/ ctx[3].createSnapshot + "";
 	let t19;
-	let div3;
 	let t20;
-	let br3;
+	let div3;
 	let t21;
+	let br2;
+	let t22;
 	let h32;
-	let t23;
-	let span1;
-	let t24_value = /*text*/ ctx[3].is + "";
 	let t24;
+	let span1;
+	let t25_value = /*text*/ ctx[3].is + "";
 	let t25;
-	let span2;
-	let t26_value = /*text*/ ctx[3].should + "";
 	let t26;
+	let span2;
+	let t27_value = /*text*/ ctx[3].should + "";
 	let t27;
 	let t28;
+	let t29;
 	let div11;
 	let div10;
 	let h2;
-	let t29_value = /*text*/ ctx[3].filterCapabilites + "";
-	let t29;
+	let t30_value = /*text*/ ctx[3].filterCapabilites + "";
 	let t30;
+	let t31;
 	let div8;
 	let div5;
 	let h33;
-	let t31_value = /*text*/ ctx[3].categories + "";
-	let t31;
+	let t32_value = /*text*/ ctx[3].categories + "";
 	let t32;
 	let t33;
+	let t34;
 	let div6;
 	let h34;
-	let t34_value = /*text*/ ctx[3].topics + "";
-	let t34;
+	let t35_value = /*text*/ ctx[3].topics + "";
 	let t35;
 	let t36;
+	let t37;
 	let div7;
 	let h35;
-	let t38;
 	let t39;
-	let div9;
-	let button4;
-	let t40_value = /*text*/ ctx[3].filterClose + "";
 	let t40;
-	let t41;
+	let div9;
 	let button5;
-	let t42_value = /*text*/ ctx[3].filterRemove + "";
+	let t41_value = /*text*/ ctx[3].filterClose + "";
+	let t41;
 	let t42;
-	let t43;
 	let button6;
-	let t44_value = /*text*/ ctx[3].filterAddPreset + "";
+	let t43_value = /*text*/ ctx[3].filterRemove + "";
+	let t43;
 	let t44;
-	let t45;
 	let button7;
-	let t46_value = /*text*/ ctx[3].filterResetPresets + "";
+	let t45_value = /*text*/ ctx[3].filterAddPreset + "";
+	let t45;
 	let t46;
+	let button8;
+	let t47_value = /*text*/ ctx[3].filterResetPresets + "";
+	let t47;
 	let current;
 	let mounted;
 	let dispose;
@@ -47411,153 +47898,154 @@ function create_fragment$4(ctx) {
 			button0 = element("button");
 			t7 = text(t7_value);
 			t8 = space();
+			button1 = element("button");
+			t9 = text(t9_value);
+			t10 = space();
 			div2 = element("div");
 			h31 = element("h3");
 			h31.textContent = "Snapshots";
-			t10 = space();
+			t12 = space();
 			select = element("select");
 
 			for (let i = 0; i < each_blocks_4.length; i += 1) {
 				each_blocks_4[i].c();
 			}
 
-			t11 = space();
+			t13 = space();
 			br1 = element("br");
-			t12 = space();
-			button1 = element("button");
-			t13 = text(t13_value);
 			t14 = space();
 			button2 = element("button");
 			t15 = text(t15_value);
 			t16 = space();
-			br2 = element("br");
-			t17 = space();
 			button3 = element("button");
-			t18 = text(t18_value);
-			t19 = space();
-			div3 = element("div");
+			t17 = text(t17_value);
+			t18 = space();
+			button4 = element("button");
+			t19 = text(t19_value);
 			t20 = space();
-			br3 = element("br");
+			div3 = element("div");
 			t21 = space();
+			br2 = element("br");
+			t22 = space();
 			h32 = element("h3");
 			h32.textContent = "Capabilities";
-			t23 = space();
+			t24 = space();
 			span1 = element("span");
-			t24 = text(t24_value);
-			t25 = text(" | ");
+			t25 = text(t25_value);
+			t26 = text(" | ");
 			span2 = element("span");
-			t26 = text(t26_value);
-			t27 = space();
+			t27 = text(t27_value);
+			t28 = space();
 
 			for (let i = 0; i < each_blocks_3.length; i += 1) {
 				each_blocks_3[i].c();
 			}
 
-			t28 = space();
+			t29 = space();
 			div11 = element("div");
 			div10 = element("div");
 			h2 = element("h2");
-			t29 = text(t29_value);
-			t30 = space();
+			t30 = text(t30_value);
+			t31 = space();
 			div8 = element("div");
 			div5 = element("div");
 			h33 = element("h3");
-			t31 = text(t31_value);
-			t32 = space();
+			t32 = text(t32_value);
+			t33 = space();
 
 			for (let i = 0; i < each_blocks_2.length; i += 1) {
 				each_blocks_2[i].c();
 			}
 
-			t33 = space();
+			t34 = space();
 			div6 = element("div");
 			h34 = element("h3");
-			t34 = text(t34_value);
-			t35 = space();
+			t35 = text(t35_value);
+			t36 = space();
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].c();
 			}
 
-			t36 = space();
+			t37 = space();
 			div7 = element("div");
 			h35 = element("h3");
 			h35.textContent = "Presets";
-			t38 = space();
+			t39 = space();
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			t39 = space();
+			t40 = space();
 			div9 = element("div");
-			button4 = element("button");
-			t40 = text(t40_value);
-			t41 = space();
 			button5 = element("button");
-			t42 = text(t42_value);
-			t43 = space();
+			t41 = text(t41_value);
+			t42 = space();
 			button6 = element("button");
-			t44 = text(t44_value);
-			t45 = space();
+			t43 = text(t43_value);
+			t44 = space();
 			button7 = element("button");
-			t46 = text(t46_value);
-			attr_dev(div0, "class", "padding svelte-qvznef");
-			add_location(div0, file$3, 229, 1, 4842);
-			add_location(h30, file$3, 233, 2, 4910);
-			add_location(span0, file$3, 235, 2, 4932);
-			add_location(br0, file$3, 237, 2, 5039);
+			t45 = text(t45_value);
+			t46 = space();
+			button8 = element("button");
+			t47 = text(t47_value);
+			attr_dev(div0, "class", "padding svelte-6uhchs");
+			add_location(div0, file$3, 290, 1, 6512);
+			add_location(h30, file$3, 294, 2, 6580);
+			add_location(span0, file$3, 296, 2, 6602);
+			add_location(br0, file$3, 298, 2, 6709);
 			set_style(button0, "margin-top", "1em");
-			add_location(button0, file$3, 239, 2, 5051);
-			attr_dev(div1, "class", "headerContainer svelte-qvznef");
-			add_location(div1, file$3, 231, 1, 4875);
-			add_location(h31, file$3, 245, 2, 5192);
+			add_location(button0, file$3, 300, 2, 6721);
+			add_location(button1, file$3, 302, 2, 6815);
+			attr_dev(div1, "class", "headerContainer svelte-6uhchs");
+			add_location(div1, file$3, 292, 1, 6545);
+			add_location(h31, file$3, 307, 2, 6930);
 			attr_dev(select, "name", "snapshots");
 			attr_dev(select, "id", "snapshots");
-			if (/*selectedSnapshot*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[26].call(select));
-			add_location(select, file$3, 247, 2, 5217);
-			add_location(br1, file$3, 253, 2, 5428);
-			add_location(button1, file$3, 255, 2, 5440);
-			add_location(button2, file$3, 256, 2, 5504);
-			add_location(br2, file$3, 258, 2, 5576);
-			add_location(button3, file$3, 260, 2, 5588);
-			attr_dev(div2, "class", "headerContainer svelte-qvznef");
-			add_location(div2, file$3, 243, 1, 5156);
-			attr_dev(div3, "class", "padding svelte-qvznef");
-			add_location(div3, file$3, 263, 1, 5668);
-			attr_dev(div4, "class", "capabilityHeader svelte-qvznef");
-			add_location(div4, file$3, 228, 0, 4809);
-			add_location(br3, file$3, 269, 0, 5714);
-			add_location(h32, file$3, 271, 0, 5722);
+			if (/*selectedSnapshot*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[29].call(select));
+			add_location(select, file$3, 309, 2, 6955);
+			add_location(br1, file$3, 315, 2, 7166);
+			add_location(button2, file$3, 317, 2, 7178);
+			add_location(button3, file$3, 318, 2, 7242);
+			add_location(button4, file$3, 319, 2, 7310);
+			attr_dev(div2, "class", "headerContainer svelte-6uhchs");
+			add_location(div2, file$3, 305, 1, 6894);
+			attr_dev(div3, "class", "padding svelte-6uhchs");
+			add_location(div3, file$3, 322, 1, 7390);
+			attr_dev(div4, "class", "capabilityHeader svelte-6uhchs");
+			add_location(div4, file$3, 289, 0, 6479);
+			add_location(br2, file$3, 326, 0, 7432);
+			add_location(h32, file$3, 328, 0, 7440);
 			set_style(span1, "color", "red");
-			add_location(span1, file$3, 273, 0, 5747);
+			add_location(span1, file$3, 330, 0, 7465);
 			set_style(span2, "color", "blue");
-			add_location(span2, file$3, 273, 44, 5791);
-			add_location(h2, file$3, 309, 2, 6956);
-			add_location(h33, file$3, 313, 4, 7068);
-			attr_dev(div5, "class", "filterContainer svelte-qvznef");
-			add_location(div5, file$3, 312, 3, 7033);
-			add_location(h34, file$3, 325, 4, 7496);
-			attr_dev(div6, "class", "filterContainer svelte-qvznef");
-			add_location(div6, file$3, 324, 3, 7461);
-			add_location(h35, file$3, 337, 4, 7940);
-			attr_dev(div7, "class", "filterContainer svelte-qvznef");
-			add_location(div7, file$3, 336, 3, 7905);
-			attr_dev(div8, "class", "filterwindowContent svelte-qvznef");
-			add_location(div8, file$3, 311, 2, 6995);
-			add_location(button4, file$3, 350, 3, 8404);
-			add_location(button5, file$3, 352, 3, 8474);
-			add_location(button6, file$3, 354, 3, 8541);
-			set_style(button7, "color", "red");
-			add_location(button7, file$3, 356, 3, 8608);
+			add_location(span2, file$3, 330, 44, 7509);
+			add_location(h2, file$3, 367, 2, 8768);
+			add_location(h33, file$3, 371, 4, 8880);
+			attr_dev(div5, "class", "filterContainer svelte-6uhchs");
+			add_location(div5, file$3, 370, 3, 8845);
+			add_location(h34, file$3, 388, 4, 9500);
+			attr_dev(div6, "class", "filterContainer svelte-6uhchs");
+			add_location(div6, file$3, 387, 3, 9465);
+			add_location(h35, file$3, 400, 4, 9952);
+			attr_dev(div7, "class", "filterContainer presets svelte-6uhchs");
+			add_location(div7, file$3, 399, 3, 9909);
+			attr_dev(div8, "class", "filterwindowContent svelte-6uhchs");
+			add_location(div8, file$3, 369, 2, 8807);
+			add_location(button5, file$3, 413, 3, 10416);
+			add_location(button6, file$3, 415, 3, 10486);
+			add_location(button7, file$3, 417, 3, 10553);
+			set_style(button8, "color", "red");
+			add_location(button8, file$3, 419, 3, 10620);
 			attr_dev(div9, "class", "buttonRow");
-			add_location(div9, file$3, 349, 2, 8376);
+			add_location(div9, file$3, 412, 2, 10388);
 			attr_dev(div10, "id", "filterwindow");
-			attr_dev(div10, "class", "svelte-qvznef");
-			add_location(div10, file$3, 308, 1, 6929);
+			attr_dev(div10, "class", "svelte-6uhchs");
+			add_location(div10, file$3, 366, 1, 8741);
 			attr_dev(div11, "id", "overlay");
-			attr_dev(div11, "class", "svelte-qvznef");
-			add_location(div11, file$3, 307, 0, 6908);
+			attr_dev(div11, "class", "svelte-6uhchs");
+			add_location(div11, file$3, 365, 0, 8720);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -47577,10 +48065,13 @@ function create_fragment$4(ctx) {
 			append_dev(div1, t6);
 			append_dev(div1, button0);
 			append_dev(button0, t7);
-			append_dev(div4, t8);
+			append_dev(div1, t8);
+			append_dev(div1, button1);
+			append_dev(button1, t9);
+			append_dev(div4, t10);
 			append_dev(div4, div2);
 			append_dev(div2, h31);
-			append_dev(div2, t10);
+			append_dev(div2, t12);
 			append_dev(div2, select);
 
 			for (let i = 0; i < each_blocks_4.length; i += 1) {
@@ -47588,98 +48079,97 @@ function create_fragment$4(ctx) {
 			}
 
 			select_option(select, /*selectedSnapshot*/ ctx[4]);
-			append_dev(div2, t11);
+			append_dev(div2, t13);
 			append_dev(div2, br1);
-			append_dev(div2, t12);
-			append_dev(div2, button1);
-			append_dev(button1, t13);
 			append_dev(div2, t14);
 			append_dev(div2, button2);
 			append_dev(button2, t15);
 			append_dev(div2, t16);
-			append_dev(div2, br2);
-			append_dev(div2, t17);
 			append_dev(div2, button3);
-			append_dev(button3, t18);
-			append_dev(div4, t19);
+			append_dev(button3, t17);
+			append_dev(div2, t18);
+			append_dev(div2, button4);
+			append_dev(button4, t19);
+			append_dev(div4, t20);
 			append_dev(div4, div3);
-			insert_dev(target, t20, anchor);
-			insert_dev(target, br3, anchor);
 			insert_dev(target, t21, anchor);
+			insert_dev(target, br2, anchor);
+			insert_dev(target, t22, anchor);
 			insert_dev(target, h32, anchor);
-			insert_dev(target, t23, anchor);
+			insert_dev(target, t24, anchor);
 			insert_dev(target, span1, anchor);
-			append_dev(span1, t24);
-			insert_dev(target, t25, anchor);
+			append_dev(span1, t25);
+			insert_dev(target, t26, anchor);
 			insert_dev(target, span2, anchor);
-			append_dev(span2, t26);
-			insert_dev(target, t27, anchor);
+			append_dev(span2, t27);
+			insert_dev(target, t28, anchor);
 
 			for (let i = 0; i < each_blocks_3.length; i += 1) {
 				each_blocks_3[i].m(target, anchor);
 			}
 
-			insert_dev(target, t28, anchor);
+			insert_dev(target, t29, anchor);
 			insert_dev(target, div11, anchor);
 			append_dev(div11, div10);
 			append_dev(div10, h2);
-			append_dev(h2, t29);
-			append_dev(div10, t30);
+			append_dev(h2, t30);
+			append_dev(div10, t31);
 			append_dev(div10, div8);
 			append_dev(div8, div5);
 			append_dev(div5, h33);
-			append_dev(h33, t31);
-			append_dev(div5, t32);
+			append_dev(h33, t32);
+			append_dev(div5, t33);
 
 			for (let i = 0; i < each_blocks_2.length; i += 1) {
 				each_blocks_2[i].m(div5, null);
 			}
 
-			append_dev(div8, t33);
+			append_dev(div8, t34);
 			append_dev(div8, div6);
 			append_dev(div6, h34);
-			append_dev(h34, t34);
-			append_dev(div6, t35);
+			append_dev(h34, t35);
+			append_dev(div6, t36);
 
 			for (let i = 0; i < each_blocks_1.length; i += 1) {
 				each_blocks_1[i].m(div6, null);
 			}
 
-			append_dev(div8, t36);
+			append_dev(div8, t37);
 			append_dev(div8, div7);
 			append_dev(div7, h35);
-			append_dev(div7, t38);
+			append_dev(div7, t39);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(div7, null);
 			}
 
-			append_dev(div10, t39);
+			append_dev(div10, t40);
 			append_dev(div10, div9);
-			append_dev(div9, button4);
-			append_dev(button4, t40);
-			append_dev(div9, t41);
 			append_dev(div9, button5);
-			append_dev(button5, t42);
-			append_dev(div9, t43);
+			append_dev(button5, t41);
+			append_dev(div9, t42);
 			append_dev(div9, button6);
-			append_dev(button6, t44);
-			append_dev(div9, t45);
+			append_dev(button6, t43);
+			append_dev(div9, t44);
 			append_dev(div9, button7);
-			append_dev(button7, t46);
+			append_dev(button7, t45);
+			append_dev(div9, t46);
+			append_dev(div9, button8);
+			append_dev(button8, t47);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
 					listen_dev(button0, "click", openFilterPopUp, false, false, false),
-					listen_dev(select, "change", /*select_change_handler*/ ctx[26]),
-					listen_dev(button1, "click", /*loadSnapshot*/ ctx[22], false, false, false),
-					listen_dev(button2, "click", /*deleteSnapshot*/ ctx[23], false, false, false),
-					listen_dev(button3, "click", /*createSnapshot*/ ctx[21], false, false, false),
-					listen_dev(button4, "click", /*closeFilterPopUp*/ ctx[15], false, false, false),
-					listen_dev(button5, "click", /*resetFilter*/ ctx[16], false, false, false),
-					listen_dev(button6, "click", /*addPreset*/ ctx[20], false, false, false),
-					listen_dev(button7, "click", /*resetPresets*/ ctx[19], false, false, false)
+					listen_dev(button1, "click", /*toggleHidden*/ ctx[26], false, false, false),
+					listen_dev(select, "change", /*select_change_handler*/ ctx[29]),
+					listen_dev(button2, "click", /*loadSnapshot*/ ctx[22], false, false, false),
+					listen_dev(button3, "click", /*deleteSnapshot*/ ctx[23], false, false, false),
+					listen_dev(button4, "click", /*createSnapshot*/ ctx[21], false, false, false),
+					listen_dev(button5, "click", /*closeFilterPopUp*/ ctx[15], false, false, false),
+					listen_dev(button6, "click", /*resetFilter*/ ctx[16], false, false, false),
+					listen_dev(button7, "click", /*addPreset*/ ctx[20], false, false, false),
+					listen_dev(button8, "click", /*resetPresets*/ ctx[19], false, false, false)
 				];
 
 				mounted = true;
@@ -47689,6 +48179,7 @@ function create_fragment$4(ctx) {
 			if ((!current || dirty[0] & /*text*/ 8) && t3_value !== (t3_value = /*text*/ ctx[3].filterPreset + "")) set_data_dev(t3, t3_value);
 			if ((!current || dirty[0] & /*$ui, appConfig, selectedPreset*/ 37) && t4_value !== (t4_value = /*getCurrentPreset*/ ctx[25](/*$ui*/ ctx[2][/*appConfig*/ ctx[0].language].presets[/*selectedPreset*/ ctx[5]]) + "")) set_data_dev(t4, t4_value);
 			if ((!current || dirty[0] & /*text*/ 8) && t7_value !== (t7_value = /*text*/ ctx[3].applyFilter + "")) set_data_dev(t7, t7_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t9_value !== (t9_value = /*text*/ ctx[3].editCustomFilter + "")) set_data_dev(t9, t9_value);
 
 			if (dirty[0] & /*snapshots*/ 256) {
 				each_value_6 = Object.keys(/*snapshots*/ ctx[8]);
@@ -47718,13 +48209,13 @@ function create_fragment$4(ctx) {
 				select_option(select, /*selectedSnapshot*/ ctx[4]);
 			}
 
-			if ((!current || dirty[0] & /*text*/ 8) && t13_value !== (t13_value = /*text*/ ctx[3].loadSnapshot + "")) set_data_dev(t13, t13_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t15_value !== (t15_value = /*text*/ ctx[3].deleteSnapshot + "")) set_data_dev(t15, t15_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t18_value !== (t18_value = /*text*/ ctx[3].createSnapshot + "")) set_data_dev(t18, t18_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t24_value !== (t24_value = /*text*/ ctx[3].is + "")) set_data_dev(t24, t24_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t26_value !== (t26_value = /*text*/ ctx[3].should + "")) set_data_dev(t26, t26_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t15_value !== (t15_value = /*text*/ ctx[3].loadSnapshot + "")) set_data_dev(t15, t15_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t17_value !== (t17_value = /*text*/ ctx[3].deleteSnapshot + "")) set_data_dev(t17, t17_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t19_value !== (t19_value = /*text*/ ctx[3].createSnapshot + "")) set_data_dev(t19, t19_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t25_value !== (t25_value = /*text*/ ctx[3].is + "")) set_data_dev(t25, t25_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t27_value !== (t27_value = /*text*/ ctx[3].should + "")) set_data_dev(t27, t27_value);
 
-			if (dirty[0] & /*capabilities, userInput, appConfig, dimensionDescriptions, text, numLevels, levelDescriptions, filters, $capabilityConverter*/ 31371) {
+			if (dirty[0] & /*capabilities, userInput, appConfig, updateCustomFilter, dimensionDescriptions, text, numLevels, levelDescriptions, filters, $capabilityConverter*/ 134249099) {
 				each_value_3 = Object.entries(/*dimensionDescriptions*/ ctx[13]);
 				validate_each_argument(each_value_3);
 				let i;
@@ -47739,7 +48230,7 @@ function create_fragment$4(ctx) {
 						each_blocks_3[i] = create_each_block_3(child_ctx);
 						each_blocks_3[i].c();
 						transition_in(each_blocks_3[i], 1);
-						each_blocks_3[i].m(t28.parentNode, t28);
+						each_blocks_3[i].m(t29.parentNode, t29);
 					}
 				}
 
@@ -47752,10 +48243,10 @@ function create_fragment$4(ctx) {
 				check_outros();
 			}
 
-			if ((!current || dirty[0] & /*text*/ 8) && t29_value !== (t29_value = /*text*/ ctx[3].filterCapabilites + "")) set_data_dev(t29, t29_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t31_value !== (t31_value = /*text*/ ctx[3].categories + "")) set_data_dev(t31, t31_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t30_value !== (t30_value = /*text*/ ctx[3].filterCapabilites + "")) set_data_dev(t30, t30_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t32_value !== (t32_value = /*text*/ ctx[3].categories + "")) set_data_dev(t32, t32_value);
 
-			if (dirty[0] & /*$ui, appConfig, filters, categoryNames*/ 1157) {
+			if (dirty[0] & /*resetCustomFilter, $ui, appConfig, filters, categoryNames*/ 268436613) {
 				each_value_2 = Object.entries(/*filters*/ ctx[7]);
 				validate_each_argument(each_value_2);
 				let i;
@@ -47779,7 +48270,7 @@ function create_fragment$4(ctx) {
 				each_blocks_2.length = each_value_2.length;
 			}
 
-			if ((!current || dirty[0] & /*text*/ 8) && t34_value !== (t34_value = /*text*/ ctx[3].topics + "")) set_data_dev(t34, t34_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t35_value !== (t35_value = /*text*/ ctx[3].topics + "")) set_data_dev(t35, t35_value);
 
 			if (dirty[0] & /*$ui, appConfig, filters, categoryNames*/ 1157) {
 				each_value_1 = Object.entries(/*filters*/ ctx[7]);
@@ -47829,10 +48320,10 @@ function create_fragment$4(ctx) {
 				each_blocks.length = each_value.length;
 			}
 
-			if ((!current || dirty[0] & /*text*/ 8) && t40_value !== (t40_value = /*text*/ ctx[3].filterClose + "")) set_data_dev(t40, t40_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t42_value !== (t42_value = /*text*/ ctx[3].filterRemove + "")) set_data_dev(t42, t42_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t44_value !== (t44_value = /*text*/ ctx[3].filterAddPreset + "")) set_data_dev(t44, t44_value);
-			if ((!current || dirty[0] & /*text*/ 8) && t46_value !== (t46_value = /*text*/ ctx[3].filterResetPresets + "")) set_data_dev(t46, t46_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t41_value !== (t41_value = /*text*/ ctx[3].filterClose + "")) set_data_dev(t41, t41_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t43_value !== (t43_value = /*text*/ ctx[3].filterRemove + "")) set_data_dev(t43, t43_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t45_value !== (t45_value = /*text*/ ctx[3].filterAddPreset + "")) set_data_dev(t45, t45_value);
+			if ((!current || dirty[0] & /*text*/ 8) && t47_value !== (t47_value = /*text*/ ctx[3].filterResetPresets + "")) set_data_dev(t47, t47_value);
 		},
 		i: function intro(local) {
 			if (current) return;
@@ -47855,17 +48346,17 @@ function create_fragment$4(ctx) {
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(div4);
 			destroy_each(each_blocks_4, detaching);
-			if (detaching) detach_dev(t20);
-			if (detaching) detach_dev(br3);
 			if (detaching) detach_dev(t21);
+			if (detaching) detach_dev(br2);
+			if (detaching) detach_dev(t22);
 			if (detaching) detach_dev(h32);
-			if (detaching) detach_dev(t23);
+			if (detaching) detach_dev(t24);
 			if (detaching) detach_dev(span1);
-			if (detaching) detach_dev(t25);
+			if (detaching) detach_dev(t26);
 			if (detaching) detach_dev(span2);
-			if (detaching) detach_dev(t27);
-			destroy_each(each_blocks_3, detaching);
 			if (detaching) detach_dev(t28);
+			destroy_each(each_blocks_3, detaching);
+			if (detaching) detach_dev(t29);
 			if (detaching) detach_dev(div11);
 			destroy_each(each_blocks_2, detaching);
 			destroy_each(each_blocks_1, detaching);
@@ -47916,23 +48407,23 @@ function instance$4($$self, $$props, $$invalidate) {
 	validate_store(ui, 'ui');
 	component_subscribe($$self, ui, $$value => $$invalidate(2, $ui = $$value));
 	validate_store(defaultPresets, 'defaultPresets');
-	component_subscribe($$self, defaultPresets, $$value => $$invalidate(34, $defaultPresets = $$value));
+	component_subscribe($$self, defaultPresets, $$value => $$invalidate(37, $defaultPresets = $$value));
 	validate_store(defaultFilters, 'defaultFilters');
-	component_subscribe($$self, defaultFilters, $$value => $$invalidate(35, $defaultFilters = $$value));
+	component_subscribe($$self, defaultFilters, $$value => $$invalidate(38, $defaultFilters = $$value));
 	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(36, $emptyUserInfo = $$value));
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(39, $emptyUserInfo = $$value));
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(37, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(40, $emptyUserData = $$value));
 	validate_store(capabilityList, 'capabilityList');
-	component_subscribe($$self, capabilityList, $$value => $$invalidate(38, $capabilityList = $$value));
+	component_subscribe($$self, capabilityList, $$value => $$invalidate(41, $capabilityList = $$value));
 	validate_store(dimensionDesc, 'dimensionDesc');
-	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(39, $dimensionDesc = $$value));
+	component_subscribe($$self, dimensionDesc, $$value => $$invalidate(42, $dimensionDesc = $$value));
 	validate_store(levelDesc, 'levelDesc');
-	component_subscribe($$self, levelDesc, $$value => $$invalidate(40, $levelDesc = $$value));
+	component_subscribe($$self, levelDesc, $$value => $$invalidate(43, $levelDesc = $$value));
 	validate_store(levelAmount, 'levelAmount');
-	component_subscribe($$self, levelAmount, $$value => $$invalidate(41, $levelAmount = $$value));
+	component_subscribe($$self, levelAmount, $$value => $$invalidate(44, $levelAmount = $$value));
 	validate_store(categories, 'categories');
-	component_subscribe($$self, categories, $$value => $$invalidate(42, $categories = $$value));
+	component_subscribe($$self, categories, $$value => $$invalidate(45, $categories = $$value));
 	validate_store(capabilityConverter, 'capabilityConverter');
 	component_subscribe($$self, capabilityConverter, $$value => $$invalidate(9, $capabilityConverter = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
@@ -47999,6 +48490,18 @@ function instance$4($$self, $$props, $$invalidate) {
 		document.getElementById("overlay").style.display = "none";
 	}
 
+	function applyFilter() {
+		for (const [id, values] of Object.entries(userInput)) {
+			if (appConfig.currentFilter.includes(id)) {
+				$$invalidate(1, userInput[id].inFilter = true, userInput);
+			} else {
+				$$invalidate(1, userInput[id].inFilter = false, userInput);
+			}
+		}
+
+		dataManager.saveToLocalStorage("dataUserInput", userInput);
+	}
+
 	function initFilter() {
 		let newFilter = [];
 
@@ -48013,6 +48516,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		}
 
 		$$invalidate(0, appConfig.currentFilter = newFilter, appConfig);
+		applyFilter();
 	}
 
 	function resetFilter() {
@@ -48027,17 +48531,25 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	function updateFilters() {
 		$$invalidate(0, appConfig.checkedFilters = presets[selectedPreset], appConfig);
-	}
+
+		for (const id in userInput) {
+			if (filters["Custom Filter"].includes(id)) {
+				$$invalidate(1, userInput[id].customFilter = true, userInput);
+			} else {
+				$$invalidate(1, userInput[id].customFilter = false, userInput);
+			}
+		}
+	} // initFilter()
 
 	function toggleEditMode(event) {
-		if (editMode && event.target.textContent == "speichern") {
-			event.target.textContent = "bearbeiten";
+		if (editMode && event.target.textContent == text.save) {
+			event.target.textContent = text.edit;
 			let newFilter = appConfig.checkedFilters;
 			$$invalidate(6, presets[event.srcElement.value] = newFilter, presets);
 			dataManager.saveToLocalStorage("dataUserPresets", presets);
 			editMode = !editMode;
-		} else if (!editMode && event.target.textContent == "bearbeiten") {
-			event.target.textContent = "speichern";
+		} else if (!editMode && event.target.textContent == text.edit) {
+			event.target.textContent = text.save;
 			$$invalidate(5, selectedPreset = event.srcElement.value);
 			updateFilters();
 			initFilter();
@@ -48049,6 +48561,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		$$invalidate(6, presets = $defaultPresets);
 		dataManager.saveToLocalStorage("dataUserPresets", presets);
 		alert("Presets zurückgesetzt");
+		updateFilters();
 	}
 
 	function addPreset() {
@@ -48096,6 +48609,7 @@ function instance$4($$self, $$props, $$invalidate) {
 
 	function deleteSnapshot() {
 		delete snapshots[selectedSnapshot];
+		location.reload();
 		dataManager.saveToLocalStorage("dataUserSnapshots", snapshots);
 	}
 
@@ -48115,6 +48629,46 @@ function instance$4($$self, $$props, $$invalidate) {
 		}
 
 		return text.currentPreset;
+	}
+
+	function toggleHidden(event) {
+		if (!appConfig.displayHidden) {
+			event.target.textContent = text.saveCustomFilter;
+			displayCustomFilterColumn();
+		} else {
+			event.target.textContent = text.editCustomFilter;
+			dataManager.saveToLocalStorage("dataUserFilters", filters);
+			hideCustomFilterColumn();
+		}
+
+		$$invalidate(0, appConfig.displayHidden = !appConfig.displayHidden, appConfig);
+	}
+
+	function updateCustomFilter(event) {
+		if (event.detail.state) {
+			filters['Custom Filter'].push(event.detail.id);
+		} else {
+			filters['Custom Filter'].pop(event.detail.id);
+		}
+
+		dataManager.saveToLocalStorage("dataUserFilters", filters);
+	}
+
+	function resetCustomFilter() {
+		$$invalidate(7, filters['Custom Filter'] = [], filters);
+		dataManager.saveToLocalStorage("dataUserFilters", filters);
+	}
+
+	function displayCustomFilterColumn() {
+		let explanation = document.getElementById("explanation");
+		$$invalidate(0, appConfig.hideCustomFilter = false, appConfig);
+		explanation.style["flex"] = 3.1;
+	}
+
+	function hideCustomFilterColumn() {
+		let explanation = document.getElementById("explanation");
+		$$invalidate(0, appConfig.hideCustomFilter = true, appConfig);
+		explanation.style["flex"] = 3.3;
 	}
 
 	updateFilters();
@@ -48198,6 +48752,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		snapshots,
 		openFilterPopUp,
 		closeFilterPopUp,
+		applyFilter,
 		initFilter,
 		resetFilter,
 		updateFilters,
@@ -48210,6 +48765,11 @@ function instance$4($$self, $$props, $$invalidate) {
 		deleteSnapshot,
 		getPresetTitle,
 		getCurrentPreset,
+		toggleHidden,
+		updateCustomFilter,
+		resetCustomFilter,
+		displayCustomFilterColumn,
+		hideCustomFilterColumn,
 		$ui,
 		$defaultPresets,
 		$defaultFilters,
@@ -48282,6 +48842,9 @@ function instance$4($$self, $$props, $$invalidate) {
 		deleteSnapshot,
 		getPresetTitle,
 		getCurrentPreset,
+		toggleHidden,
+		updateCustomFilter,
+		resetCustomFilter,
 		select_change_handler,
 		tablerow_appConfig_binding,
 		input_change_handler,
@@ -48893,24 +49456,24 @@ function create_fragment$1(ctx) {
 			b = element("b");
 			b.textContent = `${/*text*/ ctx[2].deleteButton}`;
 			attr_dev(p0, "class", "svelte-9yq3rd");
-			add_location(p0, file$1, 100, 8, 3345);
+			add_location(p0, file$1, 100, 8, 3339);
 			attr_dev(input, "type", "file");
 			attr_dev(input, "id", "file-selector");
 			attr_dev(input, "accept", ".csv, .xlsx");
-			add_location(input, file$1, 101, 8, 3375);
+			add_location(input, file$1, 101, 8, 3369);
 			attr_dev(button0, "type", "submit");
-			add_location(button0, file$1, 102, 8, 3455);
+			add_location(button0, file$1, 102, 8, 3449);
 			attr_dev(div0, "class", "import svelte-9yq3rd");
-			add_location(div0, file$1, 99, 4, 3315);
-			add_location(form, file$1, 97, 0, 3257);
+			add_location(div0, file$1, 99, 4, 3309);
+			add_location(form, file$1, 97, 0, 3251);
 			attr_dev(p1, "class", "svelte-9yq3rd");
-			add_location(p1, file$1, 109, 0, 3556);
+			add_location(p1, file$1, 109, 0, 3550);
 			attr_dev(p2, "class", "svelte-9yq3rd");
-			add_location(p2, file$1, 112, 4, 3611);
-			add_location(b, file$1, 113, 42, 3685);
-			add_location(button1, file$1, 113, 4, 3647);
+			add_location(p2, file$1, 112, 4, 3605);
+			add_location(b, file$1, 113, 42, 3679);
+			add_location(button1, file$1, 113, 4, 3641);
 			attr_dev(div1, "class", "delete svelte-9yq3rd");
-			add_location(div1, file$1, 111, 0, 3585);
+			add_location(div1, file$1, 111, 0, 3579);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -49044,7 +49607,7 @@ function instance$1($$self, $$props, $$invalidate) {
 			newUserInput[id].explanation = capability["Comments"];
 			newUserInput[id].isValue = capability["Is Value"];
 			newUserInput[id].shouldValue = capability["Should Value"];
-			newUserInput[id].notRelevant = capability["Not Relevant"];
+			newUserInput[id].inFilter = capability["In Filter"];
 		}
 
 		dataManager.saveToLocalStorage("dataUserInput", newUserInput);
@@ -49179,16 +49742,16 @@ const file = "src\\App.svelte";
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[12] = list[i];
-	child_ctx[14] = i;
+	child_ctx[10] = list[i];
+	child_ctx[12] = i;
 	return child_ctx;
 }
 
-// (83:3) {#each navOptions as option, componentId}
+// (76:3) {#each navOptions as option, componentId}
 function create_each_block(ctx) {
 	let li;
 	let button;
-	let t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[12].page] + "";
+	let t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[10].page] + "";
 	let t0;
 	let t1;
 	let mounted;
@@ -49200,12 +49763,12 @@ function create_each_block(ctx) {
 			button = element("button");
 			t0 = text(t0_value);
 			t1 = space();
-			attr_dev(button, "id", String(/*componentId*/ ctx[14]));
+			attr_dev(button, "id", String(/*componentId*/ ctx[12]));
 			attr_dev(button, "role", "tab");
 			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 84, 4, 1980);
+			add_location(button, file, 77, 4, 1852);
 			attr_dev(li, "class", "svelte-11jq1um");
-			add_location(li, file, 83, 3, 1970);
+			add_location(li, file, 76, 3, 1842);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, li, anchor);
@@ -49214,12 +49777,12 @@ function create_each_block(ctx) {
 			append_dev(li, t1);
 
 			if (!mounted) {
-				dispose = listen_dev(button, "click", /*changeComponent*/ ctx[6], false, false, false);
+				dispose = listen_dev(button, "click", /*changeComponent*/ ctx[5], false, false, false);
 				mounted = true;
 			}
 		},
 		p: function update(ctx, dirty) {
-			if (dirty & /*text*/ 2 && t0_value !== (t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[12].page] + "")) set_data_dev(t0, t0_value);
+			if (dirty & /*text*/ 2 && t0_value !== (t0_value = /*text*/ ctx[1].nav[/*option*/ ctx[10].page] + "")) set_data_dev(t0, t0_value);
 		},
 		d: function destroy(detaching) {
 			if (detaching) detach_dev(li);
@@ -49232,14 +49795,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(83:3) {#each navOptions as option, componentId}",
+		source: "(76:3) {#each navOptions as option, componentId}",
 		ctx
 	});
 
 	return block;
 }
 
-// (90:2) {#if currentNav != 0}
+// (83:2) {#if currentNav != 0}
 function create_if_block_1(ctx) {
 	const block = { c: noop, m: noop, d: noop };
 
@@ -49247,14 +49810,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(90:2) {#if currentNav != 0}",
+		source: "(83:2) {#if currentNav != 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (99:2) {#if !buttonHidden}
+// (92:2) {#if !buttonHidden}
 function create_if_block(ctx) {
 	let button;
 	let t_value = /*text*/ ctx[1].next + "";
@@ -49269,14 +49832,14 @@ function create_if_block(ctx) {
 			t = text(t_value);
 			attr_dev(button, "id", button_id_value = /*currentNav*/ ctx[3] + 1);
 			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 99, 2, 2402);
+			add_location(button, file, 92, 2, 2274);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, button, anchor);
 			append_dev(button, t);
 
 			if (!mounted) {
-				dispose = listen_dev(button, "click", /*changeComponent*/ ctx[6], false, false, false);
+				dispose = listen_dev(button, "click", /*changeComponent*/ ctx[5], false, false, false);
 				mounted = true;
 			}
 		},
@@ -49298,28 +49861,42 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(99:2) {#if !buttonHidden}",
+		source: "(92:2) {#if !buttonHidden}",
 		ctx
 	});
 
 	return block;
 }
 
-// (81:2) {#key unique}
-function create_key_block(ctx) {
-	let ul;
-	let t0;
+function create_fragment(ctx) {
+	let main;
+	let h1;
 	let t1;
-	let div;
-	let h2;
-	let t2_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "";
-	let t2;
+	let div2;
+	let div0;
+	let span0;
 	let t3;
+	let label;
+	let input;
+	let t4;
+	let span1;
+	let t5;
+	let span2;
+	let t7;
+	let ul;
+	let t8;
+	let t9;
+	let div1;
+	let h2;
+	let t10_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "";
+	let t10;
+	let t11;
 	let switch_instance;
 	let updating_appConfig;
-	let t4;
-	let if_block1_anchor;
+	let t12;
 	let current;
+	let mounted;
+	let dispose;
 	let each_value = navOptions;
 	validate_each_argument(each_value);
 	let each_blocks = [];
@@ -49331,7 +49908,7 @@ function create_key_block(ctx) {
 	let if_block0 = /*currentNav*/ ctx[3] != 0 && create_if_block_1(ctx);
 
 	function switch_instance_appConfig_binding(value) {
-		/*switch_instance_appConfig_binding*/ ctx[9](value);
+		/*switch_instance_appConfig_binding*/ ctx[8](value);
 	}
 
 	var switch_value = /*selected*/ ctx[2].component;
@@ -49358,50 +49935,106 @@ function create_key_block(ctx) {
 
 	const block = {
 		c: function create() {
+			main = element("main");
+			h1 = element("h1");
+			h1.textContent = "Agile Maturity Tool - Demo";
+			t1 = space();
+			div2 = element("div");
+			div0 = element("div");
+			span0 = element("span");
+			span0.textContent = "DE";
+			t3 = space();
+			label = element("label");
+			input = element("input");
+			t4 = space();
+			span1 = element("span");
+			t5 = space();
+			span2 = element("span");
+			span2.textContent = "EN";
+			t7 = space();
 			ul = element("ul");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			t0 = space();
+			t8 = space();
 			if (if_block0) if_block0.c();
-			t1 = space();
-			div = element("div");
+			t9 = space();
+			div1 = element("div");
 			h2 = element("h2");
-			t2 = text(t2_value);
-			t3 = space();
+			t10 = text(t10_value);
+			t11 = space();
 			if (switch_instance) create_component(switch_instance.$$.fragment);
-			t4 = space();
+			t12 = space();
 			if (if_block1) if_block1.c();
-			if_block1_anchor = empty();
-			add_location(ul, file, 81, 2, 1915);
-			add_location(h2, file, 94, 3, 2262);
-			attr_dev(div, "class", "page");
-			add_location(div, file, 93, 2, 2239);
+			attr_dev(h1, "class", "svelte-11jq1um");
+			add_location(h1, file, 63, 1, 1496);
+			attr_dev(span0, "class", "lang svelte-11jq1um");
+			add_location(span0, file, 66, 3, 1573);
+			attr_dev(input, "type", "checkbox");
+			attr_dev(input, "class", "svelte-11jq1um");
+			add_location(input, file, 68, 4, 1661);
+			attr_dev(span1, "class", "slider round svelte-11jq1um");
+			add_location(span1, file, 69, 4, 1690);
+			attr_dev(label, "class", "switch svelte-11jq1um");
+			add_location(label, file, 67, 3, 1606);
+			attr_dev(span2, "class", "lang svelte-11jq1um");
+			add_location(span2, file, 71, 3, 1742);
+			attr_dev(div0, "id", "languageSwitch");
+			attr_dev(div0, "class", "svelte-11jq1um");
+			add_location(div0, file, 65, 2, 1543);
+			add_location(ul, file, 74, 2, 1787);
+			add_location(h2, file, 87, 3, 2134);
+			attr_dev(div1, "class", "page");
+			add_location(div1, file, 86, 2, 2111);
+			add_location(div2, file, 64, 1, 1534);
+			attr_dev(main, "class", "svelte-11jq1um");
+			add_location(main, file, 62, 0, 1487);
+		},
+		l: function claim(nodes) {
+			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
 		},
 		m: function mount(target, anchor) {
-			insert_dev(target, ul, anchor);
+			insert_dev(target, main, anchor);
+			append_dev(main, h1);
+			append_dev(main, t1);
+			append_dev(main, div2);
+			append_dev(div2, div0);
+			append_dev(div0, span0);
+			append_dev(div0, t3);
+			append_dev(div0, label);
+			append_dev(label, input);
+			append_dev(label, t4);
+			append_dev(label, span1);
+			append_dev(div0, t5);
+			append_dev(div0, span2);
+			append_dev(div2, t7);
+			append_dev(div2, ul);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(ul, null);
 			}
 
-			insert_dev(target, t0, anchor);
-			if (if_block0) if_block0.m(target, anchor);
-			insert_dev(target, t1, anchor);
-			insert_dev(target, div, anchor);
-			append_dev(div, h2);
-			append_dev(h2, t2);
-			append_dev(div, t3);
-			if (switch_instance) mount_component(switch_instance, div, null);
-			insert_dev(target, t4, anchor);
-			if (if_block1) if_block1.m(target, anchor);
-			insert_dev(target, if_block1_anchor, anchor);
+			append_dev(div2, t8);
+			if (if_block0) if_block0.m(div2, null);
+			append_dev(div2, t9);
+			append_dev(div2, div1);
+			append_dev(div1, h2);
+			append_dev(h2, t10);
+			append_dev(div1, t11);
+			if (switch_instance) mount_component(switch_instance, div1, null);
+			append_dev(div2, t12);
+			if (if_block1) if_block1.m(div2, null);
 			current = true;
+
+			if (!mounted) {
+				dispose = listen_dev(label, "change", /*changeLanguage*/ ctx[6], false, false, false);
+				mounted = true;
+			}
 		},
-		p: function update(ctx, dirty) {
-			if (dirty & /*String, changeComponent, text, navOptions*/ 66) {
+		p: function update(ctx, [dirty]) {
+			if (dirty & /*String, changeComponent, text, navOptions*/ 34) {
 				each_value = navOptions;
 				validate_each_argument(each_value);
 				let i;
@@ -49429,14 +50062,14 @@ function create_key_block(ctx) {
 				if (if_block0) ; else {
 					if_block0 = create_if_block_1(ctx);
 					if_block0.c();
-					if_block0.m(t1.parentNode, t1);
+					if_block0.m(div2, t9);
 				}
 			} else if (if_block0) {
 				if_block0.d(1);
 				if_block0 = null;
 			}
 
-			if ((!current || dirty & /*text, selected*/ 6) && t2_value !== (t2_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "")) set_data_dev(t2, t2_value);
+			if ((!current || dirty & /*text, selected*/ 6) && t10_value !== (t10_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "")) set_data_dev(t10, t10_value);
 			const switch_instance_changes = {};
 
 			if (!updating_appConfig && dirty & /*appConfig*/ 1) {
@@ -49462,7 +50095,7 @@ function create_key_block(ctx) {
 					binding_callbacks.push(() => bind(switch_instance, 'appConfig', switch_instance_appConfig_binding));
 					create_component(switch_instance.$$.fragment);
 					transition_in(switch_instance.$$.fragment, 1);
-					mount_component(switch_instance, div, null);
+					mount_component(switch_instance, div1, null);
 				} else {
 					switch_instance = null;
 				}
@@ -49476,7 +50109,7 @@ function create_key_block(ctx) {
 				} else {
 					if_block1 = create_if_block(ctx);
 					if_block1.c();
-					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+					if_block1.m(div2, null);
 				}
 			} else if (if_block1) {
 				if_block1.d(1);
@@ -49493,142 +50126,11 @@ function create_key_block(ctx) {
 			current = false;
 		},
 		d: function destroy(detaching) {
-			if (detaching) detach_dev(ul);
-			destroy_each(each_blocks, detaching);
-			if (detaching) detach_dev(t0);
-			if (if_block0) if_block0.d(detaching);
-			if (detaching) detach_dev(t1);
-			if (detaching) detach_dev(div);
-			if (switch_instance) destroy_component(switch_instance);
-			if (detaching) detach_dev(t4);
-			if (if_block1) if_block1.d(detaching);
-			if (detaching) detach_dev(if_block1_anchor);
-		}
-	};
-
-	dispatch_dev("SvelteRegisterBlock", {
-		block,
-		id: create_key_block.name,
-		type: "key",
-		source: "(81:2) {#key unique}",
-		ctx
-	});
-
-	return block;
-}
-
-function create_fragment(ctx) {
-	let main;
-	let h1;
-	let t1;
-	let div1;
-	let div0;
-	let span0;
-	let t3;
-	let label;
-	let input;
-	let t4;
-	let span1;
-	let t5;
-	let span2;
-	let t7;
-	let previous_key = /*unique*/ ctx[5];
-	let current;
-	let mounted;
-	let dispose;
-	let key_block = create_key_block(ctx);
-
-	const block = {
-		c: function create() {
-			main = element("main");
-			h1 = element("h1");
-			h1.textContent = "Agile Maturity Tool - Demo";
-			t1 = space();
-			div1 = element("div");
-			div0 = element("div");
-			span0 = element("span");
-			span0.textContent = "DE";
-			t3 = space();
-			label = element("label");
-			input = element("input");
-			t4 = space();
-			span1 = element("span");
-			t5 = space();
-			span2 = element("span");
-			span2.textContent = "EN";
-			t7 = space();
-			key_block.c();
-			attr_dev(h1, "class", "svelte-11jq1um");
-			add_location(h1, file, 69, 1, 1607);
-			attr_dev(span0, "class", "lang svelte-11jq1um");
-			add_location(span0, file, 72, 3, 1684);
-			attr_dev(input, "type", "checkbox");
-			attr_dev(input, "class", "svelte-11jq1um");
-			add_location(input, file, 74, 4, 1772);
-			attr_dev(span1, "class", "slider round svelte-11jq1um");
-			add_location(span1, file, 75, 4, 1801);
-			attr_dev(label, "class", "switch svelte-11jq1um");
-			add_location(label, file, 73, 3, 1717);
-			attr_dev(span2, "class", "lang svelte-11jq1um");
-			add_location(span2, file, 77, 3, 1853);
-			attr_dev(div0, "id", "languageSwitch");
-			attr_dev(div0, "class", "svelte-11jq1um");
-			add_location(div0, file, 71, 2, 1654);
-			add_location(div1, file, 70, 1, 1645);
-			attr_dev(main, "class", "svelte-11jq1um");
-			add_location(main, file, 68, 0, 1598);
-		},
-		l: function claim(nodes) {
-			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-		},
-		m: function mount(target, anchor) {
-			insert_dev(target, main, anchor);
-			append_dev(main, h1);
-			append_dev(main, t1);
-			append_dev(main, div1);
-			append_dev(div1, div0);
-			append_dev(div0, span0);
-			append_dev(div0, t3);
-			append_dev(div0, label);
-			append_dev(label, input);
-			append_dev(label, t4);
-			append_dev(label, span1);
-			append_dev(div0, t5);
-			append_dev(div0, span2);
-			append_dev(div1, t7);
-			key_block.m(div1, null);
-			current = true;
-
-			if (!mounted) {
-				dispose = listen_dev(label, "change", /*changeLanguage*/ ctx[7], false, false, false);
-				mounted = true;
-			}
-		},
-		p: function update(ctx, [dirty]) {
-			if (dirty & /*unique*/ 32 && safe_not_equal(previous_key, previous_key = /*unique*/ ctx[5])) {
-				group_outros();
-				transition_out(key_block, 1, 1, noop);
-				check_outros();
-				key_block = create_key_block(ctx);
-				key_block.c();
-				transition_in(key_block, 1);
-				key_block.m(div1, null);
-			} else {
-				key_block.p(ctx, dirty);
-			}
-		},
-		i: function intro(local) {
-			if (current) return;
-			transition_in(key_block);
-			current = true;
-		},
-		o: function outro(local) {
-			transition_out(key_block);
-			current = false;
-		},
-		d: function destroy(detaching) {
 			if (detaching) detach_dev(main);
-			key_block.d(detaching);
+			destroy_each(each_blocks, detaching);
+			if (if_block0) if_block0.d();
+			if (switch_instance) destroy_component(switch_instance);
+			if (if_block1) if_block1.d();
 			mounted = false;
 			dispose();
 		}
@@ -49648,12 +50150,12 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
 	let $ui;
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(8, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(7, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('App', slots, []);
 
 	let appConfig = {
-		hideIrrelevant: false,
+		hideCustomFilter: true,
 		language: "de",
 		currentFilter: [],
 		checkedFilters: {
@@ -49672,7 +50174,8 @@ function instance($$self, $$props, $$invalidate) {
 			Efficiency: false,
 			Innovation: false,
 			'Knowledge Management': false,
-			'Organizational and Management Structures': false
+			'Organizational and Management Structures': false,
+			'Custom Filter': true
 		}
 	};
 
@@ -49681,7 +50184,6 @@ function instance($$self, $$props, $$invalidate) {
 	let selected = navOptions[0];
 	let currentNav = 0;
 	let buttonHidden = false;
-	let unique = {};
 
 	function changeComponent(event) {
 		let index = Number(event.target.id);
@@ -49697,12 +50199,7 @@ function instance($$self, $$props, $$invalidate) {
 			$$invalidate(2, selected = navOptions[event.srcElement.id]);
 		}
 
-		$$invalidate(5, unique = {});
-	}
-
-	function toggleHidden() {
-		$$invalidate(0, appConfig.hideIrrelevant = !appConfig.hideIrrelevant, appConfig);
-		$$invalidate(5, unique = {});
+		unique = {};
 	}
 
 	function changeLanguage() {
@@ -49711,8 +50208,6 @@ function instance($$self, $$props, $$invalidate) {
 		} else if (appConfig.language == "de") {
 			$$invalidate(0, appConfig.language = "en", appConfig);
 		}
-
-		$$invalidate(5, unique = {});
 	}
 
 	const writable_props = [];
@@ -49737,9 +50232,7 @@ function instance($$self, $$props, $$invalidate) {
 		selected,
 		currentNav,
 		buttonHidden,
-		unique,
 		changeComponent,
-		toggleHidden,
 		changeLanguage,
 		$ui
 	});
@@ -49751,7 +50244,6 @@ function instance($$self, $$props, $$invalidate) {
 		if ('selected' in $$props) $$invalidate(2, selected = $$props.selected);
 		if ('currentNav' in $$props) $$invalidate(3, currentNav = $$props.currentNav);
 		if ('buttonHidden' in $$props) $$invalidate(4, buttonHidden = $$props.buttonHidden);
-		if ('unique' in $$props) $$invalidate(5, unique = $$props.unique);
 	};
 
 	if ($$props && "$$inject" in $$props) {
@@ -49759,7 +50251,7 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*$ui, appConfig*/ 257) {
+		if ($$self.$$.dirty & /*$ui, appConfig*/ 129) {
 			$$invalidate(1, text = $ui[appConfig.language].main);
 		}
 	};
@@ -49770,7 +50262,6 @@ function instance($$self, $$props, $$invalidate) {
 		selected,
 		currentNav,
 		buttonHidden,
-		unique,
 		changeComponent,
 		changeLanguage,
 		$ui,
