@@ -23,6 +23,14 @@ function is_function(thing) {
 function safe_not_equal(a, b) {
     return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
 }
+let src_url_equal_anchor;
+function src_url_equal(element_src, url) {
+    if (!src_url_equal_anchor) {
+        src_url_equal_anchor = document.createElement('a');
+    }
+    src_url_equal_anchor.href = url;
+    return element_src === src_url_equal_anchor.href;
+}
 function is_empty(obj) {
     return Object.keys(obj).length === 0;
 }
@@ -49408,6 +49416,8 @@ function create_fragment$1(ctx) {
 	let form;
 	let div0;
 	let p0;
+	let t0_value = /*text*/ ctx[1].import + "";
+	let t0;
 	let t1;
 	let input;
 	let t2;
@@ -49416,13 +49426,17 @@ function create_fragment$1(ctx) {
 	let userinfo;
 	let t5;
 	let p1;
-	let raw_value = /*text*/ ctx[2].intro + "";
+	let raw_value = /*text*/ ctx[1].intro + "";
 	let t6;
 	let div1;
 	let p2;
+	let t7_value = /*text*/ ctx[1].deleteButtonText + "";
+	let t7;
 	let t8;
 	let button1;
 	let b;
+	let t9_value = /*text*/ ctx[1].deleteButton + "";
+	let t9;
 	let current;
 	let mounted;
 	let dispose;
@@ -49437,7 +49451,7 @@ function create_fragment$1(ctx) {
 			form = element("form");
 			div0 = element("div");
 			p0 = element("p");
-			p0.textContent = `${/*text*/ ctx[2].import}`;
+			t0 = text(t0_value);
 			t1 = space();
 			input = element("input");
 			t2 = space();
@@ -49450,30 +49464,30 @@ function create_fragment$1(ctx) {
 			t6 = space();
 			div1 = element("div");
 			p2 = element("p");
-			p2.textContent = `${/*text*/ ctx[2].deleteButtonText}`;
+			t7 = text(t7_value);
 			t8 = space();
 			button1 = element("button");
 			b = element("b");
-			b.textContent = `${/*text*/ ctx[2].deleteButton}`;
+			t9 = text(t9_value);
 			attr_dev(p0, "class", "svelte-9yq3rd");
-			add_location(p0, file$1, 100, 8, 3339);
+			add_location(p0, file$1, 101, 8, 3353);
 			attr_dev(input, "type", "file");
 			attr_dev(input, "id", "file-selector");
 			attr_dev(input, "accept", ".csv, .xlsx");
-			add_location(input, file$1, 101, 8, 3369);
+			add_location(input, file$1, 102, 8, 3383);
 			attr_dev(button0, "type", "submit");
-			add_location(button0, file$1, 102, 8, 3449);
+			add_location(button0, file$1, 103, 8, 3463);
 			attr_dev(div0, "class", "import svelte-9yq3rd");
-			add_location(div0, file$1, 99, 4, 3309);
-			add_location(form, file$1, 97, 0, 3251);
+			add_location(div0, file$1, 100, 4, 3323);
+			add_location(form, file$1, 98, 0, 3265);
 			attr_dev(p1, "class", "svelte-9yq3rd");
-			add_location(p1, file$1, 109, 0, 3550);
+			add_location(p1, file$1, 110, 0, 3564);
 			attr_dev(p2, "class", "svelte-9yq3rd");
-			add_location(p2, file$1, 112, 4, 3605);
-			add_location(b, file$1, 113, 42, 3679);
-			add_location(button1, file$1, 113, 4, 3641);
+			add_location(p2, file$1, 113, 4, 3619);
+			add_location(b, file$1, 114, 42, 3693);
+			add_location(button1, file$1, 114, 4, 3655);
 			attr_dev(div1, "class", "delete svelte-9yq3rd");
-			add_location(div1, file$1, 111, 0, 3579);
+			add_location(div1, file$1, 112, 0, 3593);
 		},
 		l: function claim(nodes) {
 			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -49482,6 +49496,7 @@ function create_fragment$1(ctx) {
 			insert_dev(target, form, anchor);
 			append_dev(form, div0);
 			append_dev(div0, p0);
+			append_dev(p0, t0);
 			append_dev(div0, t1);
 			append_dev(div0, input);
 			append_dev(div0, t2);
@@ -49494,14 +49509,16 @@ function create_fragment$1(ctx) {
 			insert_dev(target, t6, anchor);
 			insert_dev(target, div1, anchor);
 			append_dev(div1, p2);
+			append_dev(p2, t7);
 			append_dev(div1, t8);
 			append_dev(div1, button1);
 			append_dev(button1, b);
+			append_dev(b, t9);
 			current = true;
 
 			if (!mounted) {
 				dispose = [
-					listen_dev(input, "change", /*input_change_handler*/ ctx[4]),
+					listen_dev(input, "change", /*input_change_handler*/ ctx[5]),
 					listen_dev(form, "submit", prevent_default(/*handleFileUpload*/ ctx[3]), false, true, false),
 					listen_dev(button1, "click", deleteLocalStorage, false, false, false)
 				];
@@ -49510,9 +49527,12 @@ function create_fragment$1(ctx) {
 			}
 		},
 		p: function update(ctx, [dirty]) {
+			if ((!current || dirty & /*text*/ 2) && t0_value !== (t0_value = /*text*/ ctx[1].import + "")) set_data_dev(t0, t0_value);
 			const userinfo_changes = {};
 			if (dirty & /*appConfig*/ 1) userinfo_changes.appConfig = /*appConfig*/ ctx[0];
 			userinfo.$set(userinfo_changes);
+			if ((!current || dirty & /*text*/ 2) && raw_value !== (raw_value = /*text*/ ctx[1].intro + "")) p1.innerHTML = raw_value;			if ((!current || dirty & /*text*/ 2) && t7_value !== (t7_value = /*text*/ ctx[1].deleteButtonText + "")) set_data_dev(t7, t7_value);
+			if ((!current || dirty & /*text*/ 2) && t9_value !== (t9_value = /*text*/ ctx[1].deleteButton + "")) set_data_dev(t9, t9_value);
 		},
 		i: function intro(local) {
 			if (current) return;
@@ -49561,15 +49581,15 @@ function instance$1($$self, $$props, $$invalidate) {
 	let $emptyUserData;
 	let $ui;
 	validate_store(emptyUserInfo, 'emptyUserInfo');
-	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(6, $emptyUserInfo = $$value));
+	component_subscribe($$self, emptyUserInfo, $$value => $$invalidate(7, $emptyUserInfo = $$value));
 	validate_store(emptyUserData, 'emptyUserData');
-	component_subscribe($$self, emptyUserData, $$value => $$invalidate(7, $emptyUserData = $$value));
+	component_subscribe($$self, emptyUserData, $$value => $$invalidate(8, $emptyUserData = $$value));
 	validate_store(ui, 'ui');
-	component_subscribe($$self, ui, $$value => $$invalidate(8, $ui = $$value));
+	component_subscribe($$self, ui, $$value => $$invalidate(4, $ui = $$value));
 	let { $$slots: slots = {}, $$scope } = $$props;
 	validate_slots('Index', slots, []);
 	let { appConfig } = $$props;
-	let text = $ui[appConfig.language].index;
+	let text;
 	let files;
 	let filetype;
 	let sheetNames = ["Capabilities", "User Info"];
@@ -49658,7 +49678,7 @@ function instance$1($$self, $$props, $$invalidate) {
 
 	function input_change_handler() {
 		files = this.files;
-		$$invalidate(1, files);
+		$$invalidate(2, files);
 	}
 
 	$$self.$$set = $$props => {
@@ -49691,8 +49711,8 @@ function instance$1($$self, $$props, $$invalidate) {
 
 	$$self.$inject_state = $$props => {
 		if ('appConfig' in $$props) $$invalidate(0, appConfig = $$props.appConfig);
-		if ('text' in $$props) $$invalidate(2, text = $$props.text);
-		if ('files' in $$props) $$invalidate(1, files = $$props.files);
+		if ('text' in $$props) $$invalidate(1, text = $$props.text);
+		if ('files' in $$props) $$invalidate(2, files = $$props.files);
 		if ('filetype' in $$props) filetype = $$props.filetype;
 		if ('sheetNames' in $$props) sheetNames = $$props.sheetNames;
 	};
@@ -49701,7 +49721,13 @@ function instance$1($$self, $$props, $$invalidate) {
 		$$self.$inject_state($$props.$$inject);
 	}
 
-	return [appConfig, files, text, handleFileUpload, input_change_handler];
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*$ui, appConfig*/ 17) {
+			$$invalidate(1, text = $ui[appConfig.language].index);
+		}
+	};
+
+	return [appConfig, text, files, handleFileUpload, $ui, input_change_handler];
 }
 
 class Index extends SvelteComponentDev {
@@ -49747,7 +49773,7 @@ function get_each_context(ctx, list, i) {
 	return child_ctx;
 }
 
-// (76:3) {#each navOptions as option, componentId}
+// (77:3) {#each navOptions as option, componentId}
 function create_each_block(ctx) {
 	let li;
 	let button;
@@ -49765,10 +49791,10 @@ function create_each_block(ctx) {
 			t1 = space();
 			attr_dev(button, "id", String(/*componentId*/ ctx[12]));
 			attr_dev(button, "role", "tab");
-			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 77, 4, 1852);
-			attr_dev(li, "class", "svelte-11jq1um");
-			add_location(li, file, 76, 3, 1842);
+			attr_dev(button, "class", "svelte-npm8f2");
+			add_location(button, file, 78, 4, 1892);
+			attr_dev(li, "class", "svelte-npm8f2");
+			add_location(li, file, 77, 3, 1882);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, li, anchor);
@@ -49795,14 +49821,14 @@ function create_each_block(ctx) {
 		block,
 		id: create_each_block.name,
 		type: "each",
-		source: "(76:3) {#each navOptions as option, componentId}",
+		source: "(77:3) {#each navOptions as option, componentId}",
 		ctx
 	});
 
 	return block;
 }
 
-// (83:2) {#if currentNav != 0}
+// (84:2) {#if currentNav != 0}
 function create_if_block_1(ctx) {
 	const block = { c: noop, m: noop, d: noop };
 
@@ -49810,14 +49836,14 @@ function create_if_block_1(ctx) {
 		block,
 		id: create_if_block_1.name,
 		type: "if",
-		source: "(83:2) {#if currentNav != 0}",
+		source: "(84:2) {#if currentNav != 0}",
 		ctx
 	});
 
 	return block;
 }
 
-// (92:2) {#if !buttonHidden}
+// (93:2) {#if !buttonHidden}
 function create_if_block(ctx) {
 	let button;
 	let t_value = /*text*/ ctx[1].next + "";
@@ -49831,8 +49857,8 @@ function create_if_block(ctx) {
 			button = element("button");
 			t = text(t_value);
 			attr_dev(button, "id", button_id_value = /*currentNav*/ ctx[3] + 1);
-			attr_dev(button, "class", "svelte-11jq1um");
-			add_location(button, file, 92, 2, 2274);
+			attr_dev(button, "class", "svelte-npm8f2");
+			add_location(button, file, 93, 2, 2314);
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, button, anchor);
@@ -49861,7 +49887,7 @@ function create_if_block(ctx) {
 		block,
 		id: create_if_block.name,
 		type: "if",
-		source: "(92:2) {#if !buttonHidden}",
+		source: "(93:2) {#if !buttonHidden}",
 		ctx
 	});
 
@@ -49870,30 +49896,34 @@ function create_if_block(ctx) {
 
 function create_fragment(ctx) {
 	let main;
+	let img;
+	let img_src_value;
+	let t0;
 	let h1;
-	let t1;
+	let t2;
 	let div2;
 	let div0;
 	let span0;
-	let t3;
+	let t4;
 	let label;
 	let input;
-	let t4;
-	let span1;
 	let t5;
+	let span1;
+	let t6;
 	let span2;
-	let t7;
-	let ul;
 	let t8;
+	let ul;
 	let t9;
+	let t10;
 	let div1;
 	let h2;
-	let t10_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "";
-	let t10;
+	let t11_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "";
 	let t11;
+	let t12;
 	let switch_instance;
 	let updating_appConfig;
-	let t12;
+	let t13;
+	let t14;
 	let current;
 	let mounted;
 	let dispose;
@@ -49936,60 +49966,68 @@ function create_fragment(ctx) {
 	const block = {
 		c: function create() {
 			main = element("main");
+			img = element("img");
+			t0 = space();
 			h1 = element("h1");
-			h1.textContent = "Agile Maturity Tool - Demo";
-			t1 = space();
+			h1.textContent = "Agile Maturity Tool";
+			t2 = space();
 			div2 = element("div");
 			div0 = element("div");
 			span0 = element("span");
 			span0.textContent = "DE";
-			t3 = space();
+			t4 = space();
 			label = element("label");
 			input = element("input");
-			t4 = space();
-			span1 = element("span");
 			t5 = space();
+			span1 = element("span");
+			t6 = space();
 			span2 = element("span");
 			span2.textContent = "EN";
-			t7 = space();
+			t8 = space();
 			ul = element("ul");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			t8 = space();
-			if (if_block0) if_block0.c();
 			t9 = space();
+			if (if_block0) if_block0.c();
+			t10 = space();
 			div1 = element("div");
 			h2 = element("h2");
-			t10 = text(t10_value);
-			t11 = space();
-			if (switch_instance) create_component(switch_instance.$$.fragment);
+			t11 = text(t11_value);
 			t12 = space();
+			if (switch_instance) create_component(switch_instance.$$.fragment);
+			t13 = space();
 			if (if_block1) if_block1.c();
-			attr_dev(h1, "class", "svelte-11jq1um");
-			add_location(h1, file, 63, 1, 1496);
-			attr_dev(span0, "class", "lang svelte-11jq1um");
-			add_location(span0, file, 66, 3, 1573);
+			t14 = text("\r\n\r\n\t© BEI 2023");
+			if (!src_url_equal(img.src, img_src_value = "bei.png")) attr_dev(img, "src", img_src_value);
+			attr_dev(img, "alt", "BEI Logo");
+			attr_dev(img, "id", "logo");
+			attr_dev(img, "class", "svelte-npm8f2");
+			add_location(img, file, 63, 1, 1496);
+			attr_dev(h1, "class", "svelte-npm8f2");
+			add_location(h1, file, 64, 1, 1543);
+			attr_dev(span0, "class", "lang svelte-npm8f2");
+			add_location(span0, file, 67, 3, 1613);
 			attr_dev(input, "type", "checkbox");
-			attr_dev(input, "class", "svelte-11jq1um");
-			add_location(input, file, 68, 4, 1661);
-			attr_dev(span1, "class", "slider round svelte-11jq1um");
-			add_location(span1, file, 69, 4, 1690);
-			attr_dev(label, "class", "switch svelte-11jq1um");
-			add_location(label, file, 67, 3, 1606);
-			attr_dev(span2, "class", "lang svelte-11jq1um");
-			add_location(span2, file, 71, 3, 1742);
+			attr_dev(input, "class", "svelte-npm8f2");
+			add_location(input, file, 69, 4, 1701);
+			attr_dev(span1, "class", "slider round svelte-npm8f2");
+			add_location(span1, file, 70, 4, 1730);
+			attr_dev(label, "class", "switch svelte-npm8f2");
+			add_location(label, file, 68, 3, 1646);
+			attr_dev(span2, "class", "lang svelte-npm8f2");
+			add_location(span2, file, 72, 3, 1782);
 			attr_dev(div0, "id", "languageSwitch");
-			attr_dev(div0, "class", "svelte-11jq1um");
-			add_location(div0, file, 65, 2, 1543);
-			add_location(ul, file, 74, 2, 1787);
-			add_location(h2, file, 87, 3, 2134);
+			attr_dev(div0, "class", "svelte-npm8f2");
+			add_location(div0, file, 66, 2, 1583);
+			add_location(ul, file, 75, 2, 1827);
+			add_location(h2, file, 88, 3, 2174);
 			attr_dev(div1, "class", "page");
-			add_location(div1, file, 86, 2, 2111);
-			add_location(div2, file, 64, 1, 1534);
-			attr_dev(main, "class", "svelte-11jq1um");
+			add_location(div1, file, 87, 2, 2151);
+			add_location(div2, file, 65, 1, 1574);
+			attr_dev(main, "class", "svelte-npm8f2");
 			add_location(main, file, 62, 0, 1487);
 		},
 		l: function claim(nodes) {
@@ -49997,35 +50035,38 @@ function create_fragment(ctx) {
 		},
 		m: function mount(target, anchor) {
 			insert_dev(target, main, anchor);
+			append_dev(main, img);
+			append_dev(main, t0);
 			append_dev(main, h1);
-			append_dev(main, t1);
+			append_dev(main, t2);
 			append_dev(main, div2);
 			append_dev(div2, div0);
 			append_dev(div0, span0);
-			append_dev(div0, t3);
+			append_dev(div0, t4);
 			append_dev(div0, label);
 			append_dev(label, input);
-			append_dev(label, t4);
+			append_dev(label, t5);
 			append_dev(label, span1);
-			append_dev(div0, t5);
+			append_dev(div0, t6);
 			append_dev(div0, span2);
-			append_dev(div2, t7);
+			append_dev(div2, t8);
 			append_dev(div2, ul);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].m(ul, null);
 			}
 
-			append_dev(div2, t8);
-			if (if_block0) if_block0.m(div2, null);
 			append_dev(div2, t9);
+			if (if_block0) if_block0.m(div2, null);
+			append_dev(div2, t10);
 			append_dev(div2, div1);
 			append_dev(div1, h2);
-			append_dev(h2, t10);
-			append_dev(div1, t11);
+			append_dev(h2, t11);
+			append_dev(div1, t12);
 			if (switch_instance) mount_component(switch_instance, div1, null);
-			append_dev(div2, t12);
+			append_dev(div2, t13);
 			if (if_block1) if_block1.m(div2, null);
+			append_dev(main, t14);
 			current = true;
 
 			if (!mounted) {
@@ -50062,14 +50103,14 @@ function create_fragment(ctx) {
 				if (if_block0) ; else {
 					if_block0 = create_if_block_1(ctx);
 					if_block0.c();
-					if_block0.m(div2, t9);
+					if_block0.m(div2, t10);
 				}
 			} else if (if_block0) {
 				if_block0.d(1);
 				if_block0 = null;
 			}
 
-			if ((!current || dirty & /*text, selected*/ 6) && t10_value !== (t10_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "")) set_data_dev(t10, t10_value);
+			if ((!current || dirty & /*text, selected*/ 6) && t11_value !== (t11_value = /*text*/ ctx[1].nav[/*selected*/ ctx[2].page] + "")) set_data_dev(t11, t11_value);
 			const switch_instance_changes = {};
 
 			if (!updating_appConfig && dirty & /*appConfig*/ 1) {
